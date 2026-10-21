@@ -231,8 +231,8 @@ merged = ("# TRI THỨC GỘP — AGENT-BAOGIA-KANGNAM\n"
           "# 11 file knowledge nối liền, thứ tự đọc: pháp lý → tiền → cấu trúc → khách → dịch vụ\n"
           "# Dùng khi nền tảng không cho upload nhiều file.\n"
           "# Bản gốc: github.com/huudinh/Agent-BaoGia-Kangnam/tree/main/knowledge\n"
-          "# LƯU Ý: bản gộp này KHÔNG chứa bang-gia.json và bac-si-duyet.json —\n"
-          "# hai file dữ liệu cứng đó phải nạp riêng, nếu không agent sẽ đoán giá.\n\n"
+          "# LƯU Ý: bản gộp này KHÔNG chứa dữ liệu cứng (bang-gia, album-index,\n"
+          "# thong-tin-lien-he) — nạp riêng, hoặc dùng goi/KANGNAM-du-lieu-cung.json.\n\n"
           + "\n\n".join("<!-- ===== %s.md ===== -->\n\n%s" % (nm, kb(nm))
                         for nm, _t, _d, _s in BG_ORDER))
 

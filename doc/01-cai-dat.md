@@ -61,29 +61,22 @@ Tạo báo giá cá nhân hoá cho từng khách hàng Kangnam: đọc thông ti
 
 1. Vào [claude.ai](https://claude.ai) → **Projects** → **Create project**. Tên: `Agent-BaoGia-Kangnam`.
 2. Mở [`SYSTEM-PROMPT.md`](../SYSTEM-PROMPT.md) → copy **toàn bộ khối giữa hai vạch ▼▲** → dán vào **Custom instructions**.
-3. Vào **Project knowledge** → upload **đủ 11 file** trong [`knowledge/`](../knowledge/):
+3. Vào **Project knowledge** → upload **2 file** trong [`goi/`](../goi/):
 
 ```
-BG-01-ho-so-thuong-hieu.md   thương hiệu · giọng · cơ sở & tuyến · bác sĩ
-BG-02-bang-gia.md            luật nói về tiền            ← quan trọng
-BG-03-cau-truc-bao-gia.md    9 khối — xương sống
-BG-04-chan-dung-khach.md     6 nhóm khách · 6 giai đoạn  ← lõi cá nhân hoá
-BG-05-noi-so-phan-doi.md     thư viện câu trả lời
-BG-06-proof-case.md          case & ảnh trước–sau
-BG-07-cong-phap-ly.md        cổng chặn                   ← quan trọng nhất
-BG-08-design-system.md       khổ ấn phẩm · màu · độ dài
-BG-09-schema-du-lieu.md      cấu trúc du-lieu.json
-BG-10-vong-hoc.md            ghi kết quả
-BG-11-noi-dau-cat-mi.md      9 chân dung cắt mí + giá Plasma  ← dịch vụ bán chạy
+goi/KANGNAM-tri-thuc.md         96 KB — gộp đủ 11 file BG-01…BG-11
+goi/KANGNAM-du-lieu-cung.json   34 KB — bảng giá · 29 album ảnh · hotline · mẫu JSON
 ```
 
-4. Upload thêm **ba file dữ liệu cứng** (bắt buộc, không có thì agent sẽ đoán):
-```
-template/bang-gia.json           nguồn giá duy nhất
-template/bac-si-duyet.json       ai được nêu tên
-template/thong-tin-lien-he.json  hotline in lên báo giá
-```
-5. Nên upload thêm `template/du-lieu.mau.json` để agent sinh JSON đúng cấu trúc ngay lần đầu.
+> **Vì sao gộp:** Gemini Gems chỉ cho **tối đa 10 file** tri thức, và upload 15 file một lượt rất hay lỗi. Hai file này **cùng nội dung** với `knowledge/` + `template/*.json`, chỉ khác chỗ nằm — bộ não biết cả hai cách.
+> Sinh lại sau khi sửa tri thức: `python tools/build-goi.py`. ⛔ Không sửa tay file trong `goi/`.
+
+4. Muốn agent tự dựng được PDF/ảnh thì upload thêm `tools/baogia-1file.py` — **tổng 3 file**.
+
+<details><summary>Thích nạp bản rời 15 file?</summary>
+
+Vẫn chạy được: upload `knowledge/BG-01…BG-11.md` (11 file) + `template/bang-gia.json`, `template/album-index.json`, `template/thong-tin-lien-he.json`, `template/du-lieu.mau.json`. Bộ não ưu tiên bản rời khi thấy cả hai.
+</details>
 
 **Kiểm nhanh agent đã cài đúng:**
 > Gõ: *"/baogia — khách muốn nâng ngực ở viện Kangnam Cần Thơ, ngân sách 50 triệu."*
@@ -98,13 +91,14 @@ template/thong-tin-lien-he.json  hotline in lên báo giá
 
 1. ChatGPT → **Explore GPTs** → **Create** → tab **Configure**.
 2. Name: `Agent-BaoGia-Kangnam`. Instructions: copy khối ▼▲ của [`SYSTEM-PROMPT-NGAN.md`](../SYSTEM-PROMPT-NGAN.md) — dưới giới hạn 8.000 ký tự.
-3. **Knowledge:** upload đủ **11 file** `knowledge/` + **3 file dữ liệu cứng** ở mục A bước 4.
+3. **Knowledge:** upload **2 file** trong `goi/` như mục A bước 3 (+ `tools/baogia-1file.py` nếu muốn dựng file ngay trong ChatGPT).
 4. Tắt Web Browsing nếu không cần.
 
 > ⚠️ Bản ngắn đã cắt nhiều luật chi tiết và **trông vào knowledge để bù**. Không nạp knowledge thì nó sẽ đoán, và đoán sai ở chỗ giá và pháp lý.
 
 ## C. Gemini (Gems)
-Gemini → **Gems** → **New Gem** → dán khối ▼▲ của `SYSTEM-PROMPT.md` vào ô **Chỉ dẫn** → upload 11 file knowledge + 3 file JSON dữ liệu cứng.
+Gemini → **Gems** → **New Gem** → dán khối ▼▲ của `SYSTEM-PROMPT.md` vào ô **Chỉ dẫn** → upload **2 file** trong `goi/`.
+> Gems giới hạn **10 file**, nên bản rời 15 file **không nạp đủ** — phải dùng bản gộp.
 
 ## D. Claude Code / VS Code (không cần tạo project)
 Mở thư mục này rồi gõ:

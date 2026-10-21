@@ -380,10 +380,12 @@ footer b{color:var(--ink-2)}
       <li><b>Projects</b> → <b>Create project</b> → tên và mô tả lấy ở khối
         <b>Tên &amp; mô tả</b> phía trên.</li>
       <li><b>Custom instructions</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
-      <li><b>Project knowledge</b> → upload đủ <b>@@N_FILE@@ file</b> trong <code>knowledge/</code>.</li>
-      <li>Upload thêm <b>3 file dữ liệu cứng</b>: <code>template/bang-gia.json</code> ·
-        <code>template/bac-si-duyet.json</code> · <code>template/thong-tin-lien-he.json</code>.</li>
-      <li>Nên upload thêm <code>template/du-lieu.mau.json</code> để agent sinh JSON đúng cấu trúc ngay lần đầu.</li>
+      <li><b>Project knowledge</b> → upload <b>2 file</b> trong <code>goi/</code>:
+        <code>KANGNAM-tri-thuc.md</code> (gộp đủ @@N_FILE@@ file BG) và
+        <code>KANGNAM-du-lieu-cung.json</code> (bảng giá · 29 album ảnh · hotline · mẫu JSON).</li>
+      <li>Muốn agent tự dựng PDF/ảnh thì upload thêm <code>tools/baogia-1file.py</code> — tổng 3 file.</li>
+      <li>Thích nạp bản rời thì vẫn được: @@N_FILE@@ file <code>knowledge/</code> + 4 file
+        <code>template/*.json</code>. Gemini Gems chỉ cho 10 file nên phải dùng bản gộp.</li>
     </ol>
   </div>
 
@@ -481,9 +483,9 @@ Tôi bắt đầu bằng /baogia.</pre>
     <b>pháp lý → tiền → cấu trúc → khách → dịch vụ</b>. Có ZIP rồi thì upload thẳng từ thư mục;
     không tải được thì copy từng thẻ.</p>
   <div class="note stop">
-    <p style="margin-bottom:0"><b>Hai file JSON là bắt buộc, không phải tuỳ chọn.</b>
-      <code>bang-gia.json</code> là nguồn giá duy nhất, <code>bac-si-duyet.json</code> quyết định ai được nêu tên.
-      Thiếu chúng, agent sẽ <i>đoán giá</i> và <i>nêu tên bác sĩ đã bị gỡ khỏi danh sách duyệt quảng bá</i>.</p>
+    <p style="margin-bottom:0"><b>Dữ liệu cứng là bắt buộc, không phải tuỳ chọn.</b>
+      <code>bang-gia.json</code> là nguồn giá duy nhất; <code>album-index.json</code> cho agent biết lấy ảnh
+      khách thật ở album nào. Thiếu chúng, agent sẽ <i>đoán giá</i> và <i>gửi báo giá không có ảnh</i>.</p>
   </div>
   <div class="files">
     @@FILE_CARDS@@
@@ -584,14 +586,14 @@ python tools\render_baogia.py out\MAU\du-lieu.json</pre>
     <div class="card"><h3>Cổng bảng giá</h3><p class="dim" style="margin:0">Mã dịch vụ không có trong bảng ·
       giá lệch mà không khai lý do · dịch vụ ghi “liên hệ” bị tự đặt số.</p></div>
     <div class="card"><h3>Cổng pháp lý</h3><p class="dim" style="margin:0">Từ cấm (R1) · mốc hồi phục cứng ·
-      bác sĩ sai trạng thái (R4) · ảnh thiếu consent (R5) · ảnh cơ thể (R12) · đại phẫu sai tuyến (R3).</p></div>
+      nêu trả góp (KN-②) · đại phẫu sai tuyến (R3). Ảnh cơ thể (R12) chỉ cảnh báo.</p></div>
   </div>
   <div class="note stop" style="margin-top:14px">
     <p><b>Fail = không xuất file.</b> Không có ngoại lệ vì khách đang chờ. Cần xem bố cục khi còn lỗi
       thì chạy <code>--nhap</code> — file ra đóng dấu <b>NHÁP</b> và <i>không được gửi khách</i>.</p>
-    <p style="margin-bottom:0">Cổng tự động là <b>lưới thứ hai</b>, không phải người duyệt. Nó không biết
-      consent còn hiệu lực không, dịch vụ có trong danh mục kỹ thuật không, ưu đãi có văn bản không —
-      agent luôn liệt kê những thứ đó ở mục <b>F. CẦN NGƯỜI THẬT</b> cuối mỗi báo giá.</p>
+    <p style="margin-bottom:0">⛔ <b>Không có quy trình phê duyệt ở đây.</b> Đây là báo giá tham khảo gửi riêng
+      một khách, không phải ấn phẩm phát hành. Cuối mỗi báo giá agent chỉ in <b>F. LIẾC QUA TRƯỚC KHI GỬI</b> —
+      2–3 câu ngắn, không phòng ban, không “chưa được phép phát hành”.</p>
   </div>
 
   <h3 class="sub" style="margin:28px 0 10px">Dữ liệu cứng đang dùng</h3>

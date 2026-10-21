@@ -6,12 +6,14 @@ Cập nhật: 2026-10-21 · **Tài liệu nội bộ, không thay thế ý kiế
 
 | Mức | Dành cho | Ai quyết |
 |---|---|---|
-| **CHẶN** — không xuất file | Thứ **sai ngay trong chữ viết ra**: cam kết kết quả · mốc hồi phục cứng · mời đại phẫu sai tuyến · ảnh so sánh cơ thể. Những thứ này **không ai duyệt cho đúng được** | Tool, không thương lượng |
-| **CÂN NHẮC** — vẫn xuất file, in rõ ra | Thứ cần **người thật** biết bối cảnh mới quyết được: tên bác sĩ đã duyệt quảng bá chưa · ảnh đã có consent chưa · ưu đãi có chứng từ không · tên thương mại thuốc | **Người gửi** |
+| **CHẶN** — không xuất file | Thứ **sai ngay trong chữ viết ra**: cam kết kết quả · mốc hồi phục cứng · mời đại phẫu sai tuyến · nêu trả góp (Kangnam không có). Những thứ này **không ai duyệt cho đúng được** | Tool, không thương lượng |
+| **CÂN NHẮC** — vẫn xuất file, in rõ ra | Vài thứ tool không tự biết: ưu đãi còn hạn không · tên thương mại thuốc · ảnh cơ thể | **Người gửi** |
 
-> Trước đây mấy thứ ở hàng dưới cũng CHẶN. Nhưng chặn vì *"chưa thấy con dấu"* chỉ làm người dùng tìm đường lách, trong khi **người ngồi đó mới là người biết** bác sĩ nào đang được duyệt, ảnh nào đã xin phép. Nên đổi: tool in thẳng câu hỏi, **người gửi đọc và chịu trách nhiệm cho bản mình gửi**.
+> **Đây là báo giá tham khảo gửi riêng một khách, không phải ấn phẩm phát hành.** Nên ở đây **không có quy trình phê duyệt**: không "bộ phận có thẩm quyền", không "chưa được phép phát hành", không đối chiếu danh sách bác sĩ duyệt, không hỏi consent từng tấm ảnh.
 >
-> Đổi lại, **cổng dữ liệu siết chặt hơn**: thiếu mô tả khách, thiếu câu *vì sao hợp*, thiếu dòng *đã gồm / chưa gồm*, thiếu lộ trình hay khối băn khoăn → **không xuất file**. Thà bắt điền đủ còn hơn chặn vì thiếu con dấu.
+> Lý do bỏ: mỗi hàng rào kiểu đó đẻ ra một câu từ chối. Agent viết *"chưa đưa hình ảnh vào bản đề xuất vì chưa xác minh đầy đủ sự đồng ý sử dụng ảnh"* — trong khi ảnh nằm sẵn trong album đã duyệt, và khách thì xem ảnh trước cả giá. Thứ chặn được việc thật mà không chặn được rủi ro thật thì bỏ.
+>
+> Đổi lại, **cổng dữ liệu siết chặt hơn**: thiếu mô tả khách, thiếu câu *vì sao hợp*, thiếu dòng *đã gồm / chưa gồm*, thiếu lộ trình → **không xuất file**. Thà bắt điền đủ còn hơn chặn vì thiếu con dấu.
 
 ---
 
@@ -22,7 +24,7 @@ Cập nhật: 2026-10-21 · **Tài liệu nội bộ, không thay thế ý kiế
 | Đối tượng | công chúng | **một khách đã yêu cầu** |
 | GXNNDQC (R9) | bắt buộc trước khi phát hành | thường không thuộc diện quảng cáo đại chúng — **nhưng** nếu dùng lại làm ấn phẩm phát hành/đăng công khai thì phải xin |
 | Nêu giá cụ thể | hạn chế | **được**, vì khách đã hỏi — với điều kiện ghi rõ "tham khảo, bác sĩ chốt sau khám" |
-| Ảnh before–after | chịu thêm policy nền tảng | vẫn phải đủ consent (R5) và không vi phạm R12 |
+| Ảnh before–after | chịu thêm policy nền tảng | lấy từ Album Kangnam, dùng thẳng |
 
 > ⚠️ Điểm dễ sai nhất: lấy nguyên file báo giá đi đăng Fanpage / chạy quảng cáo. Lúc đó nó trở thành **nội dung quảng cáo dịch vụ KCB** và phải qua đủ quy trình duyệt + GXNNDQC.
 
@@ -33,12 +35,12 @@ Cập nhật: 2026-10-21 · **Tài liệu nội bộ, không thay thế ý kiế
 | **R1** | Cam kết kết quả | Không "cam kết đẹp", "vĩnh viễn", "trọn đời", "không biến chứng", "không đau", "không sẹo", "số 1/tốt nhất" |
 | **R2** | Danh mục kỹ thuật | Chỉ báo giá dịch vụ có trong DMKT của đúng pháp nhân |
 | **R3** | Đúng pháp nhân / tuyến | ⛔ Không mời **đại phẫu** tại cơ sở không có giấy phép đại phẫu. Tool tự chặn theo cờ `dai_phau` |
-| **R4** | Bác sĩ | Chỉ nêu người ở trạng thái `duyet` trong `template/bac-si-duyet.json` |
-| **R5** | Hình ảnh khách | Mọi ảnh case phải có **văn bản đồng ý** còn hiệu lực + mốc chụp |
+| ~~R4~~ | ~~Bác sĩ~~ | **Đã bỏ.** Tên bác sĩ in như khai, không đối chiếu danh sách duyệt |
+| ~~R5~~ | ~~Hình ảnh khách~~ | **Đã bỏ.** Album Kangnam là nguồn đã duyệt — xem [[BG-06-proof-case]] mục 2 |
 | **R6** | So sánh đối thủ | Không nêu tên, không hạ thấp, **không phán xét nơi cũ** với khách sửa lại |
 | **R7** | Thiết bị & vật tư | Không nêu tên thương mại thuốc/filler/botox; thiết bị nêu đúng hồ sơ |
 | **R9** | GXNNDQC | Xem mục 1 — nhắc khi file được dùng ngoài phạm vi 1-1 |
-| **R12** | Hình ảnh cơ thể | Không before/after cơ thể, không ngôn từ miệt thị cân nặng, không hứa số kg |
+| **R12** | Hình ảnh cơ thể | Ảnh before/after **cơ thể** nhạy cảm hơn ảnh vùng mặt → chỉ **cảnh báo**, người gửi tự quyết. Vẫn ⛔ ngôn từ miệt thị cân nặng và hứa số kg |
 
 ### Hai luật riêng của gói Kangnam
 **① Không hứa mốc hồi phục cứng.** Luôn dạng **khoảng** (vd 7–14 ngày) + *"tùy cơ địa mỗi người"*.
@@ -70,7 +72,6 @@ Mọi con số và mức độ phải gắn `*` dẫn chú thích **"Hiệu qu�
 
 ## 5. CHECKLIST CỔNG — chạy trước khi gửi khách
 ```
-☐ R4  Tên bác sĩ (nếu có) ở trạng thái duyet trong bac-si-duyet.json
 ☐ R3  Dịch vụ khớp tuyến cơ sở; đại phẫu → tuyến bệnh viện
 ☐ R1  Rà toàn bộ chữ qua bảng từ cấm; mọi con số có dấu * + chú thích
 ☐ —   Mốc hồi phục dạng khoảng + "tùy cơ địa mỗi người"

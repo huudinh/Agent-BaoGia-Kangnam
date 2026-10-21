@@ -166,20 +166,14 @@ def cong_du_lieu(d: dict) -> list[str]:
 
 
 def can_nhac_truoc_khi_gui(d: dict, loi_pl: list[dict]) -> list[str]:
-    """Những thứ tool KHÔNG tự quyết được — người gửi đọc rồi tự chịu trách nhiệm."""
+    """Vài thứ tool không tự biết được — người gửi liếc qua rồi gửi.
+
+    ⛔ KHÔNG phải quy trình phê duyệt. Đây là báo giá tham khảo gửi một khách,
+    không phải ấn phẩm phát hành, nên không có "bộ phận có thẩm quyền" nào ở đây.
+    """
     o = []
-    ten_bs = [c.get("bac_si") for c in (d.get("case_tuong_tu") or []) if c.get("bac_si")]
-    if ten_bs:
-        o.append("Tên bác sĩ in trên file (%s) đã được duyệt quảng bá chưa?"
-                 % ", ".join(sorted(set(ten_bs))))
-    co_anh = [c for c in (d.get("case_tuong_tu") or [])
-              if c.get("anh_truoc") or c.get("anh_sau") or c.get("anh_them")]
-    if co_anh:
-        thieu = [c.get("ma_case", "?") for c in co_anh if not c.get("consent")]
-        o.append("Ảnh khách đã có văn bản đồng ý còn hiệu lực chưa?"
-                 + (" (chưa khai consent: %s)" % ", ".join(thieu) if thieu else ""))
     if (d.get("chi_phi") or {}).get("uu_dai"):
-        o.append("Ưu đãi đang ghi có chứng từ còn hiệu lực không?")
+        o.append("Ưu đãi đang ghi còn hiệu lực không?")
     if d.get("_co_dai_phau"):
         o.append("Có dịch vụ ĐẠI PHẪU — khách đã biết phẫu thuật thực hiện tại tuyến bệnh viện chưa?")
     o.append("Đọc lại mục chi phí: đã gồm / chưa gồm đã nói đủ chưa?")
@@ -276,7 +270,33 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool, goc_anh: Path) -> dict:
     for pa in d.get("phuong_an_khac") or []:
         pa["gia_ht"] = tien(pa.get("gia"))
 
+    # Album nào dùng cho case chưa có ảnh: ưu tiên khai riêng ở case, không có
+    # thì lấy chính album đã khai để gửi kèm khách.
+    album_chung = lay(d, "case_album.album") or lay(d, "case_album.link") or ""
+
     for c in d.get("case_tuong_tu") or []:
+        # Chưa dán link ảnh mà có album -> TỰ GỌI API lấy, khỏi bắt người lập
+        # báo giá chạy anh_album.py rồi dán tay. Ảnh album vốn đã ghép sẵn
+        # trước–sau nên nhãn mặc định là "Ca 1/2/3", không phải "Trước"/"Sau".
+        if not (c.get("anh_truoc") or c.get("anh_sau") or c.get("anh_them")):
+            ngn = c.get("album") or album_chung
+            if ngn:
+                try:
+                    import anh_album
+                    lay_ve = anh_album.lay_anh(ngn, int(c.get("so_anh") or 3))
+                except Exception:
+                    lay_ve = []
+                if lay_ve:
+                    for o, u in zip(("anh_truoc", "anh_sau", "anh_them"), lay_ve):
+                        c[o] = u
+                    for k, v in zip(("chu_thich_truoc", "chu_thich_sau", "chu_thich_them"),
+                                    ("Ca 1", "Ca 2", "Ca 3")):
+                        c.setdefault(k, v)
+                    print(f"  ảnh       : lấy {len(lay_ve)} ảnh từ album \"{ngn}\"")
+                else:
+                    print(f"  ! Không lấy được ảnh từ album \"{ngn}\" — thiếu khoá API "
+                          f"(KN_ALBUM_KEY / template/album-key.local.json) hoặc album rỗng.")
+
         # ảnh có thể là link album, URL bất kỳ, hay file trên máy — nhúng hết vào
         # file để bản gửi khách tự đứng một mình, không phụ thuộc album còn sống
         for o in ("anh_truoc", "anh_sau", "anh_them"):
@@ -336,14 +356,8 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool, goc_anh: Path) -> dict:
               "Chạy: python tools/nhung-font.py")
 
     # logo thật nhúng thẳng vào file (data URI) để HTML/PDF xuất ra tự đứng một mình
-    logo = GOC / "template" / "logo-kangnam.png"
-    if logo.exists():
-        import base64
-        d["logo"] = "data:image/png;base64," + base64.b64encode(logo.read_bytes()).decode()
-        d["co_logo"] = True
-    else:
-        d["co_logo"] = False
-        print("  ! Thiếu template/logo-kangnam.png — dùng chữ thay logo, KHÔNG gửi khách bản này.")
+    d["logo"] = lay_logo()
+    d["co_logo"] = bool(d["logo"])
 
     d["co_album"] = bool(lay(d, "case_album.link"))
     if d["co_album"]:
@@ -416,6 +430,40 @@ def slide_bi_tran(chrome: str, html: Path) -> list[int]:
     return ra
 
 
+LOGO_URL = ("https://benhvienthammykangnam.com.vn/wp-content/themes/SCI_Theme_v3/"
+            "Module/Home/header_kn_3_0_0/images/top.png")
+
+
+def lay_logo() -> str:
+    """Trả data URI của logo. Thiếu file trên máy thì tải lại từ web Kangnam.
+
+    File xuất ra hay mất logo vì `template/logo-kangnam.png` không nằm cùng chỗ
+    với tool — hay gặp nhất khi kéo file thẳng từ cửa sổ xem ZIP. Có mạng thì tự
+    lấy lại rồi lưu luôn, lần sau khỏi tải.
+    """
+    import base64
+    f = GOC / "template" / "logo-kangnam.png"
+    if f.exists():
+        return "data:image/png;base64," + base64.b64encode(f.read_bytes()).decode()
+
+    print("  ! Thiếu template/logo-kangnam.png — thử tải lại từ web Kangnam…")
+    try:
+        import urllib.request
+        yc = urllib.request.Request(LOGO_URL, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(yc, timeout=25) as r:
+            b = r.read()
+    except Exception as e:
+        print(f"    ✗ không tải được ({e}). Dùng chữ thay logo — KHÔNG gửi khách bản này.")
+        return ""
+    try:
+        f.parent.mkdir(parents=True, exist_ok=True)
+        f.write_bytes(b)
+        print(f"    lấy được {len(b) / 1024:.0f} KB, đã lưu lại {f}")
+    except OSError:
+        print(f"    lấy được {len(b) / 1024:.0f} KB (không lưu được, lần sau tải lại)")
+    return "data:image/png;base64," + base64.b64encode(b).decode()
+
+
 def nhung_anh(nguon: str, goc: Path) -> str:
     """Biến link ảnh thành data URI để file gửi khách tự đứng một mình.
 
@@ -484,7 +532,12 @@ def main(argv=None):
     ap.add_argument("--ra", help="thư mục xuất (mặc định: cạnh file du-lieu.json)")
     ap.add_argument("--nhap", action="store_true", help="bản nháp nội bộ, đóng dấu NHÁP")
     ap.add_argument("--chi-html", action="store_true", help="chỉ dựng HTML")
+    ap.add_argument("--khoa", help="khoá API Album Kangnam, để tự lấy ảnh khách thật "
+                                   "(hoặc đặt biến môi trường KN_ALBUM_KEY)")
     a = ap.parse_args(argv)
+    if a.khoa:
+        import os
+        os.environ["KN_ALBUM_KEY"] = a.khoa
 
     f = Path(a.du_lieu).resolve()
     d = json.loads(f.read_text(encoding="utf-8"))
@@ -583,7 +636,10 @@ def main(argv=None):
         if lh.exists():
             album = json.loads(lh.read_text(encoding="utf-8")).get("album_anh_khach", "")
         print("\n  GỢI Ý — báo giá này chưa có ảnh khách thật.")
-        print("  Ảnh trước–sau là thứ khách xem trước cả giá. Lấy ảnh:")
+        print("  Ảnh trước–sau là thứ khách xem trước cả giá. Cách nhanh nhất:")
+        print('      khai "case_album": {"album": "<id>"} trong du-lieu.json')
+        print("      — tool TỰ gọi API lấy ảnh. Danh mục: template/album-index.json")
+        print("  Hoặc chọn tay:")
         print("      python tools/anh_album.py --album \"<tên album>\" --lay 3")
         if album:
             print("      hoặc tự chọn trong %s" % album)
@@ -591,11 +647,11 @@ def main(argv=None):
         print("  nhúng vào file, bản gửi khách vẫn tự đứng một mình.")
 
     print("\n" + "=" * 68)
-    print("  CÂN NHẮC TRƯỚC KHI GỬI — tool không tự quyết được những việc này")
+    print("  LIẾC QUA TRƯỚC KHI GỬI — vài thứ tool không tự biết được")
     print("=" * 68)
     for i, o in enumerate(can_nhac_truoc_khi_gui(d, loi_pl), 1):
         print("  %d. %s" % (i, o))
-    print("\n  Người gửi là người chịu trách nhiệm cho bản này. Đọc xong rồi hãy gửi.")
+    print("\n  Đây là báo giá tham khảo gửi riêng một khách — đọc xong rồi gửi.")
 
     if a.nhap:
         print("\n! BẢN NHÁP — đã đóng dấu NHÁP, KHÔNG gửi khách hàng.")

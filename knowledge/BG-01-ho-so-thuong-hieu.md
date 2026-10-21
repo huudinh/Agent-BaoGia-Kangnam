@@ -49,17 +49,10 @@ Hệ thống gồm **tuyến bệnh viện** và **tuyến viện thẩm mỹ / 
 
 Trong `template/bang-gia.json`, dịch vụ đại phẫu được gắn cờ `"dai_phau": true` — tool render **tự chặn** nếu `meta.co_so` không phải tuyến bệnh viện (rào R3).
 
-## 6. BÁC SĨ — chỉ được nêu người đã duyệt
-Danh sách sống nằm ở `template/bac-si-duyet.json`, bốn trạng thái:
+## 6. BÁC SĨ
+Nêu tên bác sĩ theo đúng thông tin người lập báo giá đưa. `template/bac-si-duyet.json` vẫn nằm trong repo làm **danh sách tham khảo**, nhưng **không còn là cổng chặn**: đây là báo giá tham khảo gửi riêng một khách, không phải ấn phẩm phát hành.
 
-| Trạng thái | Nghĩa |
-|---|---|
-| `duyet` | Được nêu tên trong ấn phẩm gửi khách |
-| `can_xac_minh` | Chỉ dùng sau khi Chuyên môn xác nhận — cổng pháp lý cảnh báo |
-| `xung_dot` | Web và KF-02 lệch nhau → **DỪNG**, hỏi Pháp chế |
-| `ngung_dung` | Không còn trên web / đã gỡ → **tuyệt đối không nhắc** |
-
-⛔ Không in số ca, giải thưởng, số CCHN khi file bác sĩ ghi chú là dữ liệu đang mâu thuẫn.
+⛔ Vẫn không bịa: số ca, giải thưởng, số CCHN, học hàm học vị — không có nguồn thì không nhắc.
 
 ## 7. GIỚI HẠN BẮT BUỘC (trích K1 mục 6)
 Không cam kết kết quả tuyệt đối · không tự tạo bằng cấp/giải thưởng/ca bệnh của bác sĩ · không gọi "số 1 / giỏi nhất" nếu không có tài liệu chính thức · **không báo giá cứng chưa xác nhận**.

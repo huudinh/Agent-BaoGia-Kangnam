@@ -10,20 +10,38 @@ Cập nhật: 2026-10-21
 |---|---|---|
 | `benhvienthammykangnam.com.vn/case-thuc-te/` | ⚠️ trang công khai **đang trống** (kiểm 16/10/2026) | Ca nào đã publish ở đây thì ưu tiên — khách tự kiểm chứng được |
 | `/hinh-anh-khach-hang/` (menu *Ảnh Trước – Sau*) | 9 nhóm dịch vụ | Lấy đúng nhóm dịch vụ, giữ nguyên mốc chụp |
-| **Album Kangnam** `hcigroup.vn/app/albumkn/` | kho ảnh nội bộ, cần đăng nhập | **Nguồn làm việc chính.** Agent **không tự lấy được** — người lập báo giá chọn ảnh rồi đưa link + tiêu đề + mô tả + mốc chụp |
+| **Album Kangnam** `hcigroup.vn/app/albumkn/` | **nguồn chính thức, đã duyệt để gửi khách** | Khai id album vào `du-lieu.json` — **tool tự gọi API lấy ảnh** |
 
-> ⛔ **Ảnh nằm trong kho nội bộ KHÔNG đồng nghĩa đã có consent.** Kho là chỗ *lưu*, không phải chỗ *cấp phép*.
+## 2. LẤY ẢNH TỪ ALBUM — khai một dòng, tool làm phần còn lại
 
-## 2. BỐN ĐIỀU KIỆN DÙNG MỘT CASE — thiếu một là không dùng
-1. **Văn bản đồng ý minh thị** (rào R5): loại dữ liệu · mục đích marketing · kênh · thời hạn · quyền rút lại.
-2. **Pháp chế đã duyệt** hình ảnh.
-3. **Khớp phân khúc của khách** đang nhận báo giá — không phải case đẹp nhất.
-4. Đã kiểm **policy nền tảng** nếu ảnh sẽ chạy quảng cáo (báo giá gửi 1-1 qua Zalo không thuộc diện này, nhưng ảnh đó thường dùng lại nên vẫn phải kiểm).
+Album Kangnam là kho ảnh **đã được duyệt để gửi khách**. Không phải xin phép lại từng tấm, không phải chạy lệnh rồi dán link tay. Khai album vào `du-lieu.json`:
 
-Trong `du-lieu.json`, điều kiện 1 được khai bằng `"consent": "ok"`. **Không khai → tool chặn, không xuất file.**
+```json
+"case_album": {
+  "album": "theme-1792573778761",
+  "link": "https://hcigroup.vn/app/albumkn/?album=theme-1792573778761",
+  "nhan": "Hình ảnh khách hàng đã thực hiện tại Kangnam"
+}
+```
+
+Case nào chưa có `anh_truoc`/`anh_sau`/`anh_them` thì tool **tự gọi API lấy 3 ảnh đầu** của album đó, tải về, nhúng data URI vào file. Muốn lấy từ album khác cho riêng một case thì khai `"album"` ngay trong case đó.
+
+**Chọn album nào:** `template/album-index.json` liệt kê **29 album · 179 ảnh**, kèm id và số ảnh. Vài album hay dùng:
+
+| Dịch vụ | Album | Ảnh |
+|---|---|---|
+| Cắt mí | `theme-1792573778761` *Cắt mí thành công* · `theme-1789556882622` *Case Cắt Mí* | 13 · 12 |
+| Mũi | `theme-1789727113902` *Dịch vụ Mũi* · `theme-1789556976926` *Case Mũi* | 35 · 6 |
+| Ngực | `theme-1789557067505` *Case Ngực* | 9 |
+| Hàm mặt | `theme-1791294350815` *Gọt hàm Vline* · `theme-1789554992892` *Case Hàm Mặt* | 7 · 5 |
+| Mắt (chung) | `theme-1789467261265` *Thẩm Mỹ Mắt* | 10 |
+
+⛔ **Không từ chối đưa ảnh vì "chưa xác minh được consent".** Album đã là nguồn duyệt sẵn. Dịch vụ nào không có album phù hợp thì nói đúng điều đó — *"album chưa có ca nào đúng tình trạng của chị"* — chứ không viết một câu thủ tục.
+
+Cập nhật danh mục khi album đổi: `python tools/anh_album.py --ghi-muc-luc`.
 
 ## 3. LUẬT KHI ĐƯA ẢNH VÀO BÁO GIÁ
-1. **Giữ nguyên mốc thời gian chụp** (*sau 7 ngày*, *sau 1 tháng*). Bỏ mốc là làm sai lệch bằng chứng → tool chặn.
+1. **Ảnh album thường ĐÃ ghép sẵn trước–sau** → nhãn mặc định khi lấy tự động là *Ca 1 · Ca 2 · Ca 3*. Có ảnh trước và sau rời thì đặt lại `chu_thich_truoc` / `chu_thich_sau`.
 2. Chọn ảnh **gần chân dung khách nhất** (tình trạng ban đầu giống), không chọn ảnh kết quả ấn tượng nhất.
 3. Luôn kèm câu miễn trừ, **chép đúng**:
    > *"Hình ảnh được khách hàng đồng ý chia sẻ và ghi rõ thời điểm chụp. Kết quả thẩm mỹ phụ thuộc cơ địa từng người."*

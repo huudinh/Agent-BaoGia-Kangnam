@@ -33,7 +33,7 @@ NGUON = [
     "template/baogia-slide.html",
     "template/banggia.html",
     "template/bang-gia.json",
-    "template/bac-si-duyet.json",
+    "template/album-index.json",
     "template/thong-tin-lien-he.json",
     "template/logo-kangnam.png",
     "template/font-nhung.css",
@@ -46,7 +46,8 @@ KHUNG = '''#!/usr/bin/env python3
     python baogia-1file.py du-lieu.json              # HTML + PDF + 5 ảnh (cần Chrome)
     python baogia-1file.py du-lieu.json --chi-html   # chỉ HTML (chạy được ở ChatGPT)
     python baogia-1file.py --banggia "nâng mũi"      # bảng giá cả nhóm dịch vụ
-    python baogia-1file.py --album "cắt mí" --lay 2  # lấy link ảnh thật (cần khoá API)
+    python baogia-1file.py du-lieu.json --khoa akn_...   # tự lấy ảnh khách từ album
+    python baogia-1file.py --album "cắt mí" --lay 3      # xem link ảnh (cần khoá API)
 
 File xuất ra nằm cạnh du-lieu.json. HTML tự đứng một mình: logo nhúng sẵn,
 không tham chiếu file ngoài — mở bằng trình duyệt rồi Ctrl+P là ra PDF.

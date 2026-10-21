@@ -9,7 +9,7 @@ Ba mức — ranh giới: cổng CHẶN cái SAI TRONG CHỮ, cổng CẢNH như
   CHAN   — fail là KHÔNG XUẤT file. Chỉ dành cho thứ sai ngay trong chữ viết ra:
            cam kết kết quả · mốc hồi phục cứng · mời đại phẫu sai tuyến · ảnh cơ thể.
            Những thứ này không ai "duyệt" cho đúng được, viết ra là sai.
-  CANH   — thứ cần NGƯỜI THẬT cân nhắc rồi tự quyết: tên bác sĩ đã duyệt quảng bá chưa ·
+  CANH   — thứ cần NGƯỜI THẬT cân nhắc rồi tự quyết:
            ảnh đã có consent chưa · tên thương mại thuốc. Tool in rõ, người lập chịu trách nhiệm.
   NHAC   — nhắc kiểm tra bằng mắt.
 
@@ -112,13 +112,6 @@ def _duyet_chuoi(obj, duong_dan="", ra=None):
     return ra
 
 
-def _tai_bac_si():
-    p = GOC / "template" / "bac-si-duyet.json"
-    if not p.exists():
-        return {}
-    data = json.loads(p.read_text(encoding="utf-8"))
-    return {_bo_dau(b["ten"]).lower(): b for b in data["bac_si"]}
-
 
 def kiem_tra(du_lieu: dict) -> list[dict]:
     """Trả về danh sách lỗi: {muc, ma, duong_dan, trich, thay_bang}."""
@@ -151,45 +144,19 @@ def kiem_tra(du_lieu: dict) -> list[dict]:
                 loi.append({"muc": muc, "ma": ma, "duong_dan": duong_dan,
                             "trich": m.group(0), "thay_bang": thay})
 
-    # --- 4. bác sĩ (R4)
-    bs = _tai_bac_si()
     noi_dung = " ".join(s for _, s in chuoi)
-    noi_dung_kd = _bo_dau(noi_dung).lower()
-    for khoa, b in bs.items():
-        if khoa and khoa in noi_dung_kd:
-            tt = b.get("trang_thai")
-            if tt == "ngung_dung":
-                loi.append({"muc": "CANH", "ma": "R4", "duong_dan": "(toàn văn)",
-                            "trich": b["ten"],
-                            "thay_bang": f"{b.get('ghi_chu', '')} — cân nhắc gỡ tên này, "
-                                         f"hoặc xác nhận với Chuyên môn rồi hãy gửi"})
-            elif tt == "xung_dot":
-                loi.append({"muc": "CANH", "ma": "R4", "duong_dan": "(toàn văn)",
-                            "trich": b["ten"],
-                            "thay_bang": "web và danh sách duyệt quảng bá đang lệch nhau — "
-                                         "xác nhận với Pháp chế trước khi gửi"})
-            elif tt == "can_xac_minh":
-                loi.append({"muc": "CANH", "ma": "R4", "duong_dan": "(toàn văn)",
-                            "trich": b["ten"],
-                            "thay_bang": "cần Chuyên môn xác nhận hồ sơ trước khi in tên"})
 
-    # --- 5. ảnh case phải có consent (R5)
+    # --- 5. ảnh case (R12)
+    # Album Kangnam LÀ nguồn ảnh đã được duyệt để gửi khách, nên không hỏi lại
+    # consent cho từng ảnh nữa — hỏi mãi thì agent quay ra từ chối đưa ảnh, mà
+    # ảnh trước–sau lại là thứ khách xem trước cả giá.
     for case in du_lieu.get("case_tuong_tu") or []:
-        co_anh = bool(case.get("anh_truoc") or case.get("anh_sau"))
-        if co_anh and not case.get("consent"):
-            loi.append({"muc": "CANH", "ma": "R5", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
-                        "trich": "ảnh case chưa khai consent",
-                        "thay_bang": 'ảnh khách cần văn bản đồng ý còn hiệu lực. Có rồi thì đặt '
-                                     '"consent": "ok"; chưa chắc thì cân nhắc kỹ trước khi gửi'})
-        if co_anh and not case.get("moc_chup"):
-            loi.append({"muc": "CANH", "ma": "R5", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
-                        "trich": "thiếu mốc thời gian chụp",
-                        "thay_bang": 'nên ghi đúng mốc, vd "sau 1 tháng" — bỏ mốc là làm sai lệch bằng chứng'})
+        co_anh = bool(case.get("anh_truoc") or case.get("anh_sau") or case.get("anh_them"))
         if co_anh and (case.get("nhom") or "").lower() in ("body", "giam can", "giảm cân", "lipo"):
-            loi.append({"muc": "CHAN", "ma": "R12", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
+            loi.append({"muc": "CANH", "ma": "R12", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
                         "trich": "ảnh so sánh cơ thể",
-                        "thay_bang": "thay bằng câu chuyện khách hàng thật, không dùng ảnh before/after cơ thể"})
-
+                        "thay_bang": "ảnh before/after cơ thể nhạy cảm hơn ảnh vùng mặt — "
+                                     "cân nhắc, hoặc thay bằng câu chuyện khách hàng"})
     # --- 6. khối miễn trừ bắt buộc
     # chưa khai mien_tru thì render_baogia.py sẽ tự điền 3 câu chuẩn -> không báo lỗi;
     # khai rồi mà thiếu câu cơ địa thì chặn, vì người viết đã chủ động ghi đè

@@ -1,0 +1,1205 @@
+{
+ "_doc": "Gộp 4 file dữ liệu cứng của Agent-BaoGia-Kangnam. Sinh tự động bằng tools/build-goi.py — KHÔNG sửa tay, sửa ở template/ rồi chạy lại.",
+ "_sinh_ngay": "2026-10-21",
+ "_cach_dung": {
+  "bang_gia": "NGUỒN GIÁ DUY NHẤT. Mọi dòng chi phí phải có mã trỏ về đây.  (nguồn: template/bang-gia.json)",
+  "album_index": "29 album ảnh khách thật. Khai id vào case_album.album -> tool tự gọi API lấy ảnh.  (nguồn: template/album-index.json)",
+  "lien_he": "Hotline in lên báo giá. ⛔ Không bao giờ ghi [CHỜ XÁC NHẬN] cho hotline.  (nguồn: template/thong-tin-lien-he.json)",
+  "du_lieu_mau": "Mẫu du-lieu.json đầy đủ — sinh JSON theo đúng cấu trúc này.  (nguồn: template/du-lieu.mau.json)"
+ },
+ "bang_gia": {
+  "nguon": "Đối chiếu trực tiếp với https://benhvienthammykangnam.com.vn/bang-gia/ ngày 2026-10-21 bằng tools/doi_chieu_gia_web.py. Nguồn gốc ban đầu: Kangnam-Agent-Factory/knowledge/K4-dich-vu.md §5.",
+  "cap_nhat": "2026-10-21",
+  "luat": "Giá niêm yết THAM KHẢO. Giá cuối do bác sĩ quyết định sau khám trực tiếp. Mọi báo giá xuất ra phải ghi dòng này. Agent KHÔNG được tự tạo dịch vụ hoặc tự đặt giá ngoài bảng.",
+  "don_vi_tien": "VND",
+  "dich_vu": [
+   {
+    "ma": "mat.bam-mi-han-da-diem",
+    "ten": "Bấm mí Hàn đa điểm",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 8000000,
+    "gia_max": 8000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.cat-mi-plasma",
+    "ten": "Cắt mí bằng dao Plasma",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 10000000,
+    "gia_max": 10000000,
+    "don_vi": "ca",
+    "uu_dai_hien_hanh": 8000000,
+    "nguon_uu_dai": "Chính sách giá dịch vụ cắt mí Plasma, cập nhật 2026-10-21 — áp dụng cho khách cắt mí lần đầu và cả khách sửa mí",
+    "ghi_chu": "Ghi vào báo giá CẢ HAI số: niêm yết 10.000.000đ và ưu đãi 8.000.000đ. Khách sửa mí cộng thêm dòng mat.phi-sua-mi. Xem BG-11 mục 4.",
+    "ten_web": "Cắt mí Hàn Quốc Plasma (trên/dưới)",
+    "canh_bao": "LỆCH NGUỒN: web /bang-gia niêm yết 8.000.000đ, còn chính sách nội bộ 21/10/2026 ghi niêm yết 10.000.000đ + ưu đãi 8.000.000đ. Khách trả 8.000.000đ ở cả hai cách hiểu, nhưng CHỈ in giá gạch ngang 10.000.000đ khi Vận hành xác nhận mức niêm yết đó."
+   },
+   {
+    "ma": "mat.phi-sua-mi",
+    "ten": "Phí sửa mí (xử lý tình trạng đã can thiệp trước đó)",
+    "nhom": "Mắt",
+    "kieu": "khoang",
+    "gia_min": 1500000,
+    "gia_max": 3000000,
+    "don_vi": "ca",
+    "ghi_chu": "Niêm yết 3.000.000đ, đang giảm 40-50% tuỳ khu vực nên thực thu 1.500.000-1.800.000đ. Tổng ca sửa mí dự kiến 9.500.000-9.800.000đ khi đi cùng mat.cat-mi-plasma giá ưu đãi.",
+    "canh_bao": "Mức giảm tuỳ khu vực — XÁC NHẬN với cơ sở thực hiện trước khi chốt con số cho khách.",
+    "khong_tren_web": true
+   },
+   {
+    "ma": "mat.cat-mi-6d",
+    "ten": "Cắt mí 6D",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 12800000,
+    "gia_max": 12800000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.cat-mi-perfect",
+    "ten": "Cắt mí Perfect",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 22400000,
+    "gia_max": 22400000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.combo-sup-mi-tao-nep",
+    "ten": "Combo chỉnh sụp mí bẩm sinh + tạo nếp",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 14000000,
+    "gia_max": 14000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.lay-mo-noi-soi-mi",
+    "ten": "Lấy mỡ nội soi mí",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 6400000,
+    "gia_max": 6400000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.cay-mo-mi",
+    "ten": "Cấy mỡ mí",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 12000000,
+    "gia_max": 12000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.xoa-ranh-le",
+    "ten": "Xóa rãnh lệ",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 11200000,
+    "gia_max": 11200000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.chinh-sup-mi-bam-sinh",
+    "ten": "Chỉnh sụp mí bẩm sinh",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 12000000,
+    "gia_max": 12000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.nang-cung-chan-may",
+    "ten": "Nâng cung chân mày (không phun)",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 8800000,
+    "gia_max": 8800000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mat.tao-khoe",
+    "ten": "Tạo khóe trong/ngoài",
+    "nhom": "Mắt",
+    "kieu": "co_dinh",
+    "gia_min": 6400000,
+    "gia_max": 6400000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.nang-mui-han-quoc",
+    "ten": "Nâng mũi Hàn Quốc",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 24000000,
+    "gia_max": 24000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.cau-truc-idol",
+    "ten": "Nâng mũi cấu trúc Idol",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 31000000,
+    "gia_max": 31000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.idol-nanoform",
+    "ten": "Nâng mũi Idol - Nanoform",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 38400000,
+    "gia_max": 38400000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.idol-surgiform",
+    "ten": "Nâng mũi Idol - Surgiform",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 49600000,
+    "gia_max": 49600000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.6d-surgiform",
+    "ten": "Nâng mũi không đau 6D - Surgiform",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 56800000,
+    "gia_max": 56800000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.sun-suon-nanoform",
+    "ten": "Nâng mũi sụn sườn - Nanoform",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 71000000,
+    "gia_max": 71000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.sun-suon-surgiform",
+    "ten": "Nâng mũi sụn sườn - Surgiform",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 84000000,
+    "gia_max": 84000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.sun-suon-100",
+    "ten": "Nâng mũi sụn sườn 100%",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 88500000,
+    "gia_max": 88500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.thu-gon-canh-mui",
+    "ten": "Thu gọn cánh mũi",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 6500000,
+    "gia_max": 6500000,
+    "don_vi": "ca",
+    "ten_web": "Thu nhỏ cánh mũi (Cuộn/cắt cánh mũi)"
+   },
+   {
+    "ma": "mui.tao-hinh-dau-mui",
+    "ten": "Tạo hình / thu nhỏ đầu mũi",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 10500000,
+    "gia_max": 10500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.mai-go-sieu-am",
+    "ten": "Mài gồ / chỉnh xương siêu âm",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 12000000,
+    "gia_max": 12000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.thao-chat-lieu",
+    "ten": "Tháo chất liệu",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 7600000,
+    "gia_max": 7600000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "mui.ghep-trung-bi",
+    "ten": "Ghép trung bì",
+    "nhom": "Mũi",
+    "kieu": "co_dinh",
+    "gia_min": 26500000,
+    "gia_max": 26500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "ham.thu-gon-cam-vline",
+    "ten": "Thu gọn cằm Vline",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 39000000,
+    "gia_max": 39000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "ham.don-cam-tu-than-3d",
+    "ten": "Độn cằm tự thân 3D",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 39000000,
+    "gia_max": 39000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "ham.don-cam-han",
+    "ten": "Độn cằm Hàn (thường)",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 26500000,
+    "gia_max": 26500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "ham.chinh-ham-1-ham",
+    "ten": "Chỉnh hàm hô/móm 3D (1 hàm)",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 59000000,
+    "gia_max": 59000000,
+    "don_vi": "hàm",
+    "dai_phau": true
+   },
+   {
+    "ma": "ham.chinh-ham-kho",
+    "ten": "Chỉnh hàm 3D (1 hàm khó, ghép xương/xoay trục)",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 85500000,
+    "gia_max": 85500000,
+    "don_vi": "hàm",
+    "dai_phau": true
+   },
+   {
+    "ma": "ham.thu-gon-goc-ham-vline",
+    "ten": "Thu gọn góc hàm Vline 3D",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 54500000,
+    "gia_max": 54500000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "ham.ha-go-ma-3d",
+    "ten": "Hạ gò má 3D",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 59000000,
+    "gia_max": 59000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "ham.cuoi-ho-loi",
+    "ten": "Chỉnh cười hở lợi",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 10500000,
+    "gia_max": 10500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "ham.don-thai-duong",
+    "ten": "Độn thái dương",
+    "nhom": "Khuôn mặt / Hàm",
+    "kieu": "co_dinh",
+    "gia_min": 26500000,
+    "gia_max": 26500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "nguc.cay-mo-smooth-prp",
+    "ten": "Cấy mỡ ngực tăng sinh Smooth (+PRP)",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 26400000,
+    "gia_max": 26400000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "nguc.mo-dem-tang-sinh-smooth",
+    "ten": "Nâng ngực mô đệm tăng sinh Smooth",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 74800000,
+    "gia_max": 74800000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "nguc.nang-4d-nano",
+    "ten": "Nâng ngực 4D (Nano)",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 51000000,
+    "gia_max": 51000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "nguc.6d-khong-cham",
+    "ten": "Nâng ngực 6D không chạm (Nano chip)",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 67000000,
+    "gia_max": 67000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "nguc.6d-vip",
+    "ten": "Nâng ngực 6D VIP",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 90000000,
+    "gia_max": 90000000,
+    "don_vi": "ca",
+    "dai_phau": true,
+    "ten_web": "Nâng ngực 6D VIP (Nano chip linh hoạt/Mentor extra)"
+   },
+   {
+    "ma": "nguc.tao-hinh-vu-combo",
+    "ten": "Tạo hình vú (combo)",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 81000000,
+    "gia_max": 81000000,
+    "don_vi": "ca",
+    "dai_phau": true,
+    "ten_web": "Tạo Hình Vú (Combo Thu gọn vú + Treo ngực sa trễ + Thu quầng)"
+   },
+   {
+    "ma": "nguc.combo-treo-thu-quang-4d",
+    "ten": "Combo treo sa trễ + thu quầng + nâng 4D",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 84000000,
+    "gia_max": 84000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "nguc.treo-sa-tre-thu-quang",
+    "ten": "Treo ngực sa trễ + thu quầng",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 56000000,
+    "gia_max": 56000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "nguc.thu-nho-dau-vu",
+    "ten": "Thu nhỏ đầu vú",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 12000000,
+    "gia_max": 12000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "nguc.thu-nho-quang-vu",
+    "ten": "Thu nhỏ quầng vú",
+    "nhom": "Ngực",
+    "kieu": "co_dinh",
+    "gia_min": 19800000,
+    "gia_max": 19800000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.lipo-dui-m1",
+    "ten": "Lipo đùi M1",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 49500000,
+    "gia_max": 49500000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "body.lipo-dui-m2",
+    "ten": "Lipo đùi M2",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 56500000,
+    "gia_max": 56500000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "body.lipo-basic",
+    "ten": "Lipo Basic",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 40500000,
+    "gia_max": 40500000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "body.lipo-standard",
+    "ten": "Lipo Standard",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 45000000,
+    "gia_max": 45000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "body.lipo-360-toan-bung",
+    "ten": "Lipo 360 toàn bụng (71–80kg)",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 52000000,
+    "gia_max": 52000000,
+    "don_vi": "ca",
+    "dai_phau": true,
+    "ten_web": "Giảm mỡ Lipo 360 toàn bụng 71-80kg (Bụng trên + dưới + eo)"
+   },
+   {
+    "ma": "body.lipo-360-advanced-plus",
+    "ten": "Lipo 360 Advanced+",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 66000000,
+    "gia_max": 66000000,
+    "don_vi": "ca",
+    "dai_phau": true,
+    "ten_web": "Lipo Nâng cấp/ Advanced +"
+   },
+   {
+    "ma": "body.lipo-mini-nong-cam",
+    "ten": "Lipo mini nọng cằm",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 12000000,
+    "gia_max": 12000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.lipo-mini-tay",
+    "ten": "Lipo mini tay",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 24000000,
+    "gia_max": 24000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.lipo-mini-1-vung",
+    "ten": "Lipo mini 1 vùng",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 34000000,
+    "gia_max": 34000000,
+    "don_vi": "vùng",
+    "canh_bao": "Bảng gốc ghi mini nhiều vùng 18.000.000đ — rẻ hơn 1 vùng, nghi lệch dữ liệu. Phải xác nhận trước khi báo."
+   },
+   {
+    "ma": "body.lipo-mini-nhieu-vung",
+    "ten": "Lipo mini nhiều vùng",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 18000000,
+    "gia_max": 18000000,
+    "don_vi": "ca",
+    "canh_bao": "Xem cảnh báo ở body.lipo-mini-1-vung."
+   },
+   {
+    "ma": "body.tia-suong-vaser-6d",
+    "ten": "Tia sương Vaser 6D",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 9000000,
+    "gia_max": 9000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.siet-co-thanh-bung",
+    "ten": "Siết cơ thành bụng",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 10500000,
+    "gia_max": 10500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.cang-da-bung-dui",
+    "ten": "Căng da bụng / đùi",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 54000000,
+    "gia_max": 54000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "body.lipo-bodyline",
+    "ten": "Lipo Bodyline",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 68000000,
+    "gia_max": 68000000,
+    "don_vi": "ca",
+    "dai_phau": true
+   },
+   {
+    "ma": "body.cay-mo-1-vung",
+    "ten": "Cấy mỡ body 1 vùng (kèm giảm mỡ)",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 25500000,
+    "gia_max": 25500000,
+    "don_vi": "vùng"
+   },
+   {
+    "ma": "body.cay-mo-nhieu-vung",
+    "ten": "Cấy mỡ body nhiều vùng",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 42000000,
+    "gia_max": 42000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.thu-gon-co-bap-chan",
+    "ten": "Thu gọn cơ bắp chân",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 42500000,
+    "gia_max": 42500000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.zerofat-basic",
+    "ten": "ZeroFat Basic",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 42000000,
+    "gia_max": 42000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.zerofat-standard",
+    "ten": "ZeroFat Standard",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 45000000,
+    "gia_max": 45000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.zerofat-standard-plus",
+    "ten": "ZeroFat Standard Plus",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 52000000,
+    "gia_max": 52000000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "body.zerofat-standard-advanced",
+    "ten": "ZeroFat Standard Advanced",
+    "nhom": "Vóc dáng / Hút mỡ",
+    "kieu": "co_dinh",
+    "gia_min": 65800000,
+    "gia_max": 65800000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "treho.cang-chi-xline-bio-young",
+    "ten": "Căng chỉ X-line Bio Young",
+    "nhom": "Trẻ hóa da",
+    "kieu": "co_dinh",
+    "gia_min": 15600000,
+    "gia_max": 15600000,
+    "don_vi": "liệu trình"
+   },
+   {
+    "ma": "treho.meso-young",
+    "ten": "Meso Young",
+    "nhom": "Trẻ hóa da",
+    "kieu": "khoang",
+    "gia_min": 4400000,
+    "gia_max": 4800000,
+    "don_vi": "lần"
+   },
+   {
+    "ma": "treho.profhilo",
+    "ten": "Profhilo",
+    "nhom": "Trẻ hóa da",
+    "kieu": "co_dinh",
+    "gia_min": 14400000,
+    "gia_max": 14400000,
+    "don_vi": "2CC",
+    "canh_bao": "R7 — tên thương mại vật tư tiêm. Phải được Pháp chế duyệt trước khi in vào báo giá gửi khách.",
+    "ten_web": "Tiêm trẻ hóa Profhilo"
+   },
+   {
+    "ma": "treho.thermage-flx",
+    "ten": "Thermage FLX",
+    "nhom": "Trẻ hóa da",
+    "kieu": "co_dinh",
+    "gia_min": 44000000,
+    "gia_max": 44000000,
+    "don_vi": "liệu trình"
+   },
+   {
+    "ma": "treho.botox",
+    "ten": "Tiêm làm thon / giãn cơ (Botulinum)",
+    "nhom": "Trẻ hóa da",
+    "kieu": "co_dinh",
+    "gia_min": 7200000,
+    "gia_max": 7200000,
+    "don_vi": "lần",
+    "canh_bao": "R7 — KHÔNG in tên thương mại thuốc tiêm. Dùng tên kỹ thuật theo DMKT; Pháp chế duyệt.",
+    "ten_web": "Botox"
+   },
+   {
+    "ma": "treho.filler",
+    "ten": "Tiêm chất làm đầy",
+    "nhom": "Trẻ hóa da",
+    "kieu": "khoang",
+    "gia_min": 4000000,
+    "gia_max": 10400000,
+    "don_vi": "ống",
+    "canh_bao": "R7 — KHÔNG in tên thương mại. Pháp chế duyệt.",
+    "ten_web": "Filler"
+   },
+   {
+    "ma": "da.tri-nam",
+    "ten": "Điều trị nám",
+    "nhom": "Da liễu",
+    "kieu": "khoang",
+    "gia_min": 4400000,
+    "gia_max": 5600000,
+    "don_vi": "lần"
+   },
+   {
+    "ma": "da.tan-nhang",
+    "ten": "Điều trị tàn nhang",
+    "nhom": "Da liễu",
+    "kieu": "khoang",
+    "gia_min": 5200000,
+    "gia_max": 17600000,
+    "don_vi": "trọn gói"
+   },
+   {
+    "ma": "da.seo-lom-bio-fractional",
+    "ten": "Điều trị sẹo lõm Bio Fractional",
+    "nhom": "Da liễu",
+    "kieu": "tu_",
+    "gia_min": 600000,
+    "gia_max": null,
+    "don_vi": "lần"
+   },
+   {
+    "ma": "da.seo-loi",
+    "ten": "Điều trị sẹo lồi",
+    "nhom": "Da liễu",
+    "kieu": "tu_",
+    "gia_min": 560000,
+    "gia_max": null,
+    "don_vi": "lần"
+   },
+   {
+    "ma": "da.mun",
+    "ten": "Điều trị mụn",
+    "nhom": "Da liễu",
+    "kieu": "tu_",
+    "gia_min": 160000,
+    "gia_max": null,
+    "don_vi": "lần"
+   },
+   {
+    "ma": "nha.tay-trang",
+    "ten": "Tẩy trắng răng",
+    "nhom": "Nha khoa",
+    "kieu": "co_dinh",
+    "gia_min": 1200000,
+    "gia_max": 1200000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "nha.nieng",
+    "ten": "Niềng răng",
+    "nhom": "Nha khoa",
+    "kieu": "tu_",
+    "gia_min": 21000000,
+    "gia_max": null,
+    "don_vi": "gói"
+   },
+   {
+    "ma": "nha.rang-su",
+    "ten": "Răng sứ",
+    "nhom": "Nha khoa",
+    "kieu": "tu_",
+    "gia_min": 1500000,
+    "gia_max": null,
+    "don_vi": "răng"
+   },
+   {
+    "ma": "nha.implant",
+    "ten": "Trồng răng Implant",
+    "nhom": "Nha khoa",
+    "kieu": "tu_",
+    "gia_min": 13000000,
+    "gia_max": null,
+    "don_vi": "trụ",
+    "ten_web": "Cấy ghép Implant"
+   },
+   {
+    "ma": "nha.cao-voi",
+    "ten": "Cạo vôi + đánh bóng",
+    "nhom": "Nha khoa",
+    "kieu": "khoang",
+    "gia_min": 150000,
+    "gia_max": 400000,
+    "don_vi": "ca"
+   },
+   {
+    "ma": "spa.phun-moi-plascell",
+    "ten": "Phun môi Plascell",
+    "ten_web": "Phun môi Plascell",
+    "nhom": "Spa",
+    "kieu": "lien_he",
+    "gia_min": null,
+    "gia_max": null,
+    "don_vi": ""
+   },
+   {
+    "ma": "spa.phun-may-plascell",
+    "ten": "Phun mày Plascell",
+    "ten_web": "Phun mày Plascell",
+    "nhom": "Spa",
+    "kieu": "lien_he",
+    "gia_min": null,
+    "gia_max": null,
+    "don_vi": ""
+   },
+   {
+    "ma": "spa.hair-stroke",
+    "ten": "Điêu khắc Hair stroke",
+    "ten_web": "Điêu khắc Hair stroke",
+    "nhom": "Spa",
+    "kieu": "lien_he",
+    "gia_min": null,
+    "gia_max": null,
+    "don_vi": ""
+   },
+   {
+    "ma": "spa.tam-trang",
+    "ten": "Tắm trắng",
+    "ten_web": "Tắm trắng",
+    "nhom": "Spa",
+    "kieu": "lien_he",
+    "gia_min": null,
+    "gia_max": null,
+    "don_vi": ""
+   },
+   {
+    "ma": "spa.nanoskin",
+    "ten": "Chăm sóc da mặt Nanoskin",
+    "ten_web": "Chăm sóc da mặt Nanoskin",
+    "nhom": "Spa",
+    "kieu": "lien_he",
+    "gia_min": null,
+    "gia_max": null,
+    "don_vi": ""
+   },
+   {
+    "ma": "nha.danh-bong",
+    "ten": "Đánh bóng răng",
+    "ten_web": "Đánh bóng răng",
+    "nhom": "Nha khoa",
+    "kieu": "lien_he",
+    "gia_min": null,
+    "gia_max": null,
+    "don_vi": ""
+   }
+  ]
+ },
+ "album_index": {
+  "_doc": "Danh mục Album Kangnam — nguồn ảnh khách hàng thật gửi kèm báo giá. Sinh bằng: python tools/anh_album.py --ghi-muc-luc",
+  "_cach_dung": "Khai id album vào du-lieu.json: case_album.album = id album (hoặc tên album). Tool render tự gọi API lấy ảnh, nhúng vào file.",
+  "api": "https://hcigroup.vn/app/albumkn/api/public",
+  "album": [
+   {
+    "id": "theme-1792573778761",
+    "ten": "Cắt mí thành công",
+    "mo_ta": "Ảnh gửi kèm báo giá",
+    "so_anh": 13
+   },
+   {
+    "id": "theme-1792117527255",
+    "ten": "Hàm Móm",
+    "mo_ta": "",
+    "so_anh": 4
+   },
+   {
+    "id": "theme-1792117197304",
+    "ten": "Hàm Hô",
+    "mo_ta": "",
+    "so_anh": 4
+   },
+   {
+    "id": "theme-1791855534491",
+    "ten": "Bác sĩ Kangnam",
+    "mo_ta": "",
+    "so_anh": 4
+   },
+   {
+    "id": "theme-1791855046503",
+    "ten": "Ưu đãi đặc quyền",
+    "mo_ta": "Mẫu xinh",
+    "so_anh": 4
+   },
+   {
+    "id": "theme-1791379128332",
+    "ten": "Trẻ hóa chăm sóc da",
+    "mo_ta": "",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1791297711203",
+    "ten": "Điều Trị Sắc Tố Da",
+    "mo_ta": "",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1791297616554",
+    "ten": "Filler",
+    "mo_ta": "",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1791296201161",
+    "ten": "Nâng Ngực Sa trễ",
+    "mo_ta": "",
+    "so_anh": 2
+   },
+   {
+    "id": "theme-1791295905997",
+    "ten": "Cắt cánh mũi",
+    "mo_ta": "",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1791295643971",
+    "ten": "Nâng cung mày",
+    "mo_ta": "Khách hàng Nâng cung mày",
+    "so_anh": 5
+   },
+   {
+    "id": "theme-1791295514853",
+    "ten": "Bấm Mí",
+    "mo_ta": "Khách hàng Bấm mí",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1791295142842",
+    "ten": "Trượt cằm",
+    "mo_ta": "Khách hàng Trượt cằm",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1791294587852",
+    "ten": "Hạ gò má",
+    "mo_ta": "Khách hàng Hạ gò má",
+    "so_anh": 2
+   },
+   {
+    "id": "theme-1791294350815",
+    "ten": "Gọt hàm Vline",
+    "mo_ta": "Ảnh khách hàng sử dụng dịch vụ Gọt hàm Vline",
+    "so_anh": 7
+   },
+   {
+    "id": "theme-1789727113902",
+    "ten": "Dịch vụ Mũi",
+    "mo_ta": "",
+    "so_anh": 35
+   },
+   {
+    "id": "theme-1789557259595",
+    "ten": "Case Trẻ Hóa Da",
+    "mo_ta": "",
+    "so_anh": 4
+   },
+   {
+    "id": "theme-1789557170154",
+    "ten": "Case Trẻ Hóa CNC",
+    "mo_ta": "",
+    "so_anh": 5
+   },
+   {
+    "id": "theme-1789557134268",
+    "ten": "Case PTTM Khác",
+    "mo_ta": "",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1789557106469",
+    "ten": "Case Nha Khoa",
+    "mo_ta": "",
+    "so_anh": 3
+   },
+   {
+    "id": "theme-1789557067505",
+    "ten": "Case Ngực",
+    "mo_ta": "",
+    "so_anh": 9
+   },
+   {
+    "id": "theme-1789557037997",
+    "ten": "Case Nâng Cung Mày",
+    "mo_ta": "",
+    "so_anh": 2
+   },
+   {
+    "id": "theme-1789556976926",
+    "ten": "Case Mũi",
+    "mo_ta": "",
+    "so_anh": 6
+   },
+   {
+    "id": "theme-1789556919589",
+    "ten": "Case Giảm Béo",
+    "mo_ta": "",
+    "so_anh": 6
+   },
+   {
+    "id": "theme-1789556882622",
+    "ten": "Case Cắt Mí",
+    "mo_ta": "",
+    "so_anh": 12
+   },
+   {
+    "id": "theme-1789554992892",
+    "ten": "Case Hàm Mặt",
+    "mo_ta": "",
+    "so_anh": 5
+   },
+   {
+    "id": "theme-1789554516177",
+    "ten": "Case  Botox Filler",
+    "mo_ta": "",
+    "so_anh": 4
+   },
+   {
+    "id": "theme-1789553380242",
+    "ten": "Dịch vụ Kangnam",
+    "mo_ta": "Các dịch vụ tại Kangnam",
+    "so_anh": 11
+   },
+   {
+    "id": "theme-1789467261265",
+    "ten": "Thẩm Mỹ Mắt",
+    "mo_ta": "Khách hàng thẩm mỹ mắt",
+    "so_anh": 10
+   }
+  ]
+ },
+ "lien_he": {
+  "_doc": "NGUỒN DUY NHẤT cho thông tin liên hệ in lên báo giá. Đổi số ở đây là mọi báo giá sinh ra sau đó đổi theo — không phải sửa từng file mẫu.",
+  "cap_nhat": "2026-10-21",
+  "hotline": "0968.999.777",
+  "_cach_dung": [
+   "du-lieu.json không khai meta.hotline → tool tự lấy số ở đây.",
+   "Khai meta.hotline riêng → dùng số đã khai, để chừa chỗ cho hotline riêng của chi nhánh.",
+   "Đổi hotline: sửa đúng file này rồi ghi lại vào doc/CHANGELOG.md."
+  ]
+ },
+ "du_lieu_mau": {
+  "_doc": "ĐẦU RA của agent, ĐẦU VÀO của tools/render_baogia.py. Mọi dòng chi phí phải có mã trỏ về template/bang-gia.json.",
+  "meta": {
+   "ma_bao_gia": "BG-2026-1021-01",
+   "ngay": "21/10/2026",
+   "hieu_luc_den": "04/11/2026",
+   "co_so": "Bệnh viện thẩm mỹ Kangnam Hà Nội",
+   "nguoi_lap": "Ngọc Anh — CSKH",
+   "sdt_tu_van": "",
+   "kenh_gui": "Zalo"
+  },
+  "khach": {
+   "ten_hien_thi": "Chị Thu Hà",
+   "xung_ho": "chị",
+   "mo_ta_ngan": "Mắt một mí, da mí trên hơi dư nên nhìn hay buồn ngủ. Chị muốn mắt mở hơn nhưng phải thật tự nhiên, hợp khuôn mặt tròn, và sắp xếp được với lịch đi làm.",
+   "mong_muon": [
+    "tự nhiên, không lộ dấu",
+    "nghỉ ít ngày",
+    "trong khoảng 15 triệu"
+   ],
+   "noi_so": [
+    "sợ đau",
+    "sợ lộ sẹo khi trang điểm",
+    "sợ nghỉ làm dài"
+   ]
+  },
+  "mo_dau": {
+   "tieu_de": "Đôi mắt mở hơn — mà vẫn là mắt của chị",
+   "loi_mo": "Em tổng hợp lại những gì chị chia sẻ hôm qua thành một phương án cụ thể, kèm chi phí dự tính để chị dễ hình dung trước khi tới khám. Đây là báo giá tham khảo riêng cho trường hợp của chị, không phải bảng giá chung."
+  },
+  "van_de_giai_phap": [
+   {
+    "van_de": "Mí một nếp, da mí trên hơi dư nên mắt nhìn hay buồn ngủ.",
+    "giai_phap": "Lấy bớt phần mỡ làm mí nặng rồi tạo nếp theo tỉ lệ gương mặt — vùng mí gọn lại nên nếp ăn sâu đều hơn."
+   },
+   {
+    "van_de": "Sợ đau, chưa từng làm thủ thuật nào.",
+    "giai_phap": "Gây tê tại chỗ do bác sĩ chỉ định, kèm phác đồ giảm đau sau mổ. Khó chịu nhiều thì báo ngay để bác sĩ điều chỉnh thuốc."
+   },
+   {
+    "van_de": "Sợ lộ sẹo mỗi khi trang điểm.",
+    "giai_phap": "Đường mổ đặt đúng nếp mí nên khi mở mắt bị nếp che. Mức độ mờ sẹo tuỳ cơ địa mỗi người."
+   },
+   {
+    "van_de": "Chỉ nghỉ làm được ít ngày.",
+    "giai_phap": "Sưng rõ nhất vài ngày đầu rồi giảm dần, thường trong khoảng 7–14 ngày, tùy cơ địa mỗi người. Chị nói lịch công việc khi khám để bác sĩ xếp ngày mổ."
+   }
+  ],
+  "giai_phap": {
+   "ten_phuong_an": "Cắt mí 6D + lấy mỡ nội soi mí trên",
+   "vi_sao_hop": "Với mí một nếp kèm da dư nhẹ, chỉ tạo nếp thôi thì nếp dễ bị che và mất độ mở. Lấy bớt mỡ mí trên bằng nội soi giúp vùng mí gọn lại, nếp mí ăn sâu đều hơn và nhìn tự nhiên theo khuôn mặt tròn của chị.",
+   "gom": [
+    {
+     "buoc": "Thiết kế nếp mí theo khuôn mắt",
+     "noi_dung": "Bác sĩ đo tỉ lệ mắt — chân mày — khuôn mặt, chọn độ cao nếp vừa phải thay vì nếp to sẵn có. Chị được xem mô phỏng và chốt trước khi làm."
+    },
+    {
+     "buoc": "Lấy mỡ mí trên bằng nội soi",
+     "noi_dung": "Đường vào nhỏ, lấy phần mỡ làm mí nặng, hạn chế phù nề so với cách bóc tách rộng."
+    },
+    {
+     "buoc": "Tạo nếp và đóng đường mổ",
+     "noi_dung": "Đường mổ nằm đúng nếp mí nên khi mở mắt bị che; chỉ thẩm mỹ, cắt chỉ theo lịch hẹn."
+    },
+    {
+     "buoc": "Theo dõi sau phẫu thuật",
+     "noi_dung": "Tái khám theo lịch, có điều dưỡng nhắn nhắc; chỉnh sửa theo chính sách bảo hành của bệnh viện nếu cần."
+    }
+   ],
+   "diem_can_luu_y": [
+    "Mức độ da dư và lượng mỡ mí chỉ xác định chính xác khi bác sĩ khám trực tiếp — có thể phải điều chỉnh phương án.",
+    "Sưng nhiều trong vài ngày đầu rồi giảm dần, thường rõ nhất trong khoảng 7–14 ngày, tùy cơ địa mỗi người.",
+    "Nếu chị đang dùng thuốc chống đông hoặc có bệnh lý nền, báo bác sĩ trước khi đặt lịch."
+   ]
+  },
+  "chi_phi": {
+   "dong": [
+    {
+     "ma": "mat.cat-mi-6d",
+     "gia": 12800000,
+     "so_luong": 1,
+     "dien_giai": "Thiết kế nếp theo khuôn mắt, gồm phí phòng mổ và vật tư tiêu hao"
+    },
+    {
+     "ma": "mat.lay-mo-noi-soi-mi",
+     "gia": 6400000,
+     "so_luong": 1,
+     "dien_giai": "Xử lý phần mỡ làm mí nặng — thực hiện cùng thì, không phải mổ thêm lần nữa"
+    }
+   ],
+   "uu_dai": [
+    {
+     "ten": "Ưu đãi khách đặt lịch khám trong tuần",
+     "gia_tri": 2000000,
+     "dieu_kien": "đặt khám trước 04/11/2026",
+     "han": "04/11/2026"
+    }
+   ],
+   "ghi_chu_gia": "Chi phí đã gồm khám, phòng mổ, vật tư và các lần tái khám theo lịch. Chưa gồm xét nghiệm tiền phẫu nếu bác sĩ chỉ định thêm."
+  },
+  "phuong_an_khac": [
+   {
+    "ten": "Cắt mí Plasma",
+    "gia": 8000000,
+    "khac_biet": "Chi phí thấp hơn, phù hợp khi da dư ít và không cần xử lý mỡ mí. Bác sĩ sẽ nói rõ có hợp với mắt của chị không sau khi khám."
+   },
+   {
+    "ten": "Cắt mí Perfect",
+    "gia": 22400000,
+    "khac_biet": "Kỹ thuật chuyên sâu hơn cho mí nhiều khuyết điểm; chỉ đề xuất nếu khi khám thấy cần."
+   }
+  ],
+  "case_tuong_tu": [
+   {
+    "ma_case": "CM-0423",
+    "mo_ta": "Khách nữ 30 tuổi, mí một nếp kèm da dư nhẹ, làm văn phòng",
+    "bac_si": "Henry Nguyen",
+    "moc_chup": "sau 1 tháng",
+    "ket_qua": "Nếp mí nhỏ, mở mắt tự nhiên; khách đi làm lại theo lịch đã sắp xếp với bác sĩ.",
+    "nhom": "mat",
+    "consent": "",
+    "anh_truoc": "",
+    "anh_sau": ""
+   }
+  ],
+  "lo_trinh": [
+   {
+    "moc": "Bước 1 — Đặt lịch khám",
+    "viec": "Chị chọn khung giờ cuối tuần, em giữ chỗ và nhắn xác nhận trước 1 ngày."
+   },
+   {
+    "moc": "Bước 2 — Khám và chốt phương án",
+    "viec": "Bác sĩ khám trực tiếp, mô phỏng nếp mí, chốt chi phí cuối cùng. Chị có thể dừng ở bước này nếu chưa sẵn sàng."
+   },
+   {
+    "moc": "Bước 3 — Xét nghiệm tiền phẫu",
+    "viec": "Làm trong ngày, bác sĩ đọc kết quả trước khi xếp lịch mổ."
+   },
+   {
+    "moc": "Bước 4 — Thực hiện",
+    "viec": "Tiểu phẫu trong ngày, có người nhà đi cùng thì tiện hơn."
+   },
+   {
+    "moc": "Bước 5 — Tái khám",
+    "viec": "Cắt chỉ và theo dõi theo lịch hẹn; điều dưỡng nhắn nhắc từng mốc."
+   }
+  ],
+  "cta": {
+   "buoc_tiep": "Chị chỉ cần chọn một khung giờ khám",
+   "mo_ta": "Khám và tư vấn với bác sĩ chuyên khoa, có mô phỏng nếp mí. Sau khi khám chị vẫn toàn quyền quyết định làm hay không.",
+   "nut": "Nhắn lại giờ chị tiện — em giữ lịch",
+   "dia_chi": "Bệnh viện thẩm mỹ Kangnam Hà Nội"
+  },
+  "phap_ly": {
+   "gxnndqc": false,
+   "ghi_chu": "Báo giá cá nhân gửi 1-1 theo yêu cầu của khách hàng, không phải ấn phẩm quảng cáo phát hành rộng."
+  },
+  "case_album": {
+   "album": "theme-1792573778761",
+   "link": "https://hcigroup.vn/app/albumkn/?album=theme-1792573778761",
+   "nhan": "Hình ảnh khách hàng đã thực hiện tại Kangnam"
+  }
+ }
+}

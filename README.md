@@ -16,7 +16,7 @@ Không tối ưu cho "file đẹp". Một tờ báo giá đẹp mà không ai đ
 
 **<https://claude.ai/artifact/WZuxB6N8YyEH4mQoCboJFj>**
 
-Trang gồm đúng ba mục: **① Cài đặt** — nút tải ZIP, 5 bước, 4 tab nền tảng, ba thẻ Copy bộ não và **15 thẻ copy từng file tri thức + dữ liệu cứng** · **② 25 prompt mẫu** copy được, 5 nhóm lọc (có nhóm *Hỏi dẫn* cho người chưa có thông tin khách) · **③ Kiến thức** — bảng 11 file, ba cổng chặn, chính sách giá cắt mí Plasma, album ảnh và việc còn treo.
+Trang gồm đúng ba mục: **① Cài đặt** — nút tải ZIP, 5 bước, 4 tab nền tảng, ba thẻ Copy bộ não và **thẻ copy từng file tri thức + dữ liệu cứng** · **② 25 prompt mẫu** copy được, 5 nhóm lọc (có nhóm *Hỏi dẫn* cho người chưa có thông tin khách) · **③ Kiến thức** — bảng 11 file, ba cổng chặn, chính sách giá cắt mí Plasma, album ảnh và việc còn treo.
 
 > Nội dung trong trang lấy thẳng từ repo này nên luôn khớp bản mới nhất. Dựng lại sau khi sửa knowledge hoặc bảng giá: `python tools/build-huong-dan.py` rồi republish cùng URL.
 
@@ -90,7 +90,8 @@ B4 KIỂM & XUẤT    → 3 cổng chặn → du-lieu.json → PDF + JPG
 Agent-BaoGia-Kangnam/
 ├── SYSTEM-PROMPT.md          bộ não đầy đủ (Claude/Gemini)
 ├── SYSTEM-PROMPT-NGAN.md     bản ngắn, dưới 8.000 ký tự (ChatGPT Custom GPT)
-├── knowledge/                11 file tri thức — nạp hết vào project
+├── goi/                      2 file gộp để upload lên agent (sinh bằng build-goi.py)
+├── knowledge/                11 file tri thức — bản rời
 │   ├── BG-01-ho-so-thuong-hieu.md
 │   ├── BG-02-bang-gia.md
 │   ├── BG-03-cau-truc-bao-gia.md
@@ -149,23 +150,22 @@ Chi tiết: [`doc/02-cau-lenh.md`](doc/02-cau-lenh.md) · mẫu prompt: [`prompt
 CỔNG DỮ LIỆU   thiếu trường bắt buộc
 CỔNG BẢNG GIÁ  mã không có trong bang-gia.json · giá lệch mà không khai lý do ·
                dịch vụ "liên hệ" bị tự đặt số
-CỔNG PHÁP LÝ   từ cấm (R1) · mốc hồi phục cứng · bác sĩ sai trạng thái (R4) ·
-               ảnh thiếu consent/mốc chụp (R5) · ảnh cơ thể (R12) ·
-               tên thương mại thuốc (R7) · đại phẫu sai tuyến (R3) · nghi CCCD
+CỔNG PHÁP LÝ   từ cấm (R1) · mốc hồi phục cứng · nêu trả góp (KN-②) ·
+               đại phẫu sai tuyến (R3) · tên thương mại thuốc (R7) · nghi CCCD
+               (ảnh cơ thể R12 chỉ cảnh báo, người gửi tự quyết)
 ```
 
 **Fail = không xuất file.** Không có ngoại lệ vì khách đang chờ.
 Cần xem bố cục khi còn lỗi → `--nhap`, file ra đóng dấu **NHÁP** và không được gửi khách.
 
-> Cổng tự động là **lưới thứ hai**, không phải người duyệt. Nó không biết consent còn hiệu lực không, dịch vụ có trong DMKT không, ưu đãi có văn bản không. Những thứ đó vẫn cần người thật — và agent luôn liệt kê chúng ở mục **F. CẦN NGƯỜI THẬT**.
+> ⛔ **Không có quy trình phê duyệt ở đây.** Đây là báo giá tham khảo gửi riêng một khách, không phải ấn phẩm phát hành — nên không có "bộ phận có thẩm quyền", không đối chiếu danh sách bác sĩ duyệt, không hỏi consent từng tấm ảnh. Cuối mỗi báo giá agent chỉ in **F. LIẾC QUA TRƯỚC KHI GỬI**: 2–3 câu ngắn.
 
 ## 7. Nguồn dữ liệu — mỗi loại một nguồn đúng
 
 | Loại | Nguồn đúng duy nhất | ⛔ Không lấy từ |
 |---|---|---|
 | Giá | `template/bang-gia.json` | trí nhớ, báo giá cũ, lời đồng nghiệp |
-| Bác sĩ | `template/bac-si-duyet.json` | website, Google |
-| Ảnh case | Album Kangnam + văn bản consent | ảnh stock, ảnh AI, ảnh trên mạng |
+| Ảnh case | Album Kangnam — khai `case_album.album`, tool tự lấy | ảnh stock, ảnh AI, ảnh trên mạng |
 | Ưu đãi | thông báo nội bộ có số hiệu | "tháng này hình như có giảm" |
 | Hotline | `template/thong-tin-lien-he.json` | gõ tay vào từng báo giá |
 | Màu & khổ | `BG-08-design-system` | tự chọn |
@@ -182,7 +182,7 @@ Chạy thử ca sửa mí: `python tools\render_baogia.py out\MAU2\du-lieu.json`
 
 ## 8. Còn 9 việc cần người thật chốt
 Xem *Việc còn treo* trong [`doc/CHANGELOG.md`](doc/CHANGELOG.md). Ưu tiên:
-chốt câu chữ thay cụm "bảo hành trọn đời" (vi phạm R1) · chốt danh sách bác sĩ duyệt quảng bá (3 hồ sơ đang xung đột) · xác nhận mức giảm phí sửa mí theo từng khu vực · xác nhận giá Lipo mini.
+chốt câu chữ thay cụm "bảo hành trọn đời" (vi phạm R1) · xác nhận mức giảm phí sửa mí theo từng khu vực · xác nhận giá Lipo mini.
 
 ## 9. Quan hệ với các agent khác trong repo
 

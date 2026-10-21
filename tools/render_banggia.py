@@ -158,14 +158,8 @@ def main(argv=None):
     fo = GOC / "template" / "font-nhung.css"
     ctx["font_nhung"] = fo.read_text(encoding="utf-8") if fo.exists() else ""
 
-    logo = GOC / "template" / "logo-kangnam.png"
-    if logo.exists():
-        import base64
-        ctx["logo"] = "data:image/png;base64," + base64.b64encode(logo.read_bytes()).decode()
-        ctx["co_logo"] = True
-    else:
-        ctx["co_logo"] = False
-        print("  ! Thiếu template/logo-kangnam.png — dùng chữ thay logo.")
+    ctx["logo"] = rb.lay_logo()
+    ctx["co_logo"] = bool(ctx["logo"])
 
     ra = Path(a.ra).resolve() if a.ra else (GOC / "out")
     ra.mkdir(parents=True, exist_ok=True)

@@ -1,0 +1,181 @@
+{
+ "_doc": "Danh mục Album Kangnam — nguồn ảnh khách hàng thật gửi kèm báo giá. Sinh bằng: python tools/anh_album.py --ghi-muc-luc",
+ "_cach_dung": "Khai id album vào du-lieu.json: case_album.album = id album (hoặc tên album). Tool render tự gọi API lấy ảnh, nhúng vào file.",
+ "api": "https://hcigroup.vn/app/albumkn/api/public",
+ "album": [
+  {
+   "id": "theme-1792573778761",
+   "ten": "Cắt mí thành công",
+   "mo_ta": "Ảnh gửi kèm báo giá",
+   "so_anh": 13
+  },
+  {
+   "id": "theme-1792117527255",
+   "ten": "Hàm Móm",
+   "mo_ta": "",
+   "so_anh": 4
+  },
+  {
+   "id": "theme-1792117197304",
+   "ten": "Hàm Hô",
+   "mo_ta": "",
+   "so_anh": 4
+  },
+  {
+   "id": "theme-1791855534491",
+   "ten": "Bác sĩ Kangnam",
+   "mo_ta": "",
+   "so_anh": 4
+  },
+  {
+   "id": "theme-1791855046503",
+   "ten": "Ưu đãi đặc quyền",
+   "mo_ta": "Mẫu xinh",
+   "so_anh": 4
+  },
+  {
+   "id": "theme-1791379128332",
+   "ten": "Trẻ hóa chăm sóc da",
+   "mo_ta": "",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1791297711203",
+   "ten": "Điều Trị Sắc Tố Da",
+   "mo_ta": "",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1791297616554",
+   "ten": "Filler",
+   "mo_ta": "",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1791296201161",
+   "ten": "Nâng Ngực Sa trễ",
+   "mo_ta": "",
+   "so_anh": 2
+  },
+  {
+   "id": "theme-1791295905997",
+   "ten": "Cắt cánh mũi",
+   "mo_ta": "",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1791295643971",
+   "ten": "Nâng cung mày",
+   "mo_ta": "Khách hàng Nâng cung mày",
+   "so_anh": 5
+  },
+  {
+   "id": "theme-1791295514853",
+   "ten": "Bấm Mí",
+   "mo_ta": "Khách hàng Bấm mí",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1791295142842",
+   "ten": "Trượt cằm",
+   "mo_ta": "Khách hàng Trượt cằm",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1791294587852",
+   "ten": "Hạ gò má",
+   "mo_ta": "Khách hàng Hạ gò má",
+   "so_anh": 2
+  },
+  {
+   "id": "theme-1791294350815",
+   "ten": "Gọt hàm Vline",
+   "mo_ta": "Ảnh khách hàng sử dụng dịch vụ Gọt hàm Vline",
+   "so_anh": 7
+  },
+  {
+   "id": "theme-1789727113902",
+   "ten": "Dịch vụ Mũi",
+   "mo_ta": "",
+   "so_anh": 35
+  },
+  {
+   "id": "theme-1789557259595",
+   "ten": "Case Trẻ Hóa Da",
+   "mo_ta": "",
+   "so_anh": 4
+  },
+  {
+   "id": "theme-1789557170154",
+   "ten": "Case Trẻ Hóa CNC",
+   "mo_ta": "",
+   "so_anh": 5
+  },
+  {
+   "id": "theme-1789557134268",
+   "ten": "Case PTTM Khác",
+   "mo_ta": "",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1789557106469",
+   "ten": "Case Nha Khoa",
+   "mo_ta": "",
+   "so_anh": 3
+  },
+  {
+   "id": "theme-1789557067505",
+   "ten": "Case Ngực",
+   "mo_ta": "",
+   "so_anh": 9
+  },
+  {
+   "id": "theme-1789557037997",
+   "ten": "Case Nâng Cung Mày",
+   "mo_ta": "",
+   "so_anh": 2
+  },
+  {
+   "id": "theme-1789556976926",
+   "ten": "Case Mũi",
+   "mo_ta": "",
+   "so_anh": 6
+  },
+  {
+   "id": "theme-1789556919589",
+   "ten": "Case Giảm Béo",
+   "mo_ta": "",
+   "so_anh": 6
+  },
+  {
+   "id": "theme-1789556882622",
+   "ten": "Case Cắt Mí",
+   "mo_ta": "",
+   "so_anh": 12
+  },
+  {
+   "id": "theme-1789554992892",
+   "ten": "Case Hàm Mặt",
+   "mo_ta": "",
+   "so_anh": 5
+  },
+  {
+   "id": "theme-1789554516177",
+   "ten": "Case  Botox Filler",
+   "mo_ta": "",
+   "so_anh": 4
+  },
+  {
+   "id": "theme-1789553380242",
+   "ten": "Dịch vụ Kangnam",
+   "mo_ta": "Các dịch vụ tại Kangnam",
+   "so_anh": 11
+  },
+  {
+   "id": "theme-1789467261265",
+   "ten": "Thẩm Mỹ Mắt",
+   "mo_ta": "Khách hàng thẩm mỹ mắt",
+   "so_anh": 10
+  }
+ ]
+}

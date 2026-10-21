@@ -24,6 +24,7 @@ import os
 import sys
 import unicodedata
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 
@@ -67,12 +68,38 @@ def tim_album(themes: list, tu_khoa: str) -> dict | None:
     return None
 
 
+def lay_anh(album: str, so_luong: int = 3, khoa: str | None = None) -> list[str]:
+    """Trả về N link ảnh đầu tiên của một album. Lỗi gì cũng trả danh sách rỗng.
+
+    Dùng cho render_baogia.py: khai album trong du-lieu.json là tool tự lấy ảnh,
+    người lập báo giá không phải chạy lệnh rồi dán link thủ công.
+    `album` nhận cả tên ("cắt mí"), id ("theme-179..."), lẫn link album đầy đủ.
+    """
+    k = khoa or lay_khoa(None)
+    if not k:
+        return []
+    # link dạng https://hcigroup.vn/app/albumkn/?album=theme-179... -> lấy phần id
+    if "album=" in album:
+        album = album.split("album=", 1)[1].split("&")[0]
+    try:
+        t = tim_album(goi("/themes", k)["items"], album)
+        if not t:
+            return []
+        anh = goi("/photos?themeId=" + urllib.parse.quote(t["id"]), k)["items"]
+    except Exception:
+        return []
+    return [x["imageUrl"] for x in anh[:so_luong] if x.get("imageUrl")]
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Duyệt Album Kangnam lấy link ảnh thật")
     ap.add_argument("--album", help="tên hoặc id album, vd: \"cắt mí\"")
     ap.add_argument("--lay", type=int, metavar="N",
                     help="in sẵn khối JSON case_tuong_tu với N ảnh đầu (nên dùng 3)")
     ap.add_argument("--khoa", help="khoá API (ưu tiên hơn env và file local)")
+    ap.add_argument("--ghi-muc-luc", action="store_true",
+                    help="ghi template/album-index.json — danh mục album kèm số ảnh, "
+                         "để agent chọn đúng album mà không cần gọi mạng")
     a = ap.parse_args(argv)
 
     khoa = lay_khoa(a.khoa)
@@ -92,6 +119,28 @@ def main(argv=None):
         print("Không gọi được album:", e)
         return 3
 
+    if a.ghi_muc_luc:
+        muc = []
+        for t in themes:
+            try:
+                n = len(goi("/photos?themeId=" + urllib.parse.quote(t["id"]), khoa)["items"])
+            except Exception:
+                n = -1
+            muc.append({"id": t["id"], "ten": t.get("title", ""),
+                        "mo_ta": t.get("description", ""), "so_anh": n})
+            print("  %-26s %-30s %s anh" % (t["id"], t.get("title", ""),
+                                            n if n >= 0 else "?"))
+        f = GOC / "template" / "album-index.json"
+        goi_ra = {
+            "_doc": ("Danh mục Album Kangnam — nguồn ảnh khách hàng thật gửi kèm báo giá. "
+                     "Sinh bằng: python tools/anh_album.py --ghi-muc-luc"),
+            "_cach_dung": ("Khai id album vào du-lieu.json: case_album.album = id album "
+                           "(hoặc tên album). Tool render tự gọi API lấy ảnh, nhúng vào file."),
+            "api": API, "album": muc,
+        }
+        f.write_text(json.dumps(goi_ra, ensure_ascii=False, indent=1) + chr(10), encoding="utf-8")
+        print(chr(10) + "=> %s  (%d album)" % (f, len(muc)))
+        return 0
     if not a.album:
         print("%d album trong kho:\n" % len(themes))
         for t in themes:

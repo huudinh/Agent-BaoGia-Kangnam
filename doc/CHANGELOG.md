@@ -1,5 +1,53 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v2.7 — 2026-10-21 · bỏ bộ máy phê duyệt · ảnh lấy thẳng từ API · gộp 15 file thành 2
+
+### Bỏ bộ máy phê duyệt
+Agent đang in ra những đoạn thế này ở cuối báo giá:
+
+> *"Bản nội dung đủ cơ sở để chuyển duyệt chuyên môn và vận hành, nhưng **chưa được phép phát hành cho khách** cho đến khi các mục trên được xử lý. Việc đánh dấu checklist không thay thế xác nhận của bộ phận có thẩm quyền."*
+>
+> *"Chưa đưa hình ảnh trước–sau vào bản đề xuất vì chưa có case phù hợp được xác minh đầy đủ về sự đồng ý sử dụng ảnh, thời điểm chụp và phạm vi chia sẻ."*
+
+Đây là **báo giá tham khảo gửi riêng một khách**, không phải ấn phẩm phát hành. Mỗi hàng rào duyệt đẻ ra một câu từ chối như trên — chặn được việc thật mà không chặn được rủi ro thật.
+
+**Gỡ:**
+- **Rào R4** (đối chiếu tên bác sĩ với `bac-si-duyet.json`) — bỏ hẳn khỏi cổng pháp lý. Tên bác sĩ in như người lập báo giá khai. File vẫn nằm trong repo làm danh sách tham khảo.
+- **Rào R5** (mỗi ảnh phải có văn bản đồng ý + mốc chụp) — bỏ hẳn. Album Kangnam **là** nguồn đã duyệt để gửi khách.
+- **Rào R12** (ảnh before/after cơ thể) — hạ từ CHẶN xuống **CẢNH BÁO**, người gửi tự quyết.
+- Mục **F. CẦN NGƯỜI THẬT** → **F. LIẾC QUA TRƯỚC KHI GỬI**: 2–3 câu ngắn, ⛔ không phòng ban, ⛔ không *"chưa được phép phát hành"*.
+
+**Giữ nguyên** — hai thứ này bảo vệ chính tờ báo giá, không phải thủ tục nội bộ: ⛔ không bịa giá (mọi dòng phải có mã trỏ về `bang-gia.json`) và ⛔ không cam kết kết quả (R1, mốc hồi phục, trả góp, đại phẫu sai tuyến).
+
+### Ảnh khách lấy thẳng từ API
+Trước: chạy `anh_album.py --lay 3`, copy 3 link, dán tay vào `du-lieu.json`. Nay khai **một dòng**:
+
+```json
+"case_album": {"album": "theme-1792573778761"}
+```
+
+Case nào chưa có ảnh thì tool **tự gọi API** lấy 3 ảnh đầu, tải về, nhúng data URI. Nhãn mặc định *Ca 1 · Ca 2 · Ca 3* — đúng với thực tế ảnh album vốn đã ghép sẵn trước–sau.
+
+Thêm `template/album-index.json`: **29 album · 179 ảnh**, sinh bằng `anh_album.py --ghi-muc-luc`. Agent chọn album offline, không cần gọi mạng. Hoá ra ca *"chưa có case nâng mũi phù hợp"* mà agent từ chối trước đó có hẳn **35 ảnh** trong album *Dịch vụ Mũi*.
+
+### Gộp 15 file upload thành 2
+Gemini Gems chỉ cho **10 file** tri thức, ChatGPT cho 20 nhưng upload 15 file một lượt hay lỗi. `tools/build-goi.py` sinh ra:
+
+```
+goi/KANGNAM-tri-thuc.md         96 KB — 11 file BG-01…BG-11, giữ nguyên văn
+goi/KANGNAM-du-lieu-cung.json   34 KB — bang_gia · album_index · lien_he · du_lieu_mau
+```
+
+Cả hai bộ não biết cả hai cách nạp: thấy file gộp thì tra trong đó, ⛔ không báo thiếu file. `bac-si-duyet.json` rời khỏi gói (không còn ai tra), `album-index.json` thay chỗ.
+
+### Logo tự lấy lại khi thiếu
+File xuất ra hay mất logo vì `template/logo-kangnam.png` không nằm cùng chỗ với tool — hay gặp khi kéo file thẳng từ cửa sổ xem ZIP. Nay thiếu file thì renderer **tải lại từ web Kangnam** rồi lưu luôn cho lần sau. Đổi luôn sang logo chính thức **752×93 nền trong suốt** (cũ: 518×78 nền trắng đặc) — nét hơn khi in PDF.
+
+### Một lỗi lặng
+Gỡ R4 làm mất dòng `noi_dung = " ".join(...)` nằm trong chính khối đó, cổng pháp lý `NameError` ngay lượt chạy sau. Khối sau dùng biến khối trước định nghĩa — xoá khối là mất biến.
+
+---
+
 ## v2.6 — 2026-10-21 · Google Sans thật, không phải font thay thế
 
 Ở v2.5 tôi kết luận **sai**: *"Google Sans là font nội bộ của Google, không bán, không có trên Google Fonts, không được phép nhúng lại"*, rồi lấy Be Vietnam Pro đứng thay. Kiểm lại bằng chính API của Google Fonts thì:

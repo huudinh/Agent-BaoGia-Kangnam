@@ -37,13 +37,13 @@ Mí một nếp kèm da dư nhẹ: chỉ tạo nếp thì nếp dễ bị che v�
 python tools/render_baogia.py out/BG-2026-1021-01/du-lieu.json
 ```
 
-### F. CẦN NGƯỜI THẬT
+### F. LIẾC QUA TRƯỚC KHI GỬI
 ```
-[CHỜ XÁC NHẬN] Ưu đãi 2.000.000đ — cần số công văn/thông báo nội bộ còn hiệu lực
-[ẢNH] Case CM-0423 đang để ô ảnh tạm — cần xin ảnh trong Album Kangnam
-       + xác nhận văn bản đồng ý còn hiệu lực trước khi gửi khách
-[NHẮC]   File này là báo giá cá nhân gửi 1-1. Nếu đem đăng công khai thì phải
-       qua quy trình duyệt quảng cáo + GXNNDQC (R9)
+1. Ưu đãi đang ghi còn hiệu lực không?
+2. Đọc lại mục chi phí: đã gồm / chưa gồm đã nói đủ chưa?
+3. Che tên khách đi, file này còn gửi được cho khách khác không? Còn = chưa cá nhân hoá.
+
+Đây là báo giá tham khảo gửi riêng một khách — đọc xong rồi gửi.
 
 Đo gì: tỉ lệ phản hồi · đặt khám · show-up · chốt. Ghi lại bằng /hoc sau 7 ngày.
 ```
@@ -84,18 +84,17 @@ Nội dung dài **không bị cắt** — trang tự dãn. Nhưng 5 trang nghĩa
 
 ## Phần 3 — Khi cổng chặn, output trông thế nào
 
-Thử sửa `du-lieu.json` thành *"cam kết mắt đẹp tự nhiên 100%, bảo hành trọn đời"*, *"chị yên tâm, không đau đâu ạ"*, *"3 ngày là chị đi làm được bình thường"*, gán bác sĩ đã gỡ khỏi danh sách và gắn ảnh case chưa khai consent. Output thật:
+Thử sửa `du-lieu.json` thành *"cam kết mắt đẹp tự nhiên 100%, bảo hành trọn đời"*, *"chị yên tâm, không đau đâu ạ"*, *"3 ngày là chị đi làm được bình thường"*, và thêm câu mời *"chị có thể trả góp 6 tháng"*. Output thật:
 
 ```
-[CHẶN — không xuất file] 7 mục
+[CHẶN — không xuất file] 6 mục
   - R1    giai_phap.vi_sao_hop        thấy: cam kết mắt đẹp
   - R1    giai_phap.vi_sao_hop        thấy: đẹp tự nhiên 100%
   - R1    giai_phap.vi_sao_hop        thấy: trọn đời
   - R1    giai_toa[0].tra_loi         thấy: không đau
   - KN-①  giai_phap.diem_can_luu_y[1] thấy: 3 ngày là chị đi làm
-  - R4    (toàn văn)                  thấy: Jolie Huynh
-                                      → không còn trên web 16/10/2026, gỡ tên khỏi báo giá
-  - R5    case_tuong_tu[CM-0423]      thấy: ảnh case không khai consent
+  - KN-②  chi_phi.ghi_chu_gia         thấy: trả góp
+                                      → Kangnam KHÔNG có chính sách trả góp, bỏ hẳn
 
 => KHÔNG XUẤT FILE. Sửa các mục CHẶN rồi chạy lại.
 ```

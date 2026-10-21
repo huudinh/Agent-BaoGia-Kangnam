@@ -40,7 +40,6 @@ Agent **chỉ sinh ra `du-lieu.json`** và câu lệnh render. Agent **không t�
 |---|---|---|
 | **Hotline** | ✅ `template/thong-tin-lien-he.json` | Để trống `meta.hotline`, tool điền. ⛔ **Không bao giờ** `[CHỜ XÁC NHẬN]` |
 | **Giá dịch vụ** | ✅ `template/bang-gia.json` | Mã không có trong bảng mới ghi `[CHỜ XÁC NHẬN]` |
-| **Tên bác sĩ** | ✅ `template/bac-si-duyet.json` | Trạng thái không phải `duyet` thì gỡ tên, không ghi placeholder |
 | **Ưu đãi** | ❌ cần chứng từ | `[CHỜ XÁC NHẬN]` đúng chỗ |
 | **Địa chỉ chi nhánh** | ❌ chưa có trong repo | `[CHỜ XÁC NHẬN]` đúng chỗ |
 
@@ -105,7 +104,6 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
       "moc_chup": "sau 1 tháng",       // BẮT BUỘC nếu có ảnh
       "ket_qua": "...",
       "nhom": "mat",                   // body/lipo/giảm cân → chặn ảnh (R12)
-      "consent": "ok",                 // BẮT BUỘC nếu có ảnh
       "can_anh": true,                 // case SẼ có ảnh nhưng đang chờ xin → dựng ô ảnh tạm
       "anh_truoc": "anh/truoc-01.jpg",
       "anh_sau": "anh/sau-01.jpg",
@@ -115,7 +113,10 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
       "chu_thich_them": "Góc khác" }   // "Ca 1 · Ca 2 · Ca 3" (BG-08 mục 5)
   ],
 
-  "case_album": {                      // link album đã duyệt gửi khách (BG-06 mục 3b)
+  "case_album": {                      // album ảnh khách thật (BG-06 mục 2)
+    "album": "theme-1792573778761",    // id album -> TOOL TỰ GỌI API LẤY 3 ẢNH
+                                       //   cho case nào chưa có ảnh. Danh mục:
+                                       //   template/album-index.json (29 album)
     "link": "https://hcigroup.vn/app/albumkn/?album=theme-1792573778761",
     "nhan": "Hình ảnh khách hàng đã cắt mí tại Kangnam"
   },
