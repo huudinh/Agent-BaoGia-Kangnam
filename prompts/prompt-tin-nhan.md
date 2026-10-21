@@ -61,7 +61,7 @@ Album cắt mí ở trên là link đã duyệt gửi khách. ⛔ Không tự g�
 ## 6. Gửi file thế nào
 | Kênh | Gửi gì | Vì sao |
 |---|---|---|
-| Zalo / Messenger | **5 ảnh JPG** trước | Hiện thẳng trong chat, khách không phải tải cũng không phải phóng to |
+| Zalo / Messenger | **6 ảnh JPG** trước | Hiện thẳng trong chat, khách không phải tải cũng không phải phóng to |
 | Khách muốn lưu / in / đưa người nhà | **PDF** | Đọc độc lập, in được |
 | Gửi link mở trên điện thoại | **file HTML** | Tự co theo bề ngang màn hình, bảng chi phí xếp dọc |
 | Email | **PDF**, tên file có mã báo giá | |

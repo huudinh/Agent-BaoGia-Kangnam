@@ -78,14 +78,23 @@ Chưa chắc hạng mục nào nằm trong giá → ghi **"cần xác nhận"**,
 
 Template đã in sẵn; nếu sửa `phap_ly.mien_tru` thì vẫn phải giữ đủ ba ý — cổng pháp lý kiểm câu 3.
 
-## 7. TRẢ GÓP & CHIA NHỎ
-Chỉ nêu khi **chính sách có thật** tại cơ sở đó. Ghi đủ: số kỳ · số tiền mỗi kỳ · điều kiện duyệt (ngân hàng nào, duyệt ở đâu).
-⛔ Không ghi "trả góp 0% lãi suất" nếu thực tế có phí chuyển đổi — đó là sai thông tin, không phải cách nói hay.
+## 7. ⛔ KANGNAM KHÔNG CÓ TRẢ GÓP
+
+**Kangnam không có chính sách trả góp.** Không nêu trả góp, không "chia nhỏ theo tháng", không "trả theo kỳ", không gợi ý thẻ tín dụng trả dần — dưới mọi cách diễn đạt.
+
+Hứa một cách thanh toán không tồn tại là thứ khách phát hiện ra **sau khi đã tới viện**: lúc đó mất cả niềm tin lẫn ca khách. Đó là sai thông tin, không phải cách nói hay.
+
+Hai tầng chặn: cổng dữ liệu bắt trường `chi_phi.tra_gop`, cổng pháp lý bắt chữ *trả góp / chia nhỏ nhiều kỳ / trả theo tháng* trong văn bản (rào `KN-②`). Cả hai đều **CHẶN**, không xuất file.
+
+**Khách lo chi phí thì làm gì?** Ba cách thật, không cần chính sách nào:
+1. **Ghi rõ từng khoản** — khách sợ phát sinh hơn sợ đắt (mục 5).
+2. **Đưa phương án vừa ngân sách** ở khối *Phương án khác*, nói thẳng khác biệt.
+3. **Chia lộ trình theo giai đoạn điều trị** — làm phần ảnh hưởng nhiều nhất trước. Đây là chia **việc**, không phải chia **tiền**.
 
 ## 8. CÁCH NÓI VỀ TIỀN THEO NHÓM KHÁCH (chi tiết ở [[BG-04-chan-dung-khach]])
 | Nhóm | Neo giá trị vào đâu |
 |---|---|
-| 1 · công sở, tích góp | An toàn · bảo hành · không phát sinh · chia nhỏ theo tháng |
+| 1 · công sở, tích góp | An toàn · bảo hành · không phát sinh · chia lộ trình theo giai đoạn |
 | 2 · doanh nhân | Riêng tư · bác sĩ đích danh · thời gian được tôn trọng. ⛔ không nhấn khuyến mãi |
 | 3 · KOC/Gen Z | Kết quả lên hình · lịch hồi phục khớp lịch quay |
 | 4 · sinh viên, mới đi làm | Minh bạch từng khoản · phương án vừa túi · ⛔ không đẩy gói cao |

@@ -62,6 +62,13 @@ TU_CAM = [
      "dùng tên kỹ thuật theo DMKT; tên thương mại phải được Pháp chế duyệt"),
     (r"(b[eệ]nh\s*vi[eệ]n|th[aẩ]m\s*m[yỹ])\s*(kh[aá]c|x)\s*(l[aà]m\s*)?h[oỏ]ng", "CHAN", "R6",
      "không phán xét nơi cũ; đưa bộ tiêu chí khách quan để khách tự đánh giá"),
+    # Kangnam không có chính sách trả góp — hứa một cách thanh toán không tồn tại
+    # thì khách tin rồi tới viện mới biết, đó là sai thông tin chứ không phải cách nói hay
+    (r"tr[aả]\s*g[oó]p|tr[aả]\s*d[aầ]n|chia\s*nh[oỏ][^.;]{0,25}(th[aá]ng|k[yỳ])|"
+     r"tr[aả]\s*theo\s*(th[aá]ng|k[yỳ])|"
+     r"[0-9][.,0-9]*\s*(đ|vnđ|vnd|tri[eệ]u|tr)\s*/\s*th[aá]ng", "CHAN", "KN-②",
+     "Kangnam KHÔNG có chính sách trả góp — bỏ hẳn; muốn hạ áp lực chi phí thì "
+     "đưa phương án vừa ngân sách, hoặc chia lộ trình theo giai đoạn điều trị"),
 ]
 
 # mốc hồi phục cứng (luật riêng ① của gói Kangnam)

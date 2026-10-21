@@ -48,7 +48,7 @@ Khoá API để ở `template/album-key.local.json` hoặc biến môi trường
 
 > ⚠️ **API trả ảnh, không trả giấy phép.** Hiện **chưa ảnh nào gắn tag**, nên tool không tự biết ảnh nào đã có consent. Người lập báo giá tự kiểm — tool in câu hỏi đó trong bảng **Cân nhắc trước khi gửi**.
 
-Báo giá có ảnh thật được **thêm một trang** so với chuẩn 3 trang: ảnh trước–sau là thứ khách xem trước cả giá, nó đáng chỗ đó.
+Ảnh trước–sau nằm ở **trang 4** cùng case và CTA — không đội thêm trang so với chuẩn 4 trang.
 
 ## 3b. LINK ALBUM GỬI KÈM BÁO GIÁ
 Một số dịch vụ có **album chia sẻ** đã được duyệt để gửi khách. Khai vào `du-lieu.json`:

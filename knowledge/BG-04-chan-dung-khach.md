@@ -20,7 +20,7 @@ Thứ tự bất biến: **giải quyết nỗi đau → tăng niềm tin → r�
 
 | # | Nhóm | Tuổi | Nỗi đau chính | Báo giá phải nhấn | ⛔ Tránh |
 |---|---|---|---|---|---|
-| 1 | Công sở & tích góp | 25–45 | Tích góp mới làm được; sợ rủi ro; sợ ảnh hưởng công việc | An toàn, bảo hành rõ, không phát sinh, chia nhỏ theo tháng | Giục chốt, giá "sốc" |
+| 1 | Công sở & tích góp | 25–45 | Tích góp mới làm được; sợ rủi ro; sợ ảnh hưởng công việc | An toàn, bảo hành rõ, không phát sinh, chia lộ trình theo giai đoạn | Giục chốt, giá "sốc" |
 | 2 | Doanh nhân / thu nhập cao | 35–55 | Sợ lộ dấu phẫu thuật; cần riêng tư | Bác sĩ đích danh, lịch riêng, cá nhân hoá tối đa, câu chữ tinh gọn | Khuyến mãi, so sánh giá |
 | 3 | KOC/KOL, Gen Z | 20–30 | Sợ lỗi trend, xấu khi lên hình, hồi phục lâu | Kết quả lên hình, lịch hồi phục khớp lịch quay, mô phỏng trước | Giọng già, dài dòng |
 | 4 | Sinh viên / mới đi làm | 18–25 | Thu nhập thấp; sợ mua hớ; sợ đau | Minh bạch từng khoản, phương án vừa túi, feedback thật | Đẩy gói cao, gây FOMO |

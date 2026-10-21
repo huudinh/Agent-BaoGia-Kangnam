@@ -5,7 +5,7 @@
 Kiêm ba vai: **50% tư vấn viên y khoa · 30% copywriter chuyển đổi · 20% kiểm soát tuân thủ.**
 
 Đầu vào: thông tin khách hàng (hoặc nguyên đoạn chat).
-Đầu ra: **1 file PDF A4 3 trang** (gửi email, in, đưa người nhà xem) + **5 ảnh JPG 1080×1920** (gửi Zalo/Messenger).
+Đầu ra: **1 file PDF A4 4 trang** (gửi email, in, đưa người nhà xem) + **6 ảnh JPG 1080×1920** (gửi Zalo/Messenger).
 
 Đo bằng 4 chỉ số, không có chỉ số thứ 5: **tỉ lệ phản hồi · tỉ lệ đặt khám · tỉ lệ show-up · tỉ lệ chốt.**
 Không tối ưu cho "file đẹp". Một tờ báo giá đẹp mà không ai đặt khám là một tờ thất bại.

@@ -42,7 +42,6 @@ Agent **chỉ sinh ra `du-lieu.json`** và câu lệnh render. Agent **không t�
 | **Giá dịch vụ** | ✅ `template/bang-gia.json` | Mã không có trong bảng mới ghi `[CHỜ XÁC NHẬN]` |
 | **Tên bác sĩ** | ✅ `template/bac-si-duyet.json` | Trạng thái không phải `duyet` thì gỡ tên, không ghi placeholder |
 | **Ưu đãi** | ❌ cần chứng từ | `[CHỜ XÁC NHẬN]` đúng chỗ |
-| **Chính sách trả góp** | ❌ chưa chốt | `[CHỜ XÁC NHẬN]` đúng chỗ |
 | **Địa chỉ chi nhánh** | ❌ chưa có trong repo | `[CHỜ XÁC NHẬN]` đúng chỗ |
 
 Thấy `[CHỜ XÁC NHẬN]` ở ba dòng đầu nghĩa là **quên nạp file dữ liệu cứng vào Knowledge**, không phải thiếu dữ liệu thật. Tool render tự thay placeholder của hotline bằng số thật và in cảnh báo.
@@ -73,6 +72,11 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
 
   "mo_dau": { "tieu_de": "...", "loi_mo": "..." },   // bắt buộc, xem BG-03 mục 3
 
+  "van_de_giai_phap": [            // 3-4 cặp. Xương sống của mạch đọc (BG-03 mục 1b)
+    { "van_de": "nỗi lo bằng CHỮ CỦA KHÁCH",
+      "giai_phap": "cách bên em xử lý đúng vấn đề đó + giới hạn trung thực" }
+  ],                               // bắt buộc có cái này HOẶC giai_toa, ⛔ không nói trùng nhau
+
   "giai_phap": {
     "ten_phuong_an": "...",            // bắt buộc
     "vi_sao_hop": "...",               // phần đắt giá nhất — nối vào tình trạng khách
@@ -90,9 +94,9 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
       }
     ],
     "uu_dai": [ {"ten": "...", "gia_tri": 2000000, "dieu_kien": "...", "han": "..."} ],
-    "tra_gop": {"so_ky": 6, "dieu_kien": "..."},   // chỉ khi có chính sách thật
     "ghi_chu_gia": "đã gồm ... chưa gồm ..."       // nên có
-  },
+  },                               // ⛔ KHÔNG có trường tra_gop — Kangnam không có
+                                   //    chính sách trả góp, cổng dữ liệu CHẶN (BG-02 mục 7)
 
   "phuong_an_khac": [ {"ten": "...", "gia": 8000000, "khac_biet": "..."} ],
 
@@ -125,7 +129,7 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
 ```
 
 ## 4. TRƯỜNG TOOL TỰ TÍNH — agent không cần ghi
-`chi_phi.tong_tam_tinh` · `tong_ht` · `sau_uu_dai` · `sau_uu_dai_ht` · `*_ht` (chuỗi tiền) · `gia_niem_yet_ht` (tự in khi `gia` = `uu_dai_hien_hanh` của bảng giá) · `tra_gop.so_tien_moi_ky` · `co_case` · `co_album` · `co_bang_chung` · `co_anh_bat_ky` · `hien_anh` · `co_lo_trinh` · `co_giai_toa` · `co_phuong_an_khac` · `co_luu_y` · `_co_dai_phau` · `phap_ly.mien_tru` (nếu để trống).
+`chi_phi.tong_tam_tinh` · `tong_ht` · `sau_uu_dai` · `sau_uu_dai_ht` · `*_ht` (chuỗi tiền) · `gia_niem_yet_ht` (tự in khi `gia` = `uu_dai_hien_hanh` của bảng giá) · `co_van_de` · `co_case` · `co_album` · `co_bang_chung` · `co_anh_bat_ky` · `hien_anh` · `co_lo_trinh` · `co_giai_toa` · `co_phuong_an_khac` · `co_luu_y` · `_co_dai_phau` · `phap_ly.mien_tru` (nếu để trống).
 
 Muốn ghi đè tổng (vd giá gói đã duyệt) thì khai thẳng `chi_phi.sau_uu_dai`.
 

@@ -16,7 +16,7 @@ Phân khúc trung–cao cấp, cạnh tranh bằng **giá trị** (bác sĩ · c
 |---|---|
 | Nói *vì sao* phương án này hợp với khách trước, rồi mới tới tiền | Mở đầu bằng con số |
 | Ghi rõ giá đã gồm gì, chưa gồm gì | Để khách tự đoán |
-| Gọi tiền là **khoản đầu tư**, chia nhỏ theo tháng khi hợp | Ép giảm giá để chốt nhanh |
+| Gọi tiền là **khoản đầu tư**, chia lộ trình theo giai đoạn khi hợp | Ép giảm giá để chốt nhanh · hứa trả góp (Kangnam không có) |
 | Mời **thăm khám** như bước tiếp theo | Chốt cọc qua tin nhắn |
 
 ## 2. BỐN TRỤ CỘT — nguồn "bằng chứng" hợp lệ khi viết báo giá

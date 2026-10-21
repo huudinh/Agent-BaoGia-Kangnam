@@ -9,7 +9,8 @@ Version 1.0 · Cập nhật: 2026-10-21
 |---|---|---|---|
 | 1 | **Đầu trang + mã báo giá** | "Cái này có phải gửi riêng cho mình không?" | ✔ |
 | 2 | **Tiêu đề + lời mở cá nhân hoá** | "Họ có nhớ mình nói gì không?" | ✔ |
-| 3 | **Điều khách đang mong muốn** | "Họ hiểu đúng vấn đề của mình chưa?" | ✔ |
+| 3 | **Điều khách đang gặp** | "Họ hiểu đúng vấn đề của mình chưa?" | ✔ |
+| 3b | **Vấn đề → cách xử lý** (từng cặp) | "Cái tôi lo, họ giải quyết kiểu gì?" | ✔ *(hoặc khối 9)* |
 | 4 | **Phương án bác sĩ đề xuất** | "Làm gì, vì sao là cái này?" | ✔ |
 | 5 | **Chi phí dự tính** | "Bao nhiêu, gồm gì, có phát sinh không?" | ✔ |
 | 6 | **Phương án khác để cân nhắc** | "Có lựa chọn nào khác không?" | nên có |
@@ -18,6 +19,38 @@ Version 1.0 · Cập nhật: 2026-10-21
 | 9 | **Băn khoăn + Bước tiếp theo (CTA)** | "Mình có phải quyết ngay không?" | ✔ |
 
 Chân trang: khối **miễn trừ pháp lý** — luôn in, không bỏ dù file ngắn.
+
+## 1b. MẠCH ĐỌC — mượn cách email bán hàng dẫn dắt, không mượn giọng
+
+Thứ làm một email marketing tốt không phải màu mè, mà là **mạch**: gọi đúng vấn đề người đọc đang có → nói cách xử lý từng vấn đề → rồi mới tới tiền → rồi mới tới bằng chứng. Tờ báo giá đi đúng mạch đó, **nhưng giữ giọng tư vấn y khoa** — điềm tĩnh, không chào mời.
+
+```
+Trang 1  Vấn đề   — lời hứa cá nhân hoá · điều khách đang gặp · VẤN ĐỀ → CÁCH XỬ LÝ
+Trang 2  Giải pháp — phương án bác sĩ đề xuất · các bước · lưu ý riêng · phương án khác
+Trang 3  Chi phí   — bảng chi phí · ưu đãi · tổng · đã gồm/chưa gồm · lộ trình
+Trang 4  Bằng chứng — case tương tự + ảnh trước–sau · album · CTA · chữ ký
+```
+
+⛔ Thứ **không** mượn từ email marketing: nhãn mục kiểu chào mời (*"Em hiểu đúng chưa ạ"*), giục chốt, khan hiếm giả, emoji. Xem [[BG-01-ho-so-thuong-hieu]] mục 3.
+
+### Khối 3b — vấn đề → cách xử lý
+Mỗi cặp một dòng: bên trái là **vấn đề bằng chữ của khách**, bên phải là **cách bên em xử lý đúng vấn đề đó**.
+
+```json
+"van_de_giai_phap": [
+  {"van_de": "Sợ lộ sẹo mỗi khi trang điểm.",
+   "giai_phap": "Đường mổ đặt đúng nếp mí nên khi mở mắt bị nếp che. Mức độ mờ sẹo tuỳ cơ địa mỗi người."}
+]
+```
+
+| Luật | |
+|---|---|
+| Số cặp | **3–4**. Nhiều hơn là đang liệt kê, không phải tư vấn |
+| Nguồn vấn đề | **chữ khách đã nói**, không phải nỗi lo chung của ngành |
+| Mỗi giải pháp | nói **cơ chế thật** + **giới hạn trung thực** ([[BG-05-noi-so-phan-doi]] khuôn 3 nhịp) |
+| ⛔ Trùng lặp | Khối 3b và khối 9 **không nói cùng một nỗi lo**. Có 3b rồi thì khối 9 chỉ giữ câu hỏi còn lại, hoặc bỏ hẳn |
+
+Cổng dữ liệu đòi **ít nhất một trong hai**: `van_de_giai_phap` hoặc `giai_toa`. Có cả hai mà nói cùng một nỗi lo thì vừa loãng vừa đội thêm một trang giấy.
 
 ## 2. LUẬT NỀN — bốn điều
 
@@ -68,8 +101,9 @@ Lưu ý riêng             điều bác sĩ cần xác nhận khi khám + mốc 
 2. Hạng mục đi kèm (làm cùng thì, tiết kiệm cho khách)
 3. Ưu đãi — ghi rõ điều kiện và hạn
 4. **Chi phí dự tính sau ưu đãi** — số to nhất trên trang
-5. Trả góp (nếu có chính sách thật)
-6. Đã gồm / chưa gồm
+5. Đã gồm / chưa gồm
+
+⛔ **Không có dòng trả góp** — Kangnam không có chính sách đó ([[BG-02-bang-gia]] mục 7). Khách lo tiền thì đưa phương án vừa ngân sách ở khối 6, không hứa cách thanh toán không tồn tại.
 
 ## 6. KHỐI 7 — case tương tự
 Chọn case **giống khách**, không phải case đẹp nhất. Tiêu chí khớp, theo thứ tự ưu tiên:
@@ -86,8 +120,10 @@ Thư viện câu trả lời theo rào cản: [[BG-05-noi-so-phan-doi]].
 ## 8. ĐỘ DÀI
 | Bản | Khổ | Dung lượng chữ |
 |---|---|---|
-| PDF A4 | 3 trang | ~700–900 chữ. Quá 3 trang là đang viết brochure, không phải báo giá |
-| JPG slide | 5 ảnh 1080×1920 | mỗi ảnh ≤ 120 chữ. Tràn khung → tool tự thu nhỏ và cảnh báo |
+| PDF A4 | **4 trang**, mỗi trang một mạch | ~900–1.100 chữ. Quá 4 trang là đang viết brochure, không phải báo giá |
+| JPG slide | **6 ảnh** 1080×1920 | mỗi ảnh ≤ 120 chữ. Tràn khung → tool tự thu nhỏ và cảnh báo |
+
+Tool đếm số trang PDF và cảnh báo khi vượt 4. Ba chỗ cắt được nhiều nhất: số cặp vấn đề→giải pháp (3 là đủ) · lời mở (giữ đúng 3 câu) · số bước trong `giai_phap.gom`.
 
 ## 9. TỰ KIỂM TRƯỚC KHI RENDER — 9 ô
 ```

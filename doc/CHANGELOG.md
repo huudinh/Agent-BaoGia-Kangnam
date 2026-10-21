@@ -1,5 +1,53 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v2.4 — 2026-10-21 · Kangnam không có trả góp, bỏ hẳn
+
+Vận hành xác nhận: **Kangnam không có chính sách trả góp.** Đây là việc còn treo số 6 từ v1.0 (*"chính sách trả góp chính thức — ngân hàng liên kết, số kỳ, phí chuyển đổi"*) — nay **đóng, bằng câu trả lời không**.
+
+Trước v2.4, repo xử lý trả góp theo kiểu *"chỉ nêu khi có chính sách thật"*: template có khối **Chia nhỏ khoản đầu tư**, renderer tự chia `sau_uu_dai / so_ky`, hai mẫu dữ liệu đều ghi *"trả góp 0% qua thẻ tín dụng của ngân hàng liên kết"*, và `BG-05` còn mời khách trả góp khi khách lo chi phí. Cách đặt luật mềm như vậy chỉ đúng khi chính sách **có thể** tồn tại. Nó không tồn tại, nên thành ra cả bộ đang dạy agent hứa một cách thanh toán không có — thứ khách phát hiện ra **sau khi đã tới viện**.
+
+**Bỏ:** khối trả góp trong `baogia-a4.html` và `baogia-slide.html` · phép chia `so_tien_moi_ky` trong `render_baogia.py` · trường `tra_gop` trong hai mẫu dữ liệu · câu hỏi *"chính sách trả góp này đúng với cơ sở … chứ?"* trong mục CÂN NHẮC · dòng trả góp trong bảng *việc còn treo* của trang hướng dẫn.
+
+**Chặn hai tầng** — vì bỏ khỏi template không ngăn được agent viết chữ "trả góp" vào một ô văn bản khác:
+- **Cổng dữ liệu** CHẶN trường `chi_phi.tra_gop`.
+- **Cổng pháp lý** thêm rào **`KN-②`**, CHẶN *trả góp · trả dần · chia nhỏ … theo tháng/kỳ · trả theo tháng/kỳ · `<số tiền>/tháng`* ở mọi ô văn bản.
+
+Rào này phải siết đúng chỗ. Bản đầu dùng `[0-9][^.;]{0,10}/\s*th[aá]ng` nên chặn luôn **"tái khám 1 lần/tháng"** — một lịch điều trị hợp lệ. Nay chỉ bắt khi trước `/tháng` là **số tiền** (`đ`, `triệu`, `tr`): *"2.867.000đ/tháng"* bị chặn, *"điều trị 2 lần/tháng"* đi qua. Tương tự, *"chia **lộ trình** theo giai đoạn"* đi qua — đó là chia **việc**, không chia **tiền**.
+
+**Thay bằng ba cách thật** khi khách lo chi phí (`BG-02` mục 7, `BG-05` L6.3): ghi rõ từng khoản · đưa phương án vừa ngân sách ở khối *Phương án khác* · chia lộ trình theo giai đoạn điều trị. Câu mẫu trong `BG-05` đổi từ mời trả góp sang *"nếu khoản này đang quá tầm, em đưa chị một phương án thấp hơn và nói thẳng nó khác ở đâu — chị chọn, em không đẩy."*
+
+Nhân đây sửa nốt **mọi chỗ còn ghi "3 trang / 5 ảnh"** của trước v2.3: `README` · `doc/01` `doc/02` `doc/03` `doc/04` · `BG-06` `BG-08` · ba file prompt · `build-huong-dan.py` · `huong-dan.tpl.html`. Bản ngắn thêm luật mới thì vọt lên 8.127 ký tự, phải dồn luật vào mục CHI PHÍ và cắt chỗ rườm → **7.951 / 8.000**.
+
+---
+
+## v2.3 — 2026-10-21 · dựng lại mạch đọc: vấn đề trước, tiền sau, bằng chứng cuối
+
+Yêu cầu: *tham khảo* cách một email bán hàng dẫn dắt người đọc để tối ưu thiết kế — **không bắt chước giọng của nó**.
+
+Thứ mượn là **mạch**, không phải giọng: gọi đúng vấn đề khách đang có → nói cách xử lý từng vấn đề → rồi mới tới tiền → rồi mới tới bằng chứng. Trước v2.3 tờ báo giá mở bằng *mong muốn của khách* viết thành mấy cái chip rời, rồi nhảy thẳng sang phương án — khách chưa thấy mình được hiểu đã phải đọc con số.
+
+**Khối mới `van_de_giai_phap`** — 3–4 cặp, lưới hai cột **VẤN ĐỀ | CÁCH XỬ LÝ**:
+- Bên trái là nỗi lo bằng **chữ khách đã nói**, không phải nỗi lo chung của ngành.
+- Bên phải là **cơ chế xử lý thật + giới hạn trung thực**, theo khuôn ba nhịp của `BG-05`.
+- Cổng dữ liệu đòi **ít nhất một trong hai**: `van_de_giai_phap` **hoặc** `giai_toa`.
+
+Lần đầu thêm khối này vào thì cả hai mẫu **nói lặp ba nỗi lo y nguyên hai lần** (một lần ở lưới mới, một lần ở khối *băn khoăn*) và đội lên 5 trang. Nên hai khối thành **loại trừ nhau**: dùng `van_de_giai_phap` thì `giai_toa` chỉ giữ câu hỏi còn lại, hoặc bỏ. Chip *mong muốn* cũng tắt khi đã có lưới vấn đề — nó nói lại đúng thứ lưới vừa nói.
+
+**A4: 3 → 4 trang, mỗi trang một việc.**
+```
+T1 VẤN ĐỀ     lời hứa cá nhân hoá · điều khách đang gặp · vấn đề → cách xử lý
+T2 GIẢI PHÁP  phương án · các bước · lưu ý riêng · phương án khác
+T3 CHI PHÍ    bảng chi phí · ưu đãi · tổng sau ưu đãi · đã gồm/chưa gồm · lộ trình
+T4 BẰNG CHỨNG case + ảnh trước–sau · album · băn khoăn · CTA · chữ ký
+```
+Gộp vấn đề và phương án chung một trang làm trang 1 phình lên **1.429px / ngưỡng 1.122px**. Tách ra vừa hết tràn vừa đúng mạch hơn. Bỏ luôn luật cũ *"có ảnh case thật thì được thêm 1 trang"* — ảnh nằm ở trang 4, không đội thêm.
+
+**Slide: 5 → 6 ảnh.** Slide 2 cũ nhồi cả vấn đề lẫn phương án; nay slide 2 là *vấn đề → cách xử lý* (xếp dọc cho vừa màn hình điện thoại), slide 3 là phương án.
+
+Cập nhật theo: `BG-03` (khối 3b, mạch đọc, độ dài) · `BG-08` (bố cục 4 trang, 6 slide, điểm nhấn từng trang) · `BG-09` (schema) · hai bộ não. Bản ngắn phải cắt 242 ký tự chỗ trùng lặp để vẫn dưới 8.000.
+
+---
+
 ## v2.2 — 2026-10-21 · đối chiếu bảng giá với web chính thức
 
 Việc còn treo số 1 từ v1.0 — *"xác nhận bảng giá đang dùng là bản mới nhất"* — nay **đóng được**.

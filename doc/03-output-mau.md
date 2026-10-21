@@ -28,7 +28,6 @@ Mí một nếp kèm da dư nhẹ: chỉ tạo nếp thì nếp dễ bị che v�
 | | **Tạm tính** | **19.200.000đ** | |
 | | Ưu đãi đặt khám trong tuần | − 2.000.000đ | ⚠️ cần chứng từ |
 | | **Sau ưu đãi** | **17.200.000đ** | |
-| | Trả góp 6 tháng | 2.867.000đ/tháng | ⚠️ cần xác nhận chính sách |
 
 ### D. `du-lieu.json`
 → xem [`template/du-lieu.mau.json`](../template/du-lieu.mau.json).
@@ -41,7 +40,6 @@ python tools/render_baogia.py out/BG-2026-1021-01/du-lieu.json
 ### F. CẦN NGƯỜI THẬT
 ```
 [CHỜ XÁC NHẬN] Ưu đãi 2.000.000đ — cần số công văn/thông báo nội bộ còn hiệu lực
-[CHỜ XÁC NHẬN] Chính sách trả góp 0% tại cơ sở Hà Nội — ngân hàng nào, có phí chuyển đổi không
 [ẢNH] Case CM-0423 đang để ô ảnh tạm — cần xin ảnh trong Album Kangnam
        + xác nhận văn bản đồng ý còn hiệu lực trước khi gửi khách
 [NHẮC]   File này là báo giá cá nhân gửi 1-1. Nếu đem đăng công khai thì phải
@@ -66,21 +64,21 @@ BÁO GIÁ BG-2026-1021-01 — Chị Thu Hà
              nếu dùng lại làm ấn phẩm phát hành thì phải xin GXNNDQC
 
   HTML A4   : out\BG-2026-1021-01\BG-2026-1021-01.html
-  HTML slide: out\BG-2026-1021-01\BG-2026-1021-01-slide.html  (5 slide)
+  HTML slide: out\BG-2026-1021-01\BG-2026-1021-01-slide.html  (6 slide)
   trình duyệt: C:\Program Files\Google\Chrome\Application\chrome.exe
-  => PDF    : out\BG-2026-1021-01\BG-2026-1021-01.pdf  (3 trang)
+  => PDF    : out\BG-2026-1021-01\BG-2026-1021-01.pdf  (4 trang)
   => ảnh 1..5 : out\BG-2026-1021-01\BG-2026-1021-01-0X.jpg
 
 ! Còn 1 cảnh báo cần người thật xử lý trước khi gửi khách.
 ```
 
-**File ra:** 1 PDF 3 trang + 5 ảnh JPG 1080×1920 (~160–270 KB/ảnh, gửi Zalo thoải mái).
+**File ra:** 1 PDF 4 trang + 6 ảnh JPG 1080×1920 (~160–270 KB/ảnh, gửi Zalo thoải mái).
 
-Tool đếm số trang PDF sau khi render. Vượt 3 trang → in thêm dòng:
+Tool đếm số trang PDF sau khi render. Vượt 4 trang → in thêm dòng:
 ```
-! Báo giá dài 4 trang, chuẩn là 3. Rút gọn lời mở, bước phương án hoặc khối băn khoăn.
+! Báo giá dài 5 trang, chuẩn là 4. Rút gọn lời mở, cặp vấn đề→giải pháp hoặc bước phương án.
 ```
-Nội dung dài **không bị cắt** — trang tự dãn. Nhưng 4 trang nghĩa là đang viết brochure chứ không phải báo giá.
+Nội dung dài **không bị cắt** — trang tự dãn. Nhưng 5 trang nghĩa là đang viết brochure chứ không phải báo giá.
 
 ---
 
@@ -112,9 +110,10 @@ Thử sửa `du-lieu.json` thành *"cam kết mắt đẹp tự nhiên 100%, b�
 | Ảnh | Nội dung |
 |---|---|
 | 1 | Bìa navy — *Gửi Chị Thu Hà* · "Đôi mắt mở hơn — mà vẫn là mắt của chị" · mã + hiệu lực |
-| 2 | Chip mong muốn/nỗi lo + phương án + 4 bước |
-| 3 | Bảng chi phí + **17.200.000đ** (số lớn nhất) + trả góp + dòng miễn trừ |
-| 4 | Case tương tự + 2 ô ảnh trước–sau + câu miễn trừ |
-| 5 | Lộ trình 5 bước + khối CTA cam + thông tin liên hệ |
+| 2 | Từng cặp **vấn đề → cách xử lý**, xếp dọc |
+| 3 | Card phương án + 4 bước |
+| 4 | Bảng chi phí + **17.200.000đ** (số lớn nhất) + đã gồm/chưa gồm + dòng miễn trừ |
+| 5 | Case tương tự + 2 ô ảnh trước–sau + album + câu miễn trừ |
+| 6 | Lộ trình 5 bước + khối CTA cam + thông tin liên hệ |
 
-Thiếu case → còn 4 ảnh, báo giá vẫn hợp lệ.
+Thiếu case → còn 5 ảnh, báo giá vẫn hợp lệ.

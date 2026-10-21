@@ -51,6 +51,18 @@ p{margin:0 0 18px}
 .chip{display:inline-block;background:#E8EFFB;color:var(--navy);border-radius:999px;
   padding:9px 24px;font-size:26px;font-weight:700;margin:0 10px 12px 0}
 .chip-lo{background:#FDEEE2;color:#A1430A}
+/* vấn đề -> cách xử lý, bản slide xếp dọc cho dễ đọc trên điện thoại */
+.vdgp{display:flex;flex-direction:column;gap:16px;margin-bottom:26px}
+.vdgp .cap{border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.vdgp .vd{background:#FDF4EE;padding:18px 24px}
+.vdgp .gp{background:#fff;padding:18px 24px;border-top:1px solid var(--line)}
+.vdgp .nh{display:block;font:800 19px/1 inherit;letter-spacing:1.6px;
+  text-transform:uppercase;margin-bottom:7px}
+.vdgp .vd .nh{color:#A1430A}
+.vdgp .gp .nh{color:var(--navy)}
+.vdgp p{margin:0;font-size:26px;line-height:1.45}
+.vdgp .vd p{color:#7A4418}
+.vdgp .gp p{color:var(--ink-2)}
 .nho{font-size:25px;color:var(--ink-2);line-height:1.45}
 ul{margin:0 0 0 30px;padding:0}
 li{margin-bottom:12px}
@@ -135,9 +147,20 @@ tr:nth-child(even) td{background:#F8FAFD}
 <!-- ===== 2. MONG MUỐN + PHƯƠNG ÁN ===== -->
 <div class="slide" data-i="2">
   {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
-  <div class="sh"><div class="bh">Phương án dành riêng cho {{khach.xung_ho}}</div>
+  <div class="sh"><div class="bh">Điều {{khach.xung_ho}} gặp &amp; cách xử lý</div>
     <div class="sub">{{meta.ma_bao_gia}}</div></div>
   <div class="than">
+    {{#co_van_de}}
+    <div class="vdgp">
+      {{#van_de_giai_phap}}
+      <div class="cap">
+        <div class="vd"><span class="nh">Vấn đề</span><p>{{van_de}}</p></div>
+        <div class="gp"><span class="nh">Cách xử lý</span><p>{{giai_phap}}</p></div>
+      </div>
+      {{/van_de_giai_phap}}
+    </div>
+    {{/co_van_de}}
+    {{^co_van_de}}
     {{#co_mong_muon}}
     <div class="the">
       <h3>Điều {{khach.xung_ho}} mong muốn</h3>
@@ -147,6 +170,17 @@ tr:nth-child(even) td{background:#F8FAFD}
       </div>
     </div>
     {{/co_mong_muon}}
+    {{/co_van_de}}
+  </div>
+  <div class="sf"><span>{{meta.co_so}}</span><span>2</span></div>
+</div>
+
+<!-- ===== 3. PHƯƠNG ÁN ===== -->
+<div class="slide" data-i="3">
+  {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
+  <div class="sh"><div class="bh">Phương án bác sĩ đề xuất</div>
+    <div class="sub">{{khach.ten_hien_thi}}</div></div>
+  <div class="than">
     <div class="the the-navy">
       <h3 style="font-size:40px">{{giai_phap.ten_phuong_an}}</h3>
       <p style="margin:12px 0 0;font-size:29px;opacity:.94">{{giai_phap.vi_sao_hop}}</p>
@@ -158,11 +192,11 @@ tr:nth-child(even) td{background:#F8FAFD}
     </div>
     {{/giai_phap.gom}}
   </div>
-  <div class="sf"><span>{{meta.co_so}}</span><span>2</span></div>
+  <div class="sf"><span>{{meta.co_so}}</span><span>3</span></div>
 </div>
 
 <!-- ===== 3. CHI PHÍ ===== -->
-<div class="slide" data-i="3">
+<div class="slide" data-i="4">
   {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
   <div class="sh"><div class="bh">Chi phí dự tính</div><div class="sub">{{khach.ten_hien_thi}}</div></div>
   <div class="than">
@@ -180,21 +214,14 @@ tr:nth-child(even) td{background:#F8FAFD}
       <span class="nhan">Chi phí dự tính{{#chi_phi.co_uu_dai}} sau ưu đãi{{/chi_phi.co_uu_dai}}</span>
       <span class="tien">{{chi_phi.sau_uu_dai_ht}}</span>
     </div>
-    {{#chi_phi.tra_gop}}
-    <div class="the" style="margin-top:26px">
-      <h3>Chia nhỏ khoản đầu tư</h3>
-      <p style="margin:6px 0 0;font-size:34px"><b style="color:var(--navy)">{{so_tien_moi_ky_ht}}</b> / tháng × {{so_ky}} tháng</p>
-      {{#dieu_kien}}<div class="nho" style="margin-top:8px">{{dieu_kien}}</div>{{/dieu_kien}}
-    </div>
-    {{/chi_phi.tra_gop}}
     <div class="mien-tru">Giá niêm yết tham khảo tại thời điểm lập báo giá. Chi phí cuối cùng do bác sĩ quyết định sau khi thăm khám trực tiếp.</div>
   </div>
-  <div class="sf"><span>{{meta.ma_bao_gia}}</span><span>3</span></div>
+  <div class="sf"><span>{{meta.ma_bao_gia}}</span><span>4</span></div>
 </div>
 
 <!-- ===== 4. CASE TƯƠNG TỰ ===== -->
 {{#co_bang_chung}}
-<div class="slide" data-i="4">
+<div class="slide" data-i="5">
   {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
   <div class="sh"><div class="bh">Trường hợp tương tự</div><div class="sub">đã thực hiện tại Kangnam</div></div>
   <div class="than">
@@ -227,12 +254,12 @@ tr:nth-child(even) td{background:#F8FAFD}
     {{/co_album}}
     {{#co_anh_bat_ky}}<div class="mien-tru">Hình ảnh được khách hàng đồng ý chia sẻ và ghi rõ thời điểm chụp. Kết quả thẩm mỹ phụ thuộc cơ địa từng người.</div>{{/co_anh_bat_ky}}
   </div>
-  <div class="sf"><span>{{meta.co_so}}</span><span>4</span></div>
+  <div class="sf"><span>{{meta.co_so}}</span><span>5</span></div>
 </div>
 {{/co_bang_chung}}
 
 <!-- ===== 5. LỘ TRÌNH + CTA ===== -->
-<div class="slide" data-i="5">
+<div class="slide" data-i="6">
   {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
   <div class="sh"><div class="bh">Bước tiếp theo</div><div class="sub">{{meta.ma_bao_gia}}</div></div>
   <div class="than" style="display:flex;flex-direction:column">
@@ -254,7 +281,7 @@ tr:nth-child(even) td{background:#F8FAFD}
   </div>
   <div class="sf">
     {{#co_logo}}<img class="sf-logo" src="{{logo}}" alt="Kangnam">{{/co_logo}}
-    <span>{{meta.ma_bao_gia}} · {{meta.nguoi_lap}}</span><span>5</span>
+    <span>{{meta.ma_bao_gia}} · {{meta.nguoi_lap}}</span><span>6</span>
   </div>
 </div>
 

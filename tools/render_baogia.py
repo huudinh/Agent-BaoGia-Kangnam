@@ -35,8 +35,8 @@ for _luong in (sys.stdout, sys.stderr):
     if hasattr(_luong, "reconfigure"):
         _luong.reconfigure(encoding="utf-8", errors="replace")
 
-SO_TRANG_CHUAN = 3   # PDF A4 chuẩn 3 trang (BG-03 mục 8); dài hơn thì tool cảnh báo.
-                     # Có ảnh case thật thì được thêm 1 trang — ảnh đáng chỗ đó.
+SO_TRANG_CHUAN = 4   # PDF A4 chuẩn 4 trang, một mạch mỗi trang (BG-03 mục 8):
+                     # vấn đề -> phương án -> chi phí -> bằng chứng & bước tiếp.
 
 # Trường phải điền đủ thì báo giá mới ra hồn. Cổng dữ liệu nay siết chặt hơn
 # phần "ai đã duyệt" — thà bắt người lập điền đủ còn hơn chặn vì thiếu con dấu.
@@ -55,7 +55,6 @@ TRUONG_BAT_BUOC = [
     ("chi_phi.dong", "dòng chi phí"),
     ("chi_phi.ghi_chu_gia", "dòng đã gồm / chưa gồm — khách sợ phát sinh chứ không sợ đắt"),
     ("lo_trinh", "lộ trình từng bước"),
-    ("giai_toa", "khối băn khoăn — lấy đúng nỗi lo khách đã nói"),
     ("cta.buoc_tiep", "bước tiếp theo"),
     ("cta.dia_chi", "địa chỉ cơ sở khách tới khám"),
 ]
@@ -152,6 +151,17 @@ def cong_du_lieu(d: dict) -> list[str]:
             loi.append(f"{t}  —  {vi_sao}")
     if not (d.get("chi_phi") or {}).get("dong"):
         loi.append("chi_phi.dong  —  báo giá phải có ít nhất 1 dòng chi phí")
+    # Nỗi lo của khách phải được xử lý ở ÍT NHẤT MỘT trong hai khối. Có cả hai mà
+    # nói cùng một nỗi lo là lặp — vừa loãng vừa đội thêm một trang giấy.
+    # Kangnam KHÔNG có chính sách trả góp. Nêu ra là nói sai sự thật về một
+    # chính sách thanh toán — khách tin rồi tới viện mới biết không có.
+    if (d.get("chi_phi") or {}).get("tra_gop"):
+        loi.append("chi_phi.tra_gop  —  Kangnam KHÔNG có chính sách trả góp. "
+                   "Bỏ trường này; muốn hạ áp lực chi phí thì đưa phương án vừa "
+                   "ngân sách ở khối phuong_an_khac")
+    if not _that(d.get("van_de_giai_phap")) and not _that(d.get("giai_toa")):
+        loi.append("van_de_giai_phap HOẶC giai_toa  —  phải có một khối xử lý nỗi lo "
+                   "của khách: cặp vấn đề→cách xử lý, hoặc khối băn khoăn")
     return loi
 
 
@@ -169,8 +179,6 @@ def can_nhac_truoc_khi_gui(d: dict, loi_pl: list[dict]) -> list[str]:
                  + (" (chưa khai consent: %s)" % ", ".join(thieu) if thieu else ""))
     if (d.get("chi_phi") or {}).get("uu_dai"):
         o.append("Ưu đãi đang ghi có chứng từ còn hiệu lực không?")
-    if (d.get("chi_phi") or {}).get("tra_gop"):
-        o.append("Chính sách trả góp này đúng với cơ sở %s chứ?" % lay(d, "meta.co_so", ""))
     if d.get("_co_dai_phau"):
         o.append("Có dịch vụ ĐẠI PHẪU — khách đã biết phẫu thuật thực hiện tại tuyến bệnh viện chưa?")
     o.append("Đọc lại mục chi phí: đã gồm / chưa gồm đã nói đủ chưa?")
@@ -264,11 +272,6 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool, goc_anh: Path) -> dict:
     cp["sau_uu_dai_ht"] = tien(cp["sau_uu_dai"])
     cp["co_uu_dai"] = bool(cp.get("uu_dai"))
 
-    tg = cp.get("tra_gop")
-    if tg and tg.get("so_ky"):
-        tg.setdefault("so_tien_moi_ky", round(cp["sau_uu_dai"] / tg["so_ky"] / 1000) * 1000)
-        tg["so_tien_moi_ky_ht"] = tien(tg["so_tien_moi_ky"])
-
     for pa in d.get("phuong_an_khac") or []:
         pa["gia_ht"] = tien(pa.get("gia"))
 
@@ -312,6 +315,7 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool, goc_anh: Path) -> dict:
     d["co_giai_toa"] = bool(d.get("giai_toa"))
     d["co_phuong_an_khac"] = bool(d.get("phuong_an_khac"))
     d["co_luu_y"] = bool(lay(d, "giai_phap.diem_can_luu_y"))
+    d["co_van_de"] = bool(d.get("van_de_giai_phap"))
     d["co_mong_muon"] = bool(kh.get("mong_muon") or kh.get("noi_so"))
     # logo thật nhúng thẳng vào file (data URI) để HTML/PDF xuất ra tự đứng một mình
     logo = GOC / "template" / "logo-kangnam.png"
@@ -511,14 +515,11 @@ def main(argv=None):
         chay_chrome(chrome, [f"--print-to-pdf={pdf}", "--no-pdf-header-footer",
                              "--print-to-pdf-no-header"], html_a4.as_uri())
         so_trang = dem_trang_pdf(pdf)
-        co_anh_that = any(c.get("anh_truoc") or c.get("anh_sau")
-                          for c in d.get("case_tuong_tu") or [])
-        chuan = SO_TRANG_CHUAN + (1 if co_anh_that else 0)
+        chuan = SO_TRANG_CHUAN
         print(f"  => PDF    : {pdf}  ({so_trang} trang)")
         if so_trang > chuan:
-            them = " (đã cộng 1 trang cho ảnh case thật)" if co_anh_that else ""
-            print(f"  ! Báo giá dài {so_trang} trang, chuẩn là {chuan}{them}. "
-                  f"Rút gọn lời mở, bước phương án hoặc khối băn khoăn (BG-03 mục 8).")
+            print(f"  ! Báo giá dài {so_trang} trang, chuẩn là {chuan}. "
+                  f"Rút gọn lời mở, số cặp vấn đề→giải pháp, hoặc bước phương án (BG-03 mục 8).")
 
     if "jpg" in a.dinh_dang and html_slide:
         so_slide = len(re.findall(r'class="slide[ "]', html_slide.read_text(encoding="utf-8")))

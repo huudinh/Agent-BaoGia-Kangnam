@@ -88,7 +88,7 @@ Sau mỗi tuần, đưa kết quả thật: phản hồi · đặt khám · show
 ## 8. Lệnh render (chạy trên máy, không phải trong chat)
 
 ```bash
-python tools/render_baogia.py out/<ma>/du-lieu.json                  # PDF + 5 ảnh
+python tools/render_baogia.py out/<ma>/du-lieu.json                  # PDF + 6 ảnh
 python tools/render_baogia.py out/<ma>/du-lieu.json --dinh-dang jpg  # chỉ ảnh Zalo
 python tools/render_baogia.py out/<ma>/du-lieu.json --dinh-dang pdf  # chỉ PDF
 python tools/render_baogia.py out/<ma>/du-lieu.json --chi-html       # chỉ HTML

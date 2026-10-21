@@ -74,7 +74,7 @@ BG-2026-1021-01 (chị Hà, nhóm 1, cắt mí 17,2tr, Zalo): phản hồi có,
 
 BG-2026-1021-02 (chị Mai, nhóm 1, cắt mí 12,8tr): không phản hồi.
 
-BG-2026-1021-03 (bạn Ly, nhóm 4): phản hồi, hỏi thêm về trả góp, chưa đặt khám.
+BG-2026-1021-03 (bạn Ly, nhóm 4): phản hồi, hỏi phương án rẻ hơn, chưa đặt khám.
 ```
 
 Agent cập nhật bảng trong `BG-10-vong-hoc.md` và chỉ ra mẫu lặp lại nếu có (≥ 5 ca mới được rút thành luật — một ca là giai thoại).
@@ -85,7 +85,7 @@ Tool render cần **Python + Chrome**. Sandbox của ChatGPT **không có Chrome
 
 | Máy của bạn | Cách lấy file |
 |---|---|
-| **Có Python + Chrome** | `render_baogia.py` → PDF 3 trang + 5 ảnh JPG. Đầy đủ nhất |
+| **Có Python + Chrome** | `render_baogia.py` → PDF 4 trang + 6 ảnh JPG. Đầy đủ nhất |
 | **Chỉ có Chrome, không có Python** | Nhờ ChatGPT dựng HTML bằng `baogia-1file.py` → mở bằng Chrome → Ctrl+P ra PDF |
 | **Không cài được gì** | Như trên; mở HTML trên điện thoại cũng đọc được, trang tự co |
 
@@ -129,7 +129,7 @@ Mở file `.html` bằng Chrome hoặc Edge → **Ctrl+P**:
 ### Ảnh JPG gửi Zalo thì sao
 
 Không dựng được ở ChatGPT — ảnh cần Chrome chụp. Hai lối:
-- **Có Chrome:** cài thêm Python rồi chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** — ra đủ PDF + 5 ảnh, vẫn chỉ cần một file, không cần ZIP cũng không cần ChatGPT.
+- **Có Chrome:** cài thêm Python rồi chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** — ra đủ PDF + 6 ảnh, vẫn chỉ cần một file, không cần ZIP cũng không cần ChatGPT.
 - **Gấp:** mở file `*-slide.html`, chụp màn hình từng slide. Xấu hơn nhưng dùng được.
 
 ---
@@ -154,7 +154,7 @@ Gắn 2 ảnh cắt mí thật từ album vào báo giá này
 Album có ảnh nào hợp với ca sửa mí không?
 ```
 
-Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ảnh về nhúng vào file**. Bản gửi khách tự đứng một mình: album đổi hay link chết thì file đã gửi vẫn nguyên. Báo giá có ảnh thật được **thêm một trang** so với chuẩn 3 trang.
+Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ảnh về nhúng vào file**. Bản gửi khách tự đứng một mình: album đổi hay link chết thì file đã gửi vẫn nguyên. Ảnh nằm ở **trang 4** cùng case và CTA — không đội thêm trang.
 
 **Khoá API** để ở `template/album-key.local.json` hoặc biến môi trường `KN_ALBUM_KEY` — chỉ cần để *liệt kê*, tải ảnh thì không cần.
 ⛔ **Không commit khoá lên GitHub** (repo công khai). `.gitignore` đã chặn `*.local.json`.
@@ -166,7 +166,7 @@ Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ả
 ## 5. Lệnh render — nhắc nhanh
 
 ```
-python tools/render_baogia.py out/<ma>/du-lieu.json                  # PDF + 5 ảnh JPG
+python tools/render_baogia.py out/<ma>/du-lieu.json                  # PDF + 6 ảnh JPG
 python tools/render_baogia.py out/<ma>/du-lieu.json --dinh-dang jpg  # chỉ ảnh Zalo
 python tools/render_baogia.py out/<ma>/du-lieu.json --dinh-dang pdf  # chỉ PDF
 python tools/render_baogia.py out/<ma>/du-lieu.json --chi-html       # chỉ dựng HTML để xem

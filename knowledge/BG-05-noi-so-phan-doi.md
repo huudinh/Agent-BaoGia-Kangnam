@@ -27,9 +27,10 @@ Thiếu nhịp ③ là **rào R1** — mọi câu chỉ có ①② đều trư�
 ⛔ Cấm: *"an toàn tuyệt đối"*, *"không biến chứng"*, *"đẹp như hình"*.
 
 ### L6.3 — Lo chi phí
-> **Mẫu:** "Em ghi rõ từng khoản để chị thấy tiền đi đâu, và phần nào chưa nằm trong giá. Nếu chị muốn chia nhỏ, bệnh viện có chương trình trả góp qua ngân hàng liên kết — duyệt tại quầy khi chị tới khám."
+> **Mẫu:** "Em ghi rõ từng khoản để chị thấy tiền đi đâu, và phần nào chưa nằm trong giá. Nếu khoản này đang quá tầm, em đưa chị một phương án thấp hơn và nói thẳng nó khác ở đâu — chị chọn, em không đẩy."
 
 Cách xử lý mạnh hơn giảm giá: **tách phương án thành giai đoạn** (làm phần ảnh hưởng nhiều nhất trước), hoặc đưa phương án thấp hơn ở khối *Phương án khác*.
+⛔ **Không nêu trả góp** — Kangnam không có chính sách đó ([[BG-02-bang-gia]] mục 7).
 ⛔ Không tự giảm giá ngoài ưu đãi có văn bản ([[BG-02-bang-gia]] mục 3).
 
 ### L6.4 — Chưa sắp xếp được thời gian
