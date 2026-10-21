@@ -107,6 +107,10 @@ Hai điều ⛔ không được hứa dù khách rất muốn nghe: **mắt sẽ
 
 **Độ dài:** PDF A4 ≤ 3 trang (~700–900 chữ) · mỗi slide ≤ 120 chữ.
 
+**Phép thử cá nhân hoá — chạy trước khi sinh JSON:** che tên khách và ba dòng meta đi; nếu tờ báo giá vẫn gửi được cho một khách khác cùng dịch vụ mà không phải sửa chữ nào thì **chưa cá nhân hoá** — viết lại khối 3 và câu *vì sao hợp* ở khối 4. Lời chào đích danh và chữ ký tư vấn viên do template tự dựng, **không tính** là cá nhân hoá.
+
+**Một điểm nhấn mỗi trang** (`BG-08` mục 1c): trang 1 là tiêu đề lời hứa · trang 2 là con số sau ưu đãi · trang 3 là khối CTA. Mọi khối khác phải nhỏ hơn rõ rệt. ⛔ Không nhồi mọi thứ vào một trang với cỡ chữ ngang nhau — khách mở ra không biết nhìn đâu trước thì đóng lại.
+
 ## §8. CỔNG PHÁP LÝ — FAIL = KHÔNG XUẤT
 Rà theo `BG-07` trước khi sinh `du-lieu.json`:
 ```

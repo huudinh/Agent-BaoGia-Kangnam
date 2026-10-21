@@ -3,4 +3,6 @@ out/*
 tools/huong-dan.html
 __pycache__/
 *.pyc
+# *.png: chi bo qua anh chup man hinh tam, KHONG bo qua logo
 *.png
+!template/logo-kangnam.png

@@ -249,6 +249,16 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool) -> dict:
     d["co_phuong_an_khac"] = bool(d.get("phuong_an_khac"))
     d["co_luu_y"] = bool(lay(d, "giai_phap.diem_can_luu_y"))
     d["co_mong_muon"] = bool(kh.get("mong_muon") or kh.get("noi_so"))
+    # logo thật nhúng thẳng vào file (data URI) để HTML/PDF xuất ra tự đứng một mình
+    logo = GOC / "template" / "logo-kangnam.png"
+    if logo.exists():
+        import base64
+        d["logo"] = "data:image/png;base64," + base64.b64encode(logo.read_bytes()).decode()
+        d["co_logo"] = True
+    else:
+        d["co_logo"] = False
+        print("  ! Thiếu template/logo-kangnam.png — dùng chữ thay logo, KHÔNG gửi khách bản này.")
+
     d["co_album"] = bool(lay(d, "case_album.link"))
     if d["co_album"]:
         d["case_album"].setdefault("nhan", "Xem thêm hình ảnh khách hàng đã thực hiện tại Kangnam")

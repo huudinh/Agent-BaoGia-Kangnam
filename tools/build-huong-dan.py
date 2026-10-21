@@ -42,6 +42,21 @@ PROMPT_FILES = [
     ("vanhanh", "Vận hành & kiểm tra", "prompts/prompt-van-hanh.md"),
 ]
 
+# Ba ô mà nền tảng nào cũng hỏi khi tạo agent mới.
+# Mô tả giữ dưới 300 ký tự — giới hạn ô Description của ChatGPT Custom GPT.
+META_FORM = {
+    "ten": "Agent-BaoGia-Kangnam",
+    "mota": ("Tạo báo giá cá nhân hoá cho từng khách hàng Kangnam: đọc thông tin khách, "
+             "chọn phương án theo bảng giá chính thức, viết nội dung đã qua cổng pháp lý, "
+             "rồi xuất ra PDF A4 và 5 ảnh gửi Zalo. Không bịa giá, không cam kết kết quả."),
+    "starters": [
+        "/baogia — em dán đoạn chat với khách vào đây",
+        "/wizard cắt mí",
+        "/tinnhan cho báo giá vừa làm",
+        "/kiemtra câu này có vi phạm gì không",
+    ],
+}
+
 DATA_FILES = [
     ("bang-gia.json", "Bảng giá — nguồn giá duy nhất",
      "Mọi con số tiền trong báo giá phải truy về file này. Thiếu nó, agent sẽ đoán giá.", True),
@@ -156,6 +171,28 @@ def build_prompts(payload):
     return "\n".join(cards), n, counts
 
 
+def build_meta(payload):
+    """Ba ô Tên · Mô tả · Câu mở đầu, mỗi ô một nút copy."""
+    payload["m_ten"] = META_FORM["ten"]
+    payload["m_mota"] = META_FORM["mota"]
+    st = []
+    for i, c in enumerate(META_FORM["starters"], 1):
+        payload["m_st%d" % i] = c
+        st.append('<div class="st-i"><span>%s</span>'
+                  '<button class="copy" data-copy="m_st%d" type="button">Copy</button></div>'
+                  % (esc(c), i))
+    return (
+        '<div class="mrow"><span class="lb">Tên</span>'
+        '<span class="vl mono">%s</span>'
+        '<button class="copy" data-copy="m_ten" type="button">Copy</button></div>'
+        '<div class="mrow"><span class="lb">Mô tả</span>'
+        '<span class="vl">%s</span>'
+        '<button class="copy" data-copy="m_mota" type="button">Copy</button></div>'
+        '<div class="mrow"><span class="lb">Câu mở đầu</span>'
+        '<div class="st">%s</div></div>'
+        % (esc(META_FORM["ten"]), esc(META_FORM["mota"]), "".join(st)))
+
+
 # ------------------------------------------------------------------ file cards
 def build_files(payload):
     cards = []
@@ -198,6 +235,7 @@ merged = ("# TRI THỨC GỘP — AGENT-BAOGIA-KANGNAM\n"
 
 payload = {"a": brain, "b": short, "c": merged}
 prompt_cards, prompt_n, counts = build_prompts(payload)
+meta_box = build_meta(payload)
 file_cards = build_files(payload)
 
 bang_gia = json.loads(doc("template/bang-gia.json"))
@@ -219,6 +257,8 @@ html = io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "huong-d
 for k, v in [
     ("@@KB_ROWS@@", "\n".join(rows)),
     ("@@FILE_CARDS@@", file_cards),
+    ("@@META_BOX@@", meta_box),
+    ("@@LEN_MOTA@@", str(len(META_FORM["mota"]))),
     ("@@PROMPT_CARDS@@", prompt_cards),
     ("@@PROMPT_N@@", str(prompt_n)),
     ("@@N_BAOGIA@@", str(counts["baogia"])),

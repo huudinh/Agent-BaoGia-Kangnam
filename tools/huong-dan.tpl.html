@@ -151,6 +151,22 @@ ol.list{margin:0;padding-left:1.25em}
 ol.list li{margin-bottom:9px}
 ol.list li::marker{font-weight:800;color:var(--primary)}
 
+.mbox{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--primary);
+  border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh);margin:0 0 16px}
+.mrow{display:flex;gap:11px;align-items:flex-start;padding:13px 15px;
+  border-bottom:1px solid var(--line-2);flex-wrap:wrap}
+.mrow:last-child{border-bottom:0}
+.mrow .lb{flex:none;width:112px;font-size:11.5px;font-weight:800;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--ink-3);padding-top:4px}
+.mrow .vl{flex:1;min-width:210px;font-size:14.2px;color:var(--ink);line-height:1.55}
+.mrow .vl.mono{font:700 13.6px/1.5 var(--mono)}
+.mrow .copy{flex:none}
+@media(max-width:600px){.mrow .lb{width:auto;padding-top:0}}
+.st{display:flex;flex-direction:column;gap:8px;width:100%}
+.st-i{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.st-i span{flex:1;min-width:170px;font:400 13.4px/1.5 var(--mono);color:var(--ink-2)}
+.st-i .copy{padding:5px 11px;font-size:12px}
+
 /* ---------- thẻ copy bộ não ---------- */
 .cc{display:flex;flex-direction:column;gap:11px;background:var(--surface);
   border:1px solid var(--line);border-top:4px solid var(--gold-soft);
@@ -339,6 +355,16 @@ footer b{color:var(--ink-2)}
       đây là lỗi hay gặp nhất: file ra thiếu và tool báo <i>không tìm thấy template</i>.</p>
   </div>
 
+  <h3 class="sub" style="margin:28px 0 6px">Tên &amp; mô tả — dán vào form</h3>
+  <p class="dim" style="margin:0 0 13px">Nền tảng nào cũng hỏi ba ô này khi tạo agent mới.
+    Dán sẵn cho khớp — tên đặt lệch thì sau này tìm không ra giữa mấy agent anh em.
+    Ô <b>Mô tả</b> dài @@LEN_MOTA@@ ký tự, nằm dưới giới hạn 300 của ChatGPT.
+    <b>Câu mở đầu</b> là ô <i>Conversation starters</i> của ChatGPT; Claude và Gemini không có ô này,
+    cứ dán vào chat lần đầu.</p>
+  <div class="mbox">
+    @@META_BOX@@
+  </div>
+
   <h3 class="sub" style="margin:28px 0 10px">Chọn nền tảng</h3>
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" aria-selected="true" data-tab="claude" type="button">Claude Project</button>
@@ -351,7 +377,8 @@ footer b{color:var(--ink-2)}
     <h3 class="sub" style="margin-bottom:10px">Claude Project — khuyến nghị</h3>
     <p class="dim" style="margin-bottom:13px">Ô instructions không giới hạn 8.000 ký tự nên dùng được bộ não đầy đủ.</p>
     <ol class="list">
-      <li><b>Projects</b> → <b>Create project</b> → tên <code>Agent-BaoGia-Kangnam</code>.</li>
+      <li><b>Projects</b> → <b>Create project</b> → tên và mô tả lấy ở khối
+        <b>Tên &amp; mô tả</b> phía trên.</li>
       <li><b>Custom instructions</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
       <li><b>Project knowledge</b> → upload đủ <b>@@N_FILE@@ file</b> trong <code>knowledge/</code>.</li>
       <li>Upload thêm <b>2 file dữ liệu cứng</b>: <code>template/bang-gia.json</code> ·
@@ -365,7 +392,9 @@ footer b{color:var(--ink-2)}
     <p class="dim" style="margin-bottom:13px">Ô Instructions giới hạn <b>8.000 ký tự</b> → bắt buộc dùng bản ngắn.</p>
     <ol class="list">
       <li><b>Explore GPTs</b> → <b>Create</b> → tab <b>Configure</b>.</li>
-      <li>Name: <code>Agent-BaoGia-Kangnam</code>.</li>
+      <li>Name: <code>Agent-BaoGia-Kangnam</code> — lấy ở khối <b>Tên &amp; mô tả</b> phía trên.</li>
+      <li><b>Description</b> → dán ô <b>Mô tả</b> ở khối trên. Đây là dòng người dùng thấy
+        trước khi mở agent, đừng để trống.</li>
       <li>Instructions → dán <b>Thẻ B</b> (@@LEN_B@@ ký tự).</li>
       <li>Knowledge → upload đủ @@N_FILE@@ file tri thức <b>+ 2 file JSON dữ liệu cứng</b>.</li>
     </ol>

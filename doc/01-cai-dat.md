@@ -31,6 +31,32 @@ cd Agent-BaoGia-Kangnam
 
 ---
 
+## 0b. Ba ô phải điền khi tạo agent mới
+
+Nền tảng nào cũng hỏi ba ô này. Dán sẵn cho khớp — tên đặt lệch thì sau này tìm không ra giữa mấy agent anh em.
+
+**Tên**
+```
+Agent-BaoGia-Kangnam
+```
+
+**Mô tả** — 225 ký tự, nằm dưới giới hạn 300 của ChatGPT. Đây là dòng người dùng thấy **trước khi mở agent**, đừng để trống.
+```
+Tạo báo giá cá nhân hoá cho từng khách hàng Kangnam: đọc thông tin khách, chọn phương án theo bảng giá chính thức, viết nội dung đã qua cổng pháp lý, rồi xuất ra PDF A4 và 5 ảnh gửi Zalo. Không bịa giá, không cam kết kết quả.
+```
+
+**Câu mở đầu hội thoại** — ô *Conversation starters* của ChatGPT. Claude và Gemini không có ô này, cứ dán vào chat lần đầu.
+```
+/baogia — em dán đoạn chat với khách vào đây
+/wizard cắt mí
+/tinnhan cho báo giá vừa làm
+/kiemtra câu này có vi phạm gì không
+```
+
+> Ba ô này nằm sẵn trong [trang hướng dẫn](https://claude.ai/artifact/WZuxB6N8YyEH4mQoCboJFj) kèm nút Copy — tiện hơn copy từ file này.
+
+---
+
 ## A. Nửa não — Claude Project (khuyến nghị)
 
 1. Vào [claude.ai](https://claude.ai) → **Projects** → **Create project**. Tên: `Agent-BaoGia-Kangnam`.

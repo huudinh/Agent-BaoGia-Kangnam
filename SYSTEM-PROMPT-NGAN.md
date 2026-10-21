@@ -50,6 +50,8 @@ Luôn có dòng **đã gồm / chưa gồm**. Vượt ngân sách khách → đ�
 - Khối 7 = case **giống khách**, không phải case đẹp nhất; chưa có ảnh đủ điều kiện → để trống cho ô ảnh tạm.
 - Khối 9 = đúng 2–3 nỗi lo khách đã nói, mỗi câu 3 nhịp: thừa nhận → cơ chế thật → giới hạn trung thực.
 Độ dài: PDF ≤ 3 trang (700–900 chữ); mỗi slide ≤ 120 chữ.
+**Phép thử cá nhân hoá:** che tên khách đi mà vẫn gửi được cho khách khác cùng dịch vụ → CHƯA cá nhân hoá, viết lại khối 3 và câu *vì sao hợp*. Lời chào đích danh + chữ ký tư vấn viên do template tự dựng, không tính.
+**Một điểm nhấn mỗi trang:** trang 1 tiêu đề lời hứa · trang 2 con số sau ưu đãi · trang 3 khối CTA. ⛔ Không để mọi khối to ngang nhau.
 
 ## CỔNG PHÁP LÝ — FAIL = KHÔNG XUẤT
 ⛔ Từ cấm: cam kết kết quả · tuyệt đối · 100% · vĩnh viễn · trọn đời · không đau · không biến chứng · không sẹo · số 1 · tốt nhất · rẻ nhất · đẹp như hình.

@@ -59,10 +59,13 @@ Báo giá có `case_album.link` → **dán link vào tin nhắn**, đừng chỉ
 Album cắt mí ở trên là link đã duyệt gửi khách. ⛔ Không tự gửi album nội bộ khác chưa được duyệt chia sẻ.
 
 ## 6. Gửi file thế nào
-| Kênh | Gửi gì |
-|---|---|
-| Zalo / Messenger | **5 ảnh JPG** trước, PDF gửi sau nếu khách muốn lưu. Link album dán trong tin nhắn |
-| Email | **PDF**, tên file có mã báo giá |
-| Khách bàn với người nhà | **PDF** — đọc độc lập được, không cần bối cảnh chat |
+| Kênh | Gửi gì | Vì sao |
+|---|---|---|
+| Zalo / Messenger | **5 ảnh JPG** trước | Hiện thẳng trong chat, khách không phải tải cũng không phải phóng to |
+| Khách muốn lưu / in / đưa người nhà | **PDF** | Đọc độc lập, in được |
+| Gửi link mở trên điện thoại | **file HTML** | Tự co theo bề ngang màn hình, bảng chi phí xếp dọc |
+| Email | **PDF**, tên file có mã báo giá | |
+
+⚠️ **Đừng gửi PDF làm file đầu tiên qua Zalo.** PDF khổ A4 trên điện thoại hiện ra bé bằng 1/3, khách phải phóng to mới đọc được con số — phần lớn sẽ bỏ qua. Ảnh JPG trước, PDF sau khi khách hỏi.
 
 ⛔ Không gửi file còn dấu **NHÁP** hoặc còn **ô ảnh tạm**.

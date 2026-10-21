@@ -1,5 +1,66 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v1.5 — 2026-10-21 · ba ô của form tạo agent
+
+Trang hướng dẫn chỉ nói điền **Tên** và **Instructions**, bỏ trống ô **Mô tả** (`Description`) và **Câu mở đầu hội thoại** (`Conversation starters`) — người cài mở form ChatGPT ra là khựng ngay ở ô thứ hai.
+
+Thêm khối **Tên & mô tả — dán vào form** ngay trước phần chọn nền tảng, theo đúng mẫu của `Agent-AdsOptimize-Kangnam-QT`: ba ô, mỗi ô một nút Copy.
+
+| Ô | Nội dung |
+|---|---|
+| **Tên** | `Agent-BaoGia-Kangnam` |
+| **Mô tả** | 225 ký tự — dưới giới hạn 300 của ChatGPT. Builder in kèm số ký tự thật để biết còn cách giới hạn bao xa |
+| **Câu mở đầu** | 4 câu: `/baogia` (dán đoạn chat) · `/wizard cắt mí` · `/tinnhan` · `/kiemtra` |
+
+Nội dung ba ô khai trong `META_FORM` của `tools/build-huong-dan.py` — sửa một chỗ, trang và nút Copy khớp luôn. Ba ô cũng được chép vào `doc/01-cai-dat.md` mục 0b cho người đọc trong repo.
+Tab ChatGPT nay có bước **Description** riêng; tab Claude nhắc lấy tên và mô tả từ khối đó.
+
+---
+
+## v1.4 — 2026-10-21 · đọc được trên điện thoại
+
+Ảnh JPG vốn đã hợp điện thoại, nhưng **file HTML và PDF khổ A4 thì không** — mở lên phải kéo ngang. Thêm lớp hiển thị riêng cho màn hình nhỏ, **không đụng tới bản in**.
+
+**Lỗi nặng nhất, và là lỗi im lặng: thiếu `<meta name="viewport">`.** Không có thẻ này, trình duyệt điện thoại dựng trang trong khung ảo ~980px rồi thu nhỏ toàn bộ, nên media query **không bao giờ khớp** — khách thấy bản A4 chữ li ti. Trên máy tính nhìn vẫn đúng nên rất dễ bỏ sót. Đã thêm vào cả hai template.
+
+| Dưới 860px | |
+|---|---|
+| `.page` | bỏ khổ 210mm, `width:auto` — đây là thứ duy nhất gây kéo ngang |
+| Lưới 2 cột | về 1 cột (các bước phương án · ảnh case · khối liên hệ) |
+| Chân trang | `position:absolute` → `static`, nếu không nó đè lên dòng cuối |
+| Tiêu đề hero | 22pt → 19pt (17pt dưới 420px) |
+
+| Dưới 620px | |
+|---|---|
+| Bảng chi phí 4 cột | **xếp dọc**: mỗi dòng một khối, nhãn cột sinh bằng `::before` nên không phải đổi HTML do tool dựng |
+| Dòng ưu đãi | cho nhãn dài xuống dòng, số tiền `white-space:nowrap` — trước đó bị cắt mất **đúng con số giảm giá** |
+| Dải tổng sau ưu đãi | giữ nền navy, bo góc, đọc được không cần phóng to |
+
+**Bản slide** tự thu khung 1080px vừa bề ngang bằng `zoom`, chạy **sau** vòng đo tràn khung vì `zoom` làm lệch phép đo bằng `getBoundingClientRect`. Khi đang chụp ảnh (có `?s=`) thì bỏ qua hẳn, nên JPG xuất ra không đổi.
+
+> ⚠️ Ghi lại để khỏi mất thời gian lần sau: **Chrome headless có bề ngang tối thiểu 500px**. Chụp `--window-size=390` ra ảnh bị cắt bên phải dù layout đúng — suýt nữa sửa nhầm một lỗi không tồn tại. Đo bằng `matchMedia` thay vì tin vào ảnh chụp.
+
+Luật đầy đủ: `BG-08` mục 2c. PDF của cả hai ca mẫu vẫn đúng **3 trang** — lớp màn hình không chạm vào bản in.
+
+---
+
+## v1.3 — 2026-10-21 · logo thật · một điểm nhấn mỗi trang · siết cá nhân hoá
+
+Sửa theo ba nhận xét trên một bản báo giá do agent ChatGPT dựng: **sai logo · nội dung quá nhiều, không có điểm nhấn · chưa đủ cá nhân hoá.**
+
+**① Logo thật** — thêm `template/logo-kangnam.png` (518×78, nền trắng). `render_baogia.py` nhúng logo vào file xuất ra dưới dạng **data URI**, nên PDF và JPG đứng một mình được. Logo xuất hiện ở: A4 trang 1 (13mm) · A4 trang 2–3 (8,5mm) · bìa slide (trong **khung trắng bo góc**, vì nền file logo là trắng — đặt thẳng lên navy sẽ ra ô vuông trắng) · chân slide CTA.
+Thiếu file → tool in cảnh báo và dùng chữ thay tạm, bản đó **không được gửi khách**. Luật dùng logo: `BG-08` mục 1b.
+⛔ Gỡ hẳn cách gõ chữ *"BỆNH VIỆN THẨM MỸ KANGNAM"* thay logo.
+
+**② Một điểm nhấn mỗi trang** (`BG-08` mục 1c) — mỗi trang có **đúng một thứ to nhất**: trang 1 tiêu đề lời hứa (22pt) · trang 2 con số sau ưu đãi · trang 3 khối CTA. Trang 1 dựng lại thành khối **hero** riêng; khối *Điều khách mong muốn* hạ cấp từ card nền sang vạch màu bên trái; bốn bước phương án xếp **2 cột** thay vì dọc. ⛔ Tối đa 2 khối nền đặc một trang.
+
+**③ Bốn dấu hiệu cá nhân hoá** (`BG-03` mục 2b) — thêm **lời chào đích danh viết tay** trên tiêu đề trang 1 và bìa slide, **chữ ký tư vấn viên** cuối trang 3 (font script hệ thống, không tải mạng).
+Kèm **phép thử**: che tên khách và ba dòng meta đi, nếu vẫn gửi được cho khách khác cùng dịch vụ thì chưa cá nhân hoá. Hai dấu hiệu hình thức do template lo **không tính** — thứ quyết định vẫn là khối 3 và câu *vì sao hợp*. Phép thử này đã vào cả hai bộ não và ô tự kiểm (nay 9 ô).
+
+> 🔧 Trang 3 của ca sửa mí tràn **1,4px** (0,37mm) sau khi thêm chữ ký → 4 trang. Đã đo bằng px thật thay vì mm làm tròn, cắt 4px ở `.ky` và `.phap-ly`. Cả hai ca mẫu nay đúng 3 trang, cả ba trang đều 1121px / ngưỡng 1122,52px.
+
+---
+
 ## v1.2 — 2026-10-21 · trang hướng dẫn cài đặt + prompt mẫu
 
 **Trang web hướng dẫn:** <https://claude.ai/artifact/WZuxB6N8YyEH4mQoCboJFj> — nhúng vào `README.md` và `doc/01-cai-dat.md`.

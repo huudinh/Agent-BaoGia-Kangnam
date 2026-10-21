@@ -37,6 +37,42 @@ Trên nền navy (bìa slide, khối CTA): chữ trắng, nhãn phụ dùng `--a
 
 > Mặc định xuất **cả hai**. Khách chat Zalo thường không mở PDF; khách cần bàn với người nhà thì cần PDF.
 
+## 1b. LOGO — dùng file thật, không gõ chữ thay
+
+```
+template/logo-kangnam.png     518×78, nền TRẮNG (không trong suốt)
+```
+
+Tool tự nhúng logo vào file xuất ra dưới dạng **data URI**, nên PDF và ảnh JPG đứng một mình được — gửi đi không lo mất logo.
+
+| Luật | |
+|---|---|
+| Nền sáng (trang A4, slide chi phí) | đặt logo thẳng lên nền trắng |
+| Nền navy (bìa slide) | đặt trong **khung trắng bo góc**. ⛔ Không đặt thẳng — nền trắng của file logo sẽ thành một ô vuông trắng xấu |
+| Kích thước | A4 trang 1 cao **13mm** · A4 trang 2–3 cao **8,5mm** · bìa slide cao **62px** |
+| ⛔ Cấm | gõ chữ *"BỆNH VIỆN THẨM MỸ KANGNAM"* thay cho logo · đổi màu logo · kéo méo tỉ lệ · thêm hiệu ứng đổ bóng |
+| Thiếu file | tool in cảnh báo và dùng chữ thay tạm — **bản đó không được gửi khách** |
+
+Dòng định vị **"Chuẩn mực đầu tư nhan sắc"** đặt dưới logo, chữ nhỏ in hoa giãn chữ. Đây là định vị chính thức trong [[BG-01-ho-so-thuong-hieu]] — ⛔ không tự chế khẩu hiệu khác.
+
+## 1c. MỘT ĐIỂM NHẤN MỖI TRANG
+
+> Lỗi hay gặp nhất của báo giá do AI dựng: **nhồi mọi thứ vào một trang, cái gì cũng to, cái gì cũng có khung** — khách mở ra không biết nhìn đâu trước, và đóng lại.
+
+Mỗi trang có **đúng một thứ to nhất**. Mọi thứ còn lại phải nhỏ hơn rõ rệt, không chỉ nhỏ hơn một chút.
+
+| Trang | Điểm nhấn | Mọi thứ khác |
+|---|---|---|
+| **A4 trang 1** | **Tiêu đề lời hứa** (22pt) — thứ khách đọc đầu tiên | mong muốn · phương án · các bước: cỡ chữ thường |
+| **A4 trang 2** | **Con số sau ưu đãi** trong dải navy | bảng chi phí · trả góp: nền trắng, chữ thường |
+| **A4 trang 3** | **Khối CTA navy** | case · băn khoăn · miễn trừ: nền trắng |
+| **Slide 1** | Tiêu đề lời hứa trên nền navy | — |
+| **Slide 3** | Con số sau ưu đãi (50px, màu amber) | — |
+
+Ba cách hạ cấp một khối mà không phải xoá nó: bỏ nền card → dùng vạch màu bên trái · giảm cỡ chữ xuống cỡ chú thích · xếp 2 cột thay vì 1 cột dọc.
+
+⛔ **Không dùng quá 2 khối có nền đặc trên một trang.** Trang 1 chỉ có một (card phương án navy).
+
 ## 2b. BA TRANG A4 — khối nào nằm trang nào
 ```
 Trang 1  khối 1 đầu trang · 2 tiêu đề + lời mở · 3 điều khách mong muốn · 4 phương án
@@ -44,6 +80,27 @@ Trang 2  khối 5 chi phí · trả góp · 6 phương án khác · 8 lộ trìn
 Trang 3  khối 7 case + album · 9 băn khoăn + CTA · chân trang miễn trừ
 ```
 > Lộ trình nằm ở **trang 2** chứ không phải trang 3: trang 2 thường còn chỗ sau bảng chi phí, còn trang 3 phải đủ chỗ cho case, băn khoăn, CTA và khối miễn trừ. Đổi lại thứ tự này là trang 3 tràn sang trang 4.
+
+## 2c. ĐỌC TRÊN ĐIỆN THOẠI
+
+Phần lớn khách mở báo giá **trên điện thoại, trong lúc đang làm việc khác**. Ba file xuất ra phục vụ ba tình huống khác nhau:
+
+| Khách nhận bằng | Gửi file nào | Vì sao |
+|---|---|---|
+| **Zalo · Messenger** | **5 ảnh JPG** | Hiện thẳng trong luồng chat, không phải tải, không phải phóng to |
+| **Muốn lưu lại · đưa người nhà · in** | **PDF** | Đọc độc lập, in ra được |
+| **Gửi link mở trên điện thoại** | **file HTML** | Tự co theo bề ngang màn hình |
+
+**Điều kiện để HTML đọc được trên điện thoại — thiếu một là hỏng:**
+
+1. **`<meta name="viewport" content="width=device-width, initial-scale=1">`.** Thiếu thẻ này, trình duyệt điện thoại dựng trang trong khung ảo ~980px rồi thu nhỏ toàn bộ — media query **không bao giờ khớp**, khách thấy bản A4 chữ li ti. Đây là lỗi im lặng: trên máy tính nhìn vẫn đúng.
+2. **Khổ 210mm chỉ áp cho bản in.** Trên màn hình hẹp, `.page` chuyển sang `width:auto` — đó là thứ duy nhất gây kéo ngang, vì cỡ chữ vốn tính bằng `pt` (10,5pt = 14px) đã vừa đọc sẵn.
+3. **Bảng chi phí 4 cột phải xếp dọc** dưới 620px: mỗi dòng thành một khối, nhãn cột sinh bằng `::before`. ⛔ Không để khách kéo ngang mới thấy được con số — đó đúng là thứ họ mở file ra để xem.
+4. **Lưới 2 cột về 1 cột** (các bước phương án, ảnh case, khối liên hệ) và **chân trang chuyển `position:static`**, nếu không nó đè lên dòng cuối.
+5. **Bản slide** tự thu cả khung 1080px vừa bề ngang bằng `zoom` — chạy **sau** vòng đo tràn khung, vì `zoom` làm lệch phép đo bằng `getBoundingClientRect`.
+
+**Luật kiểm:** mở file HTML ở bề ngang **390px**. Không được có thanh cuộn ngang, và con số *chi phí sau ưu đãi* phải đọc được mà không phóng to.
+⚠️ Chrome headless có bề ngang tối thiểu **500px** — chụp ở 390px sẽ ra ảnh bị cắt dù layout đúng. Đo bằng `matchMedia` thay vì tin vào ảnh chụp.
 
 ## 3. NĂM SLIDE — nội dung cố định
 ```

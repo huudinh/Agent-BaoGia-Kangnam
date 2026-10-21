@@ -33,6 +33,20 @@ Mọi phương án đều là **đề xuất để mang tới buổi khám**. Ch
 **④ CTA của báo giá là ĐẶT KHÁM, không phải CHỐT CỌC.**
 Bước tiếp theo luôn là một việc nhỏ, miễn phí, có thể rút lui: chọn khung giờ khám. Xin cọc qua file báo giá là tự bắn vào chân.
 
+## 2b. BỐN DẤU HIỆU CÁ NHÂN HOÁ — thiếu một là tờ báo giá tụt về bảng giá chung
+
+| # | Dấu hiệu | Ở đâu | Tool/template lo phần nào |
+|---|---|---|---|
+| 1 | **Lời chào đích danh viết tay** — *"Gửi chị Thu Hà,"* | ngay trên tiêu đề trang 1 và bìa slide | template tự dựng từ `khach.ten_hien_thi` |
+| 2 | **Nhắc lại đúng chữ khách nói** | khối 3, và câu *vì sao hợp* ở khối 4 | agent phải viết — không ai viết hộ được |
+| 3 | **Lý do phương án này hợp với khách NÀY** | khối 4 | agent viết |
+| 4 | **Chữ ký người tư vấn** — *"Đồng hành cùng chị — Ngọc Anh"* | cuối trang 3 | template tự dựng từ `meta.nguoi_lap` |
+
+Dấu hiệu 1 và 4 là **hình thức** — template lo. Dấu hiệu 2 và 3 là **nội dung** — và đó mới là thứ quyết định.
+Một tờ báo giá có đủ lời chào đích danh, chữ ký tay, mà phần *vì sao hợp* viết chung chung kiểu *"đây là phương án được nhiều khách lựa chọn"* thì **vẫn là bảng giá chung có điền tên**.
+
+**Phép thử:** che tên khách và ba dòng meta đi. Nếu tờ báo giá vẫn gửi được cho một khách khác cùng dịch vụ mà không phải sửa chữ nào → **chưa cá nhân hoá**, làm lại khối 3 và khối 4.
+
 ## 3. KHỐI 2 — lời mở, công thức 3 câu
 ```
 Câu 1  Nhắc lại bối cảnh:   "Em tổng hợp lại những gì chị chia sẻ hôm qua..."
@@ -75,15 +89,17 @@ Thư viện câu trả lời theo rào cản: [[BG-05-noi-so-phan-doi]].
 | PDF A4 | 3 trang | ~700–900 chữ. Quá 3 trang là đang viết brochure, không phải báo giá |
 | JPG slide | 5 ảnh 1080×1920 | mỗi ảnh ≤ 120 chữ. Tràn khung → tool tự thu nhỏ và cảnh báo |
 
-## 9. TỰ KIỂM TRƯỚC KHI RENDER — 7 ô
+## 9. TỰ KIỂM TRƯỚC KHI RENDER — 9 ô
 ```
 ☐ Khối 3 có ít nhất 2 chi tiết chỉ đúng với khách này
 ☐ Khối 4 nối thẳng vào tình trạng ở khối 3
+☐ Che tên khách đi vẫn KHÔNG gửi được cho khách khác (phép thử mục 2b)
 ☐ Mọi dòng chi phí có mã trỏ về bang-gia.json
 ☐ Có dòng đã gồm / chưa gồm
 ☐ Mốc thời gian đều dạng khoảng + "tùy cơ địa mỗi người"
 ☐ Tên bác sĩ (nếu có) ở trạng thái duyet
 ☐ CTA là đặt khám, không phải chuyển cọc
+☐ Mỗi trang chỉ có MỘT thứ to nhất (BG-08 mục 1c)
 ```
 
 Liên quan: [[BG-01-ho-so-thuong-hieu]] · [[BG-02-bang-gia]] · [[BG-09-schema-du-lieu]]
