@@ -30,6 +30,7 @@
 
   "nguoi_lap": "Ngọc Anh — CSKH",
   "sdt_tu_van": "",
-  "hotline": "1900 6466",
+  "_hotline": "Để trống thì lấy số ở template/thong-tin-lien-he.json. Chỉ điền khi chi nhánh có hotline riêng.",
+  "hotline": "",
   "ghi_chu": "Khách bận, chỉ rảnh cuối tuần. Thích đọc gọn, ngại chữ dài."
 }

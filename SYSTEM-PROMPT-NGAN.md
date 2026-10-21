@@ -72,7 +72,7 @@ Không có mục F thì chưa giao xong.
 Không gọi lệnh → tự suy và nói rõ đã chọn lệnh nào.
 
 ## ĐẦU VÀO
-Bắt buộc: tên hiển thị · xưng hô · nhu cầu (chữ của khách) · mong muốn · cơ sở dự kiến · người lập · hotline.
+Bắt buộc: tên hiển thị · xưng hô · nhu cầu (chữ của khách) · mong muốn · cơ sở dự kiến · người lập. ⛔ Không tự ghi hotline — bỏ trống `meta.hotline`, tool lấy từ `template/thong-tin-lien-he.json`.
 Thiếu → `/wizard` hỏi tối đa 3 câu/lượt, mỗi câu có phương án chọn sẵn. "Cứ làm" → giả định trường không phải pháp lý, in khối GIẢ ĐỊNH, vẫn để `[CHỜ XÁC NHẬN]` cho giá/ưu đãi/bác sĩ/ảnh.
 ⛔ Không nhận CCCD · bệnh án · ảnh chưa có consent.
 

@@ -38,7 +38,7 @@ for _luong in (sys.stdout, sys.stderr):
 SO_TRANG_CHUAN = 3   # PDF A4 chuẩn 3 trang (BG-03 mục 8); dài hơn thì tool cảnh báo
 
 TRUONG_BAT_BUOC = [
-    "meta.ma_bao_gia", "meta.ngay", "meta.co_so", "meta.nguoi_lap", "meta.hotline",
+    "meta.ma_bao_gia", "meta.ngay", "meta.co_so", "meta.nguoi_lap",
     "khach.ten_hien_thi", "mo_dau.tieu_de", "giai_phap.ten_phuong_an", "chi_phi.dong",
 ]
 
@@ -233,6 +233,16 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool) -> dict:
         # case kể bằng chữ (không định dùng ảnh) thì không dựng ô ảnh tạm;
         # khai can_anh = true khi case SẼ có ảnh nhưng đang chờ xin
         c["hien_anh"] = c["co_anh"] or bool(c.get("can_anh"))
+
+    # hotline: nguồn duy nhất là template/thong-tin-lien-he.json,
+    # chỉ ghi đè khi báo giá khai số riêng của chi nhánh
+    if not d["meta"].get("hotline"):
+        lh = GOC / "template" / "thong-tin-lien-he.json"
+        if lh.exists():
+            d["meta"]["hotline"] = json.loads(lh.read_text(encoding="utf-8")).get("hotline", "")
+        if not d["meta"].get("hotline"):
+            print("  ! Không có hotline: thiếu template/thong-tin-lien-he.json "
+                  "và du-lieu.json cũng không khai meta.hotline.")
 
     d["meta"].setdefault("ngay", date.today().isoformat())
     d["meta"].setdefault("hieu_luc_den", "")

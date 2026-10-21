@@ -77,10 +77,11 @@ BG-10-vong-hoc.md            ghi kết quả
 BG-11-noi-dau-cat-mi.md      9 chân dung cắt mí + giá Plasma  ← dịch vụ bán chạy
 ```
 
-4. Upload thêm **hai file dữ liệu cứng** (bắt buộc, không có thì agent sẽ đoán giá):
+4. Upload thêm **ba file dữ liệu cứng** (bắt buộc, không có thì agent sẽ đoán):
 ```
-template/bang-gia.json        nguồn giá duy nhất
-template/bac-si-duyet.json    ai được nêu tên
+template/bang-gia.json           nguồn giá duy nhất
+template/bac-si-duyet.json       ai được nêu tên
+template/thong-tin-lien-he.json  hotline in lên báo giá
 ```
 5. Nên upload thêm `template/du-lieu.mau.json` để agent sinh JSON đúng cấu trúc ngay lần đầu.
 
@@ -96,14 +97,14 @@ template/bac-si-duyet.json    ai được nêu tên
 Ô Instructions giới hạn **8.000 ký tự** → dùng bản ngắn.
 
 1. ChatGPT → **Explore GPTs** → **Create** → tab **Configure**.
-2. Name: `Agent-BaoGia-Kangnam`. Instructions: copy khối ▼▲ của [`SYSTEM-PROMPT-NGAN.md`](../SYSTEM-PROMPT-NGAN.md) (5.135 ký tự).
-3. **Knowledge:** upload đủ 10 file `knowledge/` + `bang-gia.json` + `bac-si-duyet.json`.
+2. Name: `Agent-BaoGia-Kangnam`. Instructions: copy khối ▼▲ của [`SYSTEM-PROMPT-NGAN.md`](../SYSTEM-PROMPT-NGAN.md) — dưới giới hạn 8.000 ký tự.
+3. **Knowledge:** upload đủ **11 file** `knowledge/` + **3 file dữ liệu cứng** ở mục A bước 4.
 4. Tắt Web Browsing nếu không cần.
 
 > ⚠️ Bản ngắn đã cắt nhiều luật chi tiết và **trông vào knowledge để bù**. Không nạp knowledge thì nó sẽ đoán, và đoán sai ở chỗ giá và pháp lý.
 
 ## C. Gemini (Gems)
-Gemini → **Gems** → **New Gem** → dán khối ▼▲ của `SYSTEM-PROMPT.md` vào ô **Chỉ dẫn** → upload knowledge + 2 file JSON.
+Gemini → **Gems** → **New Gem** → dán khối ▼▲ của `SYSTEM-PROMPT.md` vào ô **Chỉ dẫn** → upload 11 file knowledge + 3 file JSON dữ liệu cứng.
 
 ## D. Claude Code / VS Code (không cần tạo project)
 Mở thư mục này rồi gõ:
@@ -134,7 +135,7 @@ Kết quả đúng phải là:
 ```
 cổng dữ liệu  : PASS
 cổng bảng giá : PASS
-=> PDF    : out\MAU\BG-2026-1021-01.pdf
+=> PDF    : out\MAU\BG-2026-1021-01.pdf  (3 trang)
 => ảnh 1..5 : out\MAU\BG-2026-1021-01-0X.jpg
 ```
 

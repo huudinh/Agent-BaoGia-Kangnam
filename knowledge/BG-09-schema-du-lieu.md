@@ -29,7 +29,8 @@ Agent **chỉ sinh ra `du-lieu.json`** và câu lệnh render. Agent **không t�
 | `co_so_du_kien` | ✔ | Quyết định cổng R3 (đại phẫu phải tuyến bệnh viện) |
 | `thoi_diem_mong_muon` | nên | Ảnh hưởng lộ trình và hiệu lực báo giá |
 | `da_tu_van` | nên | Đã khám chưa, bác sĩ nào đã xem — tránh nói quá |
-| `nguoi_lap`, `hotline` | ✔ | In lên file |
+| `nguoi_lap` | ✔ | In lên file |
+| `hotline` | — | Bỏ trống thì lấy `template/thong-tin-lien-he.json`. Chỉ khai khi chi nhánh có số riêng |
 
 ⛔ **Không nhập:** CCCD/CMND · số bảo hiểm · bệnh án · ảnh khách chưa có consent · tình trạng bệnh lý chi tiết.
 
@@ -45,7 +46,8 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
     "hieu_luc_den": "04/11/2026",      // nên có — 7-14 ngày
     "co_so": "Bệnh viện thẩm mỹ Kangnam Hà Nội",  // bắt buộc, quyết định cổng R3
     "nguoi_lap": "Ngọc Anh — CSKH",    // bắt buộc
-    "sdt_tu_van": "", "hotline": "1900 6466", "kenh_gui": "Zalo"
+    "sdt_tu_van": "", "kenh_gui": "Zalo"
+    // hotline: bỏ trống -> lấy template/thong-tin-lien-he.json
   },
 
   "khach": {

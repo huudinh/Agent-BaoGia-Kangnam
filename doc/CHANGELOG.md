@@ -1,5 +1,20 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v1.6 — 2026-10-21 · hotline 0968.999.777, gom về một nguồn
+
+Hotline đổi từ `1900 6466` sang **`0968.999.777`**.
+
+Nhưng số cũ đang nằm **rải ở 5 file** (hai file mẫu `du-lieu`, `khach-hang.mau.json`, `prompt-bao-gia.md`, `BG-09`) — đó chính là cách nó lệch nhau về sau. Nên gom lại trước khi đổi:
+
+**Thêm `template/thong-tin-lien-he.json`** — nguồn duy nhất. `render_baogia.py` lấy số từ đây khi `du-lieu.json` **không khai** `meta.hotline`; khai rồi thì dùng số đã khai, để chừa chỗ cho hotline riêng của chi nhánh. Thiếu cả hai → tool in cảnh báo.
+`meta.hotline` **không còn là trường bắt buộc** của cổng dữ liệu.
+
+Hai bộ não nay ghi rõ: ⛔ **agent không tự ghi hotline**, bỏ trống để tool điền. Từ nay đổi số chỉ sửa **một file**.
+
+> 🔧 Bẫy khi kiểm: `out/MAU/du-lieu.json` là bản copy cũ vẫn còn hotline cứng nên fallback không chạy, file xuất ra vẫn in số cũ — suýt tưởng code hỏng. Đã copy lại từ `template/` rồi kiểm cả hai nhánh: có file nguồn → in `0968.999.777`; xoá file nguồn → in đúng dòng cảnh báo.
+
+---
+
 ## v1.5 — 2026-10-21 · ba ô của form tạo agent
 
 Trang hướng dẫn chỉ nói điền **Tên** và **Instructions**, bỏ trống ô **Mô tả** (`Description`) và **Câu mở đầu hội thoại** (`Conversation starters`) — người cài mở form ChatGPT ra là khựng ngay ở ô thứ hai.

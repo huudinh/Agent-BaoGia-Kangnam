@@ -89,7 +89,7 @@ B4 KIỂM & XUẤT    → 3 cổng chặn → du-lieu.json → PDF + JPG
 ```
 Agent-BaoGia-Kangnam/
 ├── SYSTEM-PROMPT.md          bộ não đầy đủ (Claude/Gemini)
-├── SYSTEM-PROMPT-NGAN.md     bản 5.135 ký tự (ChatGPT Custom GPT)
+├── SYSTEM-PROMPT-NGAN.md     bản ngắn, dưới 8.000 ký tự (ChatGPT Custom GPT)
 ├── knowledge/                11 file tri thức — nạp hết vào project
 │   ├── BG-01-ho-so-thuong-hieu.md
 │   ├── BG-02-bang-gia.md
@@ -105,6 +105,8 @@ Agent-BaoGia-Kangnam/
 ├── template/
 │   ├── bang-gia.json         82 dịch vụ — NGUỒN GIÁ DUY NHẤT
 │   ├── bac-si-duyet.json     22 hồ sơ, 4 trạng thái
+│   ├── thong-tin-lien-he.json  hotline — NGUỒN DUY NHẤT
+│   ├── logo-kangnam.png      logo thật, tool nhúng vào file xuất ra
 │   ├── baogia-a4.html        khổ A4 → PDF
 │   ├── baogia-slide.html     1080×1920 → JPG
 │   ├── khach-hang.mau.json   mẫu đầu vào
@@ -158,6 +160,7 @@ Cần xem bố cục khi còn lỗi → `--nhap`, file ra đóng dấu **NHÁP**
 | Bác sĩ | `template/bac-si-duyet.json` | website, Google |
 | Ảnh case | Album Kangnam + văn bản consent | ảnh stock, ảnh AI, ảnh trên mạng |
 | Ưu đãi | thông báo nội bộ có số hiệu | "tháng này hình như có giảm" |
+| Hotline | `template/thong-tin-lien-he.json` | gõ tay vào từng báo giá |
 | Màu & khổ | `BG-08-design-system` | tự chọn |
 
 ## 7b. Cắt mí — dịch vụ đã có tri thức chuyên sâu

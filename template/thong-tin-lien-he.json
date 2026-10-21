@@ -1,0 +1,12 @@
+{
+  "_doc": "NGUỒN DUY NHẤT cho thông tin liên hệ in lên báo giá. Đổi số ở đây là mọi báo giá sinh ra sau đó đổi theo — không phải sửa từng file mẫu.",
+  "cap_nhat": "2026-10-21",
+
+  "hotline": "0968.999.777",
+
+  "_cach_dung": [
+    "du-lieu.json không khai meta.hotline → tool tự lấy số ở đây.",
+    "Khai meta.hotline riêng → dùng số đã khai, để chừa chỗ cho hotline riêng của chi nhánh.",
+    "Đổi hotline: sửa đúng file này rồi ghi lại vào doc/CHANGELOG.md."
+  ]
+}

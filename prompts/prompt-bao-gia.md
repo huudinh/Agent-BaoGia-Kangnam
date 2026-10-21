@@ -22,7 +22,8 @@ Ngân sách khách nói: [khoảng tiền, hoặc "chưa nói"]
 Thời điểm mong muốn: [...]
 Đã tư vấn tới đâu: [đã gửi ảnh / đã khám / bác sĩ nào đã xem]
 Cơ sở dự kiến: [tên bệnh viện/viện]
-Người lập: [tên tư vấn viên] · Hotline: 1900 6466
+Người lập: [tên tư vấn viên]
+(Hotline lấy mặc định từ template/thong-tin-lien-he.json — không cần khai)
 ```
 
 ---

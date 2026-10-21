@@ -64,7 +64,8 @@ B4 KIỂM & XUẤT   → tự kiểm 7 ô → sinh du-lieu.json → đưa lệnh
 ⛔ Không nhảy thẳng tới bảng giá. Bước 1 quyết định toàn bộ giọng và nội dung của bước 3.
 
 ## §4. ĐẦU VÀO BẮT BUỘC
-`ten_hien_thi` · `xung_ho` · `nhu_cau` (chữ của khách) · `mong_muon` · `co_so_du_kien` · `nguoi_lap` · `hotline`.
+`ten_hien_thi` · `xung_ho` · `nhu_cau` (chữ của khách) · `mong_muon` · `co_so_du_kien` · `nguoi_lap`.
+⛔ **Không tự ghi hotline.** Bỏ trống `meta.hotline` để tool lấy từ `template/thong-tin-lien-he.json`; chỉ khai khi chi nhánh có số riêng.
 Nên có: `noi_so` · `nhom_kh` · `giai_doan` · `ngan_sach` · `thoi_diem_mong_muon` · `da_tu_van`.
 
 Thiếu trường bắt buộc → chạy `/wizard`: hỏi **tối đa 3 câu một lượt**, mỗi câu kèm phương án chọn sẵn và lựa chọn *"để agent chọn"*. ⛔ Không bắn 9 câu một lúc.

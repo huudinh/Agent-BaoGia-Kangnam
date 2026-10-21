@@ -62,6 +62,8 @@ DATA_FILES = [
      "Mọi con số tiền trong báo giá phải truy về file này. Thiếu nó, agent sẽ đoán giá.", True),
     ("bac-si-duyet.json", "Bác sĩ được nêu tên",
      "4 trạng thái: duyet · can_xac_minh · xung_dot · ngung_dung. Chỉ duyet mới được in ra file.", True),
+    ("thong-tin-lien-he.json", "Hotline in lên báo giá",
+     "Nguồn duy nhất. Đổi số ở đây là mọi báo giá sinh ra sau đó đổi theo.", True),
     ("du-lieu.mau.json", "Mẫu đầu ra — ca cắt mí lần đầu",
      "Nạp kèm để agent sinh JSON đúng cấu trúc ngay lần đầu.", False),
     ("du-lieu.mau-sua-mi.json", "Mẫu đầu ra — ca sửa mí",
