@@ -1,0 +1,95 @@
+{
+  "_doc": "MẪU 2 — ca SỬA MÍ bằng dao Plasma (chân dung B1 mí tái sụp, nhóm khách 5). Dùng để kiểm: giá ưu đãi hiện hành, phí sửa mí tách dòng, link album, giọng viết cho khách sửa lại. Xem BG-11.",
+
+  "meta": {
+    "ma_bao_gia": "BG-2026-1021-02",
+    "ngay": "21/10/2026",
+    "hieu_luc_den": "04/11/2026",
+    "co_so": "Bệnh viện thẩm mỹ Kangnam Hà Nội",
+    "nguoi_lap": "Ngọc Anh — CSKH",
+    "sdt_tu_van": "",
+    "hotline": "1900 6466",
+    "kenh_gui": "Zalo"
+  },
+
+  "khach": {
+    "ten_hien_thi": "Chị Vân",
+    "xung_ho": "chị",
+    "mo_ta_ngan": "Chị đã cắt mí cách đây hơn hai năm. Nếp mí mờ dần, da mí lại che nếp nên mắt trông nặng như trước. Điều chị cần nhất lúc này là biết vì sao nếp không giữ được, trước khi bàn tới chuyện làm lại.",
+    "mong_muon": ["biết rõ nguyên nhân", "nếp mí giữ được lâu hơn", "không phải làm đi làm lại"],
+    "noi_so": ["sợ sửa xong vẫn tái sụp", "lo tốn thêm chi phí", "mất niềm tin sau lần trước"]
+  },
+
+  "mo_dau": {
+    "tieu_de": "Trước khi bàn làm lại, mình tìm đúng nguyên nhân đã",
+    "loi_mo": "Em tổng hợp lại những gì chị kể, kèm chi phí dự tính để chị hình dung trước. Với trường hợp đã can thiệp rồi, bước đầu tiên là khám đánh giá lại — chị không phải cam kết gì ở bước này."
+  },
+
+  "giai_phap": {
+    "ten_phuong_an": "Khám đánh giá lại, sau đó tạo hình lại đường mí bằng dao Plasma",
+    "vi_sao_hop": "Nếp mí mờ dần sau một thời gian có thể đến từ nhiều nguyên nhân khác nhau: lượng da mí còn lại, độ bám của nếp, hoặc sức cơ nâng mi. Mỗi nguyên nhân có cách xử lý riêng, nên bác sĩ cần khám trực tiếp và xem lại tình trạng mô hiện tại rồi mới chốt phương án cho chị.",
+    "gom": [
+      {"buoc": "Khám đánh giá lại tình trạng hiện tại", "noi_dung": "Bác sĩ xem lượng da mí còn lại, vị trí nếp cũ, mức độ xơ dính nếu có, và kiểm tra sức cơ nâng mi. Đây là bước quyết định phương án, chị nghe xong vẫn toàn quyền dừng lại."},
+      {"buoc": "Thiết kế lại đường mí theo cấu trúc mắt hiện tại", "noi_dung": "Nếp mới được tính trên phần mô còn lại chứ không phải trên mắt ban đầu. Chị được xem mô phỏng và chốt trước khi thực hiện."},
+      {"buoc": "Tạo hình đường mí bằng dao Plasma", "noi_dung": "Dao Plasma hỗ trợ thao tác chính xác, tạo đường mí sắc nét và hạn chế tổn thương mô xung quanh — điều này quan trọng hơn với vùng mí đã từng can thiệp."},
+      {"buoc": "Chăm sóc hậu phẫu và theo dõi", "noi_dung": "Hướng dẫn chăm sóc đúng cách nhằm giảm nguy cơ sẹo, giúp nếp mí hồi phục tự nhiên hơn; tái khám theo lịch, điều dưỡng nhắn nhắc từng mốc."}
+    ],
+    "diem_can_luu_y": [
+      "Mức cải thiện phụ thuộc tình trạng mô hiện tại và được bác sĩ đánh giá sau khi khám. Có điểm cải thiện được nhiều, có điểm chỉ cải thiện một phần — bác sĩ sẽ nói rõ từng điểm.",
+      "Nếu nguyên nhân là cơ nâng mi yếu chứ không phải da dư, phương án và chi phí sẽ khác — bác sĩ trao đổi lại với chị trước khi quyết định.",
+      "Sưng rõ nhất ở những ngày đầu rồi giảm dần, thường trong khoảng 7–14 ngày, tùy cơ địa mỗi người."
+    ]
+  },
+
+  "chi_phi": {
+    "dong": [
+      {"ma": "mat.cat-mi-plasma", "gia": 8000000, "so_luong": 1,
+       "dien_giai": "Tạo hình lại đường mí bằng dao Plasma — giá ưu đãi đang áp dụng, gồm phí phòng thủ thuật và vật tư"},
+      {"ma": "mat.phi-sua-mi", "gia": 1800000, "so_luong": 1,
+       "dien_giai": "Phần xử lý tình trạng đã can thiệp trước đó (niêm yết 3.000.000đ, đang giảm theo chính sách khu vực)"}
+    ],
+    "tra_gop": {"so_ky": 6, "dieu_kien": "Trả góp 0% qua thẻ tín dụng của ngân hàng liên kết, duyệt tại quầy."},
+    "ghi_chu_gia": "Chi phí đã gồm khám đánh giá lại, phòng thủ thuật, vật tư và các lần tái khám theo lịch. Chưa gồm xét nghiệm tiền phẫu nếu bác sĩ chỉ định thêm. Mức giảm phí sửa mí áp dụng theo chính sách từng khu vực, em xác nhận lại với cơ sở trước khi chị đặt lịch."
+  },
+
+  "case_tuong_tu": [
+    {"ma_case": "SM-0117", "mo_ta": "Khách nữ 34 tuổi, nếp mí mờ dần sau 3 năm, da mí che nếp",
+     "bac_si": "Harvey Nguyen", "moc_chup": "",
+     "ket_qua": "Khám xác định nguyên nhân là da mí còn dư sau lần làm trước; tạo hình lại đường mí kết hợp xử lý phần da dư. Khách theo dõi theo lịch tái khám của bệnh viện.",
+     "nhom": "mat", "consent": "", "anh_truoc": "", "anh_sau": ""}
+  ],
+
+  "case_album": {
+    "link": "https://hcigroup.vn/app/albumkn/?album=theme-1792573778761",
+    "nhan": "Hình ảnh khách hàng đã cắt mí tại Kangnam"
+  },
+
+  "lo_trinh": [
+    {"moc": "Bước 1 — Đặt lịch khám đánh giá lại", "viec": "Chị chọn khung giờ tiện, em giữ chỗ và nhắn xác nhận trước 1 ngày."},
+    {"moc": "Bước 2 — Bác sĩ khám và nói rõ nguyên nhân", "viec": "Chị nghe phân tích tình trạng hiện tại và mức cải thiện có thể đạt được. Dừng ở đây cũng không sao."},
+    {"moc": "Bước 3 — Chốt phương án và chi phí cuối", "viec": "Sau khám, bác sĩ chốt phương án phù hợp và chi phí chính thức cho trường hợp của chị."},
+    {"moc": "Bước 4 — Thực hiện", "viec": "Tiểu phẫu trong ngày, có người nhà đi cùng thì tiện hơn."},
+    {"moc": "Bước 5 — Tái khám và theo dõi", "viec": "Cắt chỉ và theo dõi theo lịch hẹn; điều dưỡng nhắn nhắc từng mốc."}
+  ],
+
+  "giai_toa": [
+    {"noi_so": "Sửa xong rồi lại tái sụp thì sao?",
+     "tra_loi": "Đây chính là lý do bước khám đánh giá lại phải làm trước. Độ bền của nếp mí phụ thuộc nguyên nhân gây mờ nếp, kỹ thuật thực hiện, cơ địa và cách chăm sóc. Bác sĩ sẽ nói rõ với chị yếu tố nào đang ảnh hưởng và chế độ theo dõi, chỉnh sửa theo chính sách bảo hành của bệnh viện."},
+    {"noi_so": "Chị sợ tốn thêm tiền mà không được gì",
+     "tra_loi": "Buổi khám đánh giá lại là để chị biết rõ tình trạng trước khi quyết định, không phải để chốt làm. Chi phí em ghi rõ từng khoản ở trang trước, phần xử lý tình trạng cũ tách riêng một dòng để chị thấy tiền đi đâu."},
+    {"noi_so": "Lần trước chị đã thất vọng rồi",
+     "tra_loi": "Em hiểu. Em không hứa trước kết quả — thứ em có thể làm là để bác sĩ khám trực tiếp, nói rõ cải thiện được tới đâu và giới hạn nằm ở đâu, rồi chị cân nhắc. Chị cũng có thể xem thêm hình ảnh khách hàng đã thực hiện qua link em gửi kèm."}
+  ],
+
+  "cta": {
+    "buoc_tiep": "Chị chọn một khung giờ khám đánh giá lại",
+    "mo_ta": "Buổi khám để tìm nguyên nhân và nghe bác sĩ nói rõ mức cải thiện có thể đạt được. Sau khám chị vẫn toàn quyền quyết định.",
+    "nut": "Nhắn lại giờ chị tiện — em giữ lịch",
+    "dia_chi": "Bệnh viện thẩm mỹ Kangnam Hà Nội"
+  },
+
+  "phap_ly": {
+    "gxnndqc": false,
+    "ghi_chu": "Báo giá cá nhân gửi 1-1 theo yêu cầu của khách hàng, không phải ấn phẩm quảng cáo phát hành rộng."
+  }
+}

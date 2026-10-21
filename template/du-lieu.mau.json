@@ -1,0 +1,101 @@
+{
+  "_doc": "ĐẦU RA của agent, ĐẦU VÀO của tools/render_baogia.py. Mọi dòng chi phí phải có mã trỏ về template/bang-gia.json.",
+
+  "meta": {
+    "ma_bao_gia": "BG-2026-1021-01",
+    "ngay": "21/10/2026",
+    "hieu_luc_den": "04/11/2026",
+    "co_so": "Bệnh viện thẩm mỹ Kangnam Hà Nội",
+    "nguoi_lap": "Ngọc Anh — CSKH",
+    "sdt_tu_van": "",
+    "hotline": "1900 6466",
+    "kenh_gui": "Zalo"
+  },
+
+  "khach": {
+    "ten_hien_thi": "Chị Thu Hà",
+    "xung_ho": "chị",
+    "mo_ta_ngan": "Mắt một mí, da mí trên hơi dư nên nhìn hay buồn ngủ. Chị muốn mắt mở hơn nhưng phải thật tự nhiên, hợp khuôn mặt tròn, và sắp xếp được với lịch đi làm.",
+    "mong_muon": ["tự nhiên, không lộ dấu", "nghỉ ít ngày", "trong khoảng 15 triệu"],
+    "noi_so": ["sợ đau", "sợ lộ sẹo khi trang điểm", "sợ nghỉ làm dài"]
+  },
+
+  "mo_dau": {
+    "tieu_de": "Đôi mắt mở hơn — mà vẫn là mắt của chị",
+    "loi_mo": "Em tổng hợp lại những gì chị chia sẻ hôm qua thành một phương án cụ thể, kèm chi phí dự tính để chị dễ hình dung trước khi tới khám. Đây là báo giá tham khảo riêng cho trường hợp của chị, không phải bảng giá chung."
+  },
+
+  "giai_phap": {
+    "ten_phuong_an": "Cắt mí 6D + lấy mỡ nội soi mí trên",
+    "vi_sao_hop": "Với mí một nếp kèm da dư nhẹ, chỉ tạo nếp thôi thì nếp dễ bị che và mất độ mở. Lấy bớt mỡ mí trên bằng nội soi giúp vùng mí gọn lại, nếp mí ăn sâu đều hơn và nhìn tự nhiên theo khuôn mặt tròn của chị.",
+    "gom": [
+      {"buoc": "Thiết kế nếp mí theo khuôn mắt", "noi_dung": "Bác sĩ đo tỉ lệ mắt — chân mày — khuôn mặt, chọn độ cao nếp vừa phải thay vì nếp to sẵn có. Chị được xem mô phỏng và chốt trước khi làm."},
+      {"buoc": "Lấy mỡ mí trên bằng nội soi", "noi_dung": "Đường vào nhỏ, lấy phần mỡ làm mí nặng, hạn chế phù nề so với cách bóc tách rộng."},
+      {"buoc": "Tạo nếp và đóng đường mổ", "noi_dung": "Đường mổ nằm đúng nếp mí nên khi mở mắt bị che; chỉ thẩm mỹ, cắt chỉ theo lịch hẹn."},
+      {"buoc": "Theo dõi sau phẫu thuật", "noi_dung": "Tái khám theo lịch, có điều dưỡng nhắn nhắc; chỉnh sửa theo chính sách bảo hành của bệnh viện nếu cần."}
+    ],
+    "diem_can_luu_y": [
+      "Mức độ da dư và lượng mỡ mí chỉ xác định chính xác khi bác sĩ khám trực tiếp — có thể phải điều chỉnh phương án.",
+      "Sưng nhiều trong vài ngày đầu rồi giảm dần, thường rõ nhất trong khoảng 7–14 ngày, tùy cơ địa mỗi người.",
+      "Nếu chị đang dùng thuốc chống đông hoặc có bệnh lý nền, báo bác sĩ trước khi đặt lịch."
+    ]
+  },
+
+  "chi_phi": {
+    "dong": [
+      {"ma": "mat.cat-mi-6d", "gia": 12800000, "so_luong": 1,
+       "dien_giai": "Thiết kế nếp theo khuôn mắt, gồm phí phòng mổ và vật tư tiêu hao"},
+      {"ma": "mat.lay-mo-noi-soi-mi", "gia": 6400000, "so_luong": 1,
+       "dien_giai": "Xử lý phần mỡ làm mí nặng — thực hiện cùng thì, không phải mổ thêm lần nữa"}
+    ],
+    "uu_dai": [
+      {"ten": "Ưu đãi khách đặt lịch khám trong tuần", "gia_tri": 2000000,
+       "dieu_kien": "đặt khám trước 04/11/2026", "han": "04/11/2026"}
+    ],
+    "tra_gop": {"so_ky": 6, "dieu_kien": "Trả góp 0% qua thẻ tín dụng của ngân hàng liên kết, duyệt tại quầy."},
+    "ghi_chu_gia": "Chi phí đã gồm khám, phòng mổ, vật tư và các lần tái khám theo lịch. Chưa gồm xét nghiệm tiền phẫu nếu bác sĩ chỉ định thêm."
+  },
+
+  "phuong_an_khac": [
+    {"ten": "Cắt mí Plasma", "gia": 8000000,
+     "khac_biet": "Chi phí thấp hơn, phù hợp khi da dư ít và không cần xử lý mỡ mí. Bác sĩ sẽ nói rõ có hợp với mắt của chị không sau khi khám."},
+    {"ten": "Cắt mí Perfect", "gia": 22400000,
+     "khac_biet": "Kỹ thuật chuyên sâu hơn cho mí nhiều khuyết điểm; chỉ đề xuất nếu khi khám thấy cần."}
+  ],
+
+  "case_tuong_tu": [
+    {"ma_case": "CM-0423", "mo_ta": "Khách nữ 30 tuổi, mí một nếp kèm da dư nhẹ, làm văn phòng",
+     "bac_si": "Henry Nguyen", "moc_chup": "sau 1 tháng",
+     "ket_qua": "Nếp mí nhỏ, mở mắt tự nhiên; khách đi làm lại theo lịch đã sắp xếp với bác sĩ.",
+     "nhom": "mat", "consent": "", "anh_truoc": "", "anh_sau": ""}
+  ],
+
+  "lo_trinh": [
+    {"moc": "Bước 1 — Đặt lịch khám", "viec": "Chị chọn khung giờ cuối tuần, em giữ chỗ và nhắn xác nhận trước 1 ngày."},
+    {"moc": "Bước 2 — Khám và chốt phương án", "viec": "Bác sĩ khám trực tiếp, mô phỏng nếp mí, chốt chi phí cuối cùng. Chị có thể dừng ở bước này nếu chưa sẵn sàng."},
+    {"moc": "Bước 3 — Xét nghiệm tiền phẫu", "viec": "Làm trong ngày, bác sĩ đọc kết quả trước khi xếp lịch mổ."},
+    {"moc": "Bước 4 — Thực hiện", "viec": "Tiểu phẫu trong ngày, có người nhà đi cùng thì tiện hơn."},
+    {"moc": "Bước 5 — Tái khám", "viec": "Cắt chỉ và theo dõi theo lịch hẹn; điều dưỡng nhắn nhắc từng mốc."}
+  ],
+
+  "giai_toa": [
+    {"noi_so": "Em sợ đau lắm",
+     "tra_loi": "Thủ thuật làm với gây tê tại chỗ do bác sĩ chỉ định, kèm phác đồ giảm đau sau mổ. Phần lớn khách mô tả là cảm giác căng tức hơn là đau; nếu chị khó chịu nhiều, báo ngay để bác sĩ điều chỉnh thuốc."},
+    {"noi_so": "Lộ sẹo khi trang điểm thì sao?",
+     "tra_loi": "Đường mổ được đặt đúng nếp mí nên khi mở mắt sẽ bị nếp che. Giai đoạn đầu đường mổ còn hồng và cần chăm sóc theo hướng dẫn; mức độ mờ sẹo phụ thuộc cơ địa mỗi người."},
+    {"noi_so": "Em nghỉ làm được ít ngày thôi",
+     "tra_loi": "Sưng rõ nhất ở những ngày đầu rồi giảm dần, thường trong khoảng 7–14 ngày, tùy cơ địa mỗi người. Chị nói rõ lịch công việc khi khám để bác sĩ xếp ngày mổ hợp lý."}
+  ],
+
+  "cta": {
+    "buoc_tiep": "Chị chỉ cần chọn một khung giờ khám",
+    "mo_ta": "Khám và tư vấn với bác sĩ chuyên khoa, có mô phỏng nếp mí. Sau khi khám chị vẫn toàn quyền quyết định làm hay không.",
+    "nut": "Nhắn lại giờ chị tiện — em giữ lịch",
+    "dia_chi": "Bệnh viện thẩm mỹ Kangnam Hà Nội"
+  },
+
+  "phap_ly": {
+    "gxnndqc": false,
+    "ghi_chu": "Báo giá cá nhân gửi 1-1 theo yêu cầu của khách hàng, không phải ấn phẩm quảng cáo phát hành rộng."
+  }
+}

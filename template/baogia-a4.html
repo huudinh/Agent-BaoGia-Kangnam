@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Báo giá {{meta.ma_bao_gia}} — {{khach.ten_hien_thi}}</title>
+<style>
+/* ============================================================
+   BÁO GIÁ CÁ NHÂN HOÁ KANGNAM — khổ A4 in / xuất PDF
+   Token màu lấy nguyên từ KF-09 (production v3.0). Không trộn bảng màu khác.
+   ============================================================ */
+:root{
+  --navy:#074E84; --navy-900:#04365E; --navy-950:#022544;
+  --cyan:#00A5E0; --gold:#A66E29; --amber:#FBBF65;
+  --cta:#EF6103;
+  --bg:#F3F6FA; --surface:#FFFFFF;
+  --ink:#0E2338; --ink-2:#4A5C70; --ink-3:#6E7E90;
+  --line:#DCE3EC; --ok:#1E8E5A;
+  --r:14px; --r-sm:8px;
+}
+@page{ size:A4; margin:0 }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font:400 10.5pt/1.5 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:var(--ink); background:#D9E0E8; -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+/* min-height chứ KHÔNG phải height cố định: nội dung dài thì trang tự dãn sang
+   trang in kế tiếp, không bao giờ bị cắt mất khối CTA hay khối miễn trừ.
+   Dài quá 3 trang thì render_baogia.py đếm trang PDF và cảnh báo. */
+.page{
+  width:210mm; min-height:296.6mm; margin:0 auto; background:var(--surface);
+  padding:12mm 14mm 16mm; position:relative;
+}
+.page + .page{ margin-top:6mm }
+.noi-dung{height:100%}
+@media print{
+  body{background:#fff}
+  /* .page + .page có độ ưu tiên cao hơn .page nên phải ghi đè đúng selector đó,
+     không thì 6mm margin vẫn còn và Chrome đẩy mỗi trang thành hai trang in */
+  .page, .page + .page{margin:0; break-after:page; page-break-after:always}
+  .page:last-of-type{break-after:auto; page-break-after:auto}
+}
+
+/* ---------- đầu trang ---------- */
+.top{display:flex;justify-content:space-between;align-items:flex-start;
+  border-bottom:3px solid var(--navy); padding-bottom:9px; margin-bottom:16px}
+.bh{font:800 15pt/1.15 inherit;color:var(--navy);letter-spacing:.2px}
+.bh small{display:block;font:600 8.5pt/1.3 inherit;color:var(--ink-2);letter-spacing:.6px;margin-top:3px;text-transform:uppercase}
+.ma{text-align:right;font-size:8.6pt;color:var(--ink-2);line-height:1.5}
+.ma b{color:var(--navy);font-size:10pt}
+
+/* ---------- tiêu đề ---------- */
+h1{font:800 17pt/1.22 inherit;color:var(--navy-900);margin:4px 0 6px}
+.loi-mo{font-size:10.5pt;color:var(--ink-2);margin:0 0 13px}
+h2{font:800 11.5pt/1.28 inherit;color:var(--navy);margin:0 0 10px;
+   display:flex;align-items:center;gap:8px}
+h2::before{content:"";width:4px;height:15px;background:var(--cta);border-radius:3px;flex:0 0 auto}
+h3{font:700 10pt/1.3 inherit;color:var(--navy-900);margin:0 0 4px}
+section{margin-bottom:13px; break-inside:avoid}
+p{margin:0 0 6px}
+
+/* ---------- khối ---------- */
+.the{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+.the-navy{background:var(--navy);color:#fff;border:0}
+.the-navy h3{color:#fff}
+.hai-cot{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ba-cot{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.nho{font-size:8.6pt;color:var(--ink-2)}
+.chip{display:inline-block;background:#E8EFFB;color:var(--navy);border-radius:999px;
+  padding:3px 10px;font-size:8.8pt;font-weight:700;margin:0 5px 5px 0}
+.chip-lo{background:#FDEEE2;color:#A1430A}
+ul{margin:0 0 0 17px;padding:0}
+li{margin-bottom:3px}
+
+/* ---------- bảng chi phí ---------- */
+table{width:100%;border-collapse:collapse;font-size:9.5pt}
+thead th{background:var(--navy);color:#fff;font-weight:700;text-align:left;
+  padding:7px 8px;font-size:8.8pt;letter-spacing:.2px}
+tbody td{padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even){background:#F8FAFD}
+.so{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ten-dv{font-weight:700;color:var(--navy-900)}
+.dien-giai{font-size:9pt;color:var(--ink-2);margin-top:2px}
+tfoot td{padding:6px 8px;font-weight:700}
+.gach{color:var(--ink-3);font-weight:400;font-size:9pt}
+.tong-cuoi td{background:var(--navy);color:#fff;font-size:10.5pt;border-radius:0 0 6px 6px}
+.giam td{color:var(--cta)}
+
+/* ---------- case + ảnh ---------- */
+.case{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface)}
+.case-head{background:#E8EFFB;padding:7px 10px;font-weight:700;color:var(--navy);font-size:9pt}
+.case-body{padding:8px 10px;font-size:8.8pt;color:var(--ink-2)}
+.anh{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 11px 11px}
+.anh figure{margin:0}
+.anh img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--r-sm);display:block}
+.anh figcaption{font-size:8.4pt;color:var(--ink-3);text-align:center;margin-top:3px}
+.o-anh-tam{aspect-ratio:1/1;border:2px dashed #B9C6D6;border-radius:var(--r-sm);
+  background:repeating-linear-gradient(45deg,#F3F6FA,#F3F6FA 8px,#EAF0F7 8px,#EAF0F7 16px);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:8.4pt;color:var(--ink-3);padding:8px;line-height:1.35}
+
+/* ---------- lộ trình ---------- */
+.lo-trinh{counter-reset:b;list-style:none;margin:0;padding:0}
+.lo-trinh li{position:relative;padding:0 0 8px 28px;border-left:2px solid var(--line);margin-left:9px}
+.lo-trinh li:last-child{border-left-color:transparent;padding-bottom:0}
+.lo-trinh li::before{counter-increment:b;content:counter(b);position:absolute;left:-11px;top:-2px;
+  width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;
+  font-size:8.6pt;font-weight:800;display:flex;align-items:center;justify-content:center}
+.lo-trinh b{color:var(--navy-900)}
+
+/* ---------- hỏi đáp ---------- */
+.qa{border-left:3px solid var(--amber);padding:1px 0 1px 10px;margin-bottom:7px}
+.qa b{display:block;color:var(--navy-900);margin-bottom:2px}
+
+/* ---------- CTA ---------- */
+.cta-box{background:var(--navy);color:#fff;border-radius:var(--r);padding:12px 14px}
+.cta-box h2{color:#fff}
+.cta-box h2::before{background:var(--amber)}
+.nut{display:inline-block;background:var(--cta);color:#fff;font-weight:800;font-size:11.5pt;
+  padding:9px 20px;border-radius:999px;margin:6px 0 4px}
+.lh{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px;font-size:9pt}
+.lh div{background:rgba(255,255,255,.1);border-radius:var(--r-sm);padding:7px 10px}
+.lh b{display:block;font-size:8.4pt;text-transform:uppercase;letter-spacing:.5px;
+  color:var(--amber);margin-bottom:2px;font-weight:700}
+
+/* ---------- chân trang pháp lý ---------- */
+.phap-ly{margin-top:11px;border-top:1px solid var(--line);padding-top:7px;
+  font-size:8pt;line-height:1.45;color:var(--ink-3)}
+.phap-ly b{color:var(--ink-2)}
+.chan{position:absolute;left:14mm;right:14mm;bottom:6mm;display:flex;
+  justify-content:space-between;font-size:8pt;color:var(--ink-3);
+  border-top:1px solid var(--line);padding-top:5px}
+
+/* ---------- dấu NHÁP ---------- */
+.nhap{position:fixed;top:40%;left:0;right:0;text-align:center;
+  font:900 90pt/1 inherit;color:rgba(239,97,3,.13);transform:rotate(-24deg);
+  letter-spacing:14px;z-index:99;pointer-events:none}
+</style>
+</head>
+<body>
+{{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
+
+<!-- ======================= TRANG 1 ======================= -->
+<div class="page">
+  <div class="top">
+    <div class="bh">BỆNH VIỆN THẨM MỸ KANGNAM<small>Chuẩn mực đầu tư nhan sắc</small></div>
+    <div class="ma">
+      <b>{{meta.ma_bao_gia}}</b><br>
+      Ngày lập: {{meta.ngay}}{{#meta.hieu_luc_den}}<br>Hiệu lực đến: {{meta.hieu_luc_den}}{{/meta.hieu_luc_den}}<br>
+      {{meta.co_so}}
+    </div>
+  </div>
+
+  <h1>{{mo_dau.tieu_de}}</h1>
+  <p class="loi-mo">{{mo_dau.loi_mo}}</p>
+
+  <section>
+    <h2>Điều {{khach.xung_ho}} đang mong muốn</h2>
+    <div class="the">
+      <p style="margin-bottom:8px">{{khach.mo_ta_ngan}}</p>
+      {{#khach.mong_muon}}<span class="chip">{{.}}</span>{{/khach.mong_muon}}
+      {{#khach.noi_so}}<span class="chip chip-lo">lo: {{.}}</span>{{/khach.noi_so}}
+    </div>
+  </section>
+
+  <section>
+    <h2>Phương án bác sĩ đề xuất</h2>
+    <div class="the the-navy" style="margin-bottom:10px">
+      <h3 style="font-size:13pt">{{giai_phap.ten_phuong_an}}</h3>
+      <p style="margin:0;font-size:10.4pt;opacity:.93">{{giai_phap.vi_sao_hop}}</p>
+    </div>
+    {{#giai_phap.gom}}
+    <div style="margin-bottom:7px">
+      <h3>{{buoc}}</h3>
+      <p class="nho" style="margin:0">{{noi_dung}}</p>
+    </div>
+    {{/giai_phap.gom}}
+    {{#co_luu_y}}
+    <div class="the" style="margin-top:9px;border-left:4px solid var(--amber)">
+      <h3>Bác sĩ lưu ý riêng cho trường hợp của {{khach.xung_ho}}</h3>
+      <ul class="nho" style="margin-bottom:0">{{#giai_phap.diem_can_luu_y}}<li>{{.}}</li>{{/giai_phap.diem_can_luu_y}}</ul>
+    </div>
+    {{/co_luu_y}}
+  </section>
+
+  <div class="chan"><span>{{meta.ma_bao_gia}}</span><span>Trang 1</span></div>
+</div>
+
+<!-- ======================= TRANG 2 — CHI PHÍ ======================= -->
+<div class="page">
+  <div class="top">
+    <div class="bh">CHI PHÍ DỰ TÍNH<small>{{khach.ten_hien_thi}} · {{meta.ma_bao_gia}}</small></div>
+    <div class="ma">{{meta.co_so}}<br>Ngày lập: {{meta.ngay}}</div>
+  </div>
+
+  <section>
+    <table>
+      <thead><tr>
+        <th style="width:44%">Hạng mục</th><th class="so" style="width:11%">SL</th>
+        <th class="so" style="width:22%">Đơn giá</th><th class="so" style="width:23%">Thành tiền</th>
+      </tr></thead>
+      <tbody>
+        {{#chi_phi.dong}}
+        <tr>
+          <td><div class="ten-dv">{{ten}}</div>{{#dien_giai}}<div class="dien-giai">{{dien_giai}}</div>{{/dien_giai}}</td>
+          <td class="so">{{so_luong}} {{don_vi}}</td>
+          <td class="so">{{#gia_niem_yet_ht}}<s class="gach">{{gia_niem_yet_ht}}</s><br>{{/gia_niem_yet_ht}}{{gia_ht}}</td>
+          <td class="so">{{thanh_tien_ht}}</td>
+        </tr>
+        {{/chi_phi.dong}}
+      </tbody>
+      <tfoot>
+        <tr><td colspan="3" class="so">Tạm tính</td><td class="so">{{chi_phi.tong_ht}}</td></tr>
+        {{#chi_phi.co_uu_dai}}
+        {{#chi_phi.uu_dai}}
+        <tr class="giam"><td colspan="3" class="so">{{ten}}{{#dieu_kien}} <span class="nho">({{dieu_kien}})</span>{{/dieu_kien}}</td><td class="so">− {{gia_tri_ht}}</td></tr>
+        {{/chi_phi.uu_dai}}
+        {{/chi_phi.co_uu_dai}}
+        <tr class="tong-cuoi"><td colspan="3" class="so">CHI PHÍ DỰ TÍNH SAU ƯU ĐÃI</td><td class="so">{{chi_phi.sau_uu_dai_ht}}</td></tr>
+      </tfoot>
+    </table>
+    <p class="nho" style="margin-top:8px">
+      {{#chi_phi.ghi_chu_gia}}{{chi_phi.ghi_chu_gia}}<br>{{/chi_phi.ghi_chu_gia}}
+      Giá trên là giá niêm yết tham khảo tại thời điểm lập báo giá. Chi phí cuối cùng do bác sĩ quyết định sau khi thăm khám trực tiếp.
+    </p>
+  </section>
+
+  {{#chi_phi.tra_gop}}
+  <section>
+    <h2>Chia nhỏ khoản đầu tư</h2>
+    <div class="the">
+      <p style="margin:0"><b style="color:var(--navy);font-size:13pt">{{so_tien_moi_ky_ht}}</b> / tháng × {{so_ky}} tháng</p>
+      {{#dieu_kien}}<p class="nho" style="margin:4px 0 0">{{dieu_kien}}</p>{{/dieu_kien}}
+    </div>
+  </section>
+  {{/chi_phi.tra_gop}}
+
+  {{#co_phuong_an_khac}}
+  <section>
+    <h2>Nếu {{khach.xung_ho}} muốn cân nhắc thêm</h2>
+    <div class="hai-cot">
+      {{#phuong_an_khac}}
+      <div class="the">
+        <h3>{{ten}}</h3>
+        <p style="margin:2px 0 5px"><b style="color:var(--cta);font-size:12pt">{{gia_ht}}</b></p>
+        <p class="nho" style="margin:0">{{khac_biet}}</p>
+      </div>
+      {{/phuong_an_khac}}
+    </div>
+  </section>
+  {{/co_phuong_an_khac}}
+
+
+  {{#co_lo_trinh}}
+  <section>
+    <h2>Lộ trình của {{khach.xung_ho}}</h2>
+    <ol class="lo-trinh">
+      {{#lo_trinh}}<li><b>{{moc}}</b> — {{viec}}</li>{{/lo_trinh}}
+    </ol>
+  </section>
+  {{/co_lo_trinh}}
+
+  <div class="chan"><span>{{meta.ma_bao_gia}}</span><span>Trang 2</span></div>
+</div>
+
+<!-- ======================= TRANG 3 — BẰNG CHỨNG + BƯỚC TIẾP ======================= -->
+<div class="page">
+  <div class="top">
+    <div class="bh">CƠ SỞ ĐỂ {{khach.xung_ho_hoa}} YÊN TÂM<small>{{khach.ten_hien_thi}} · {{meta.ma_bao_gia}}</small></div>
+    <div class="ma">{{meta.co_so}}</div>
+  </div>
+
+  {{#co_bang_chung}}
+  <section>
+    <h2>Trường hợp tương tự đã thực hiện</h2>
+    {{#case_tuong_tu}}
+    <div class="case" style="margin-bottom:10px">
+      <div class="case-head">{{mo_ta}}{{#bac_si}} · Bác sĩ {{bac_si}}{{/bac_si}}</div>
+      <div class="case-body">{{ket_qua}}</div>
+      {{#hien_anh}}
+      <div class="anh">
+        <figure>
+          {{#anh_truoc}}<img src="{{anh_truoc}}" alt="Trước">{{/anh_truoc}}
+          {{^anh_truoc}}<div class="o-anh-tam">Ô ẢNH TẠM<br>Ảnh TRƯỚC — case {{ma_case}}<br><b>cần ảnh thật đã có consent</b></div>{{/anh_truoc}}
+          <figcaption>Trước</figcaption>
+        </figure>
+        <figure>
+          {{#anh_sau}}<img src="{{anh_sau}}" alt="Sau">{{/anh_sau}}
+          {{^anh_sau}}<div class="o-anh-tam">Ô ẢNH TẠM<br>Ảnh SAU — case {{ma_case}}<br><b>cần ảnh thật đã có consent</b></div>{{/anh_sau}}
+          <figcaption>{{moc_chup}}</figcaption>
+        </figure>
+      </div>
+      {{/hien_anh}}
+    </div>
+    {{/case_tuong_tu}}
+    {{#co_anh_bat_ky}}<p class="nho">Hình ảnh được khách hàng đồng ý chia sẻ và ghi rõ thời điểm chụp. Kết quả thẩm mỹ phụ thuộc cơ địa từng người.</p>{{/co_anh_bat_ky}}
+    {{#co_album}}
+    <div class="the" style="border-left:4px solid var(--cta);margin-top:8px">
+      <h3 style="margin-bottom:3px">{{case_album.nhan}}</h3>
+      <div class="nho" style="word-break:break-all">{{case_album.link}}</div>
+    </div>
+    {{/co_album}}
+  </section>
+  {{/co_bang_chung}}
+
+
+  {{#co_giai_toa}}
+  <section>
+    <h2>Những điều {{khach.xung_ho}} đang băn khoăn</h2>
+    {{#giai_toa}}<div class="qa"><b>{{noi_so}}</b>{{tra_loi}}</div>{{/giai_toa}}
+  </section>
+  {{/co_giai_toa}}
+
+  <section class="cta-box">
+    <h2>{{cta.buoc_tiep}}</h2>
+    <p style="margin:0 0 4px;opacity:.93">{{cta.mo_ta}}</p>
+    <div class="nut">{{cta.nut}}</div>
+    <div class="lh">
+      <div><b>Tư vấn viên</b>{{meta.nguoi_lap}}{{#meta.sdt_tu_van}} · {{meta.sdt_tu_van}}{{/meta.sdt_tu_van}}</div>
+      <div><b>Tổng đài</b>{{meta.hotline}}</div>
+      <div style="grid-column:1/-1"><b>Cơ sở thực hiện</b>{{cta.dia_chi}}</div>
+    </div>
+  </section>
+
+  <div class="phap-ly">
+    {{#phap_ly.mien_tru}}<div>• {{.}}</div>{{/phap_ly.mien_tru}}
+    {{#phap_ly.ghi_chu}}<div style="margin-top:4px"><b>{{phap_ly.ghi_chu}}</b></div>{{/phap_ly.ghi_chu}}
+  </div>
+
+  <div class="chan"><span>{{meta.ma_bao_gia}} · lập bởi {{meta.nguoi_lap}}</span><span>Trang 3</span></div>
+</div>
+
+</body>
+</html>

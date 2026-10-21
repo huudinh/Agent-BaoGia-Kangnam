@@ -1,0 +1,35 @@
+{
+  "_doc": "ĐẦU VÀO của agent — thông tin khách hàng do tư vấn viên nhập. Agent đọc file này (hoặc nghe mô tả bằng lời) rồi sinh ra du-lieu.json.",
+  "_cam": [
+    "KHÔNG nhập CCCD/CMND, số bảo hiểm, bệnh án, ảnh khách chưa có consent.",
+    "KHÔNG nhập tình trạng bệnh lý chi tiết — chỉ ghi điều ảnh hưởng tới tư vấn (vd: đang cho con bú).",
+    "Tuổi ghi khoảng (vd 30-35) nếu khách là người chưa xác minh danh tính."
+  ],
+
+  "ma_kh": "KH-2026-1021-01",
+  "ten_hien_thi": "Chị Thu Hà",
+  "xung_ho": "chị",
+  "tuoi": 32,
+  "khu_vuc": "Hà Nội",
+  "kenh": "Zalo",
+  "co_so_du_kien": "Bệnh viện thẩm mỹ Kangnam Hà Nội",
+
+  "nhom_kh": 1,
+  "_nhom_kh_giai_thich": "1 công sở/tích góp · 2 doanh nhân · 3 KOC-Gen Z · 4 sinh viên/mới đi làm · 5 khách sửa lại · 6 trung niên trẻ hoá (BG-04)",
+  "giai_doan": "CÂN NHẮC",
+  "_giai_doan_giai_thich": "NHẬN BIẾT · TÌM HIỂU · CÂN NHẮC · THỰC HIỆN · HẬU PHẪU · GẮN BÓ (BG-04 mục 2)",
+
+  "nhu_cau": "Mắt một mí, da mí trên hơi dư, nhìn buồn ngủ. Muốn mắt to tự nhiên, hợp với khuôn mặt tròn.",
+  "mong_muon": ["tự nhiên, không ai nhận ra đã làm", "nghỉ ít ngày nhất có thể", "trong khoảng 15 triệu"],
+  "noi_so": ["sợ đau", "sợ lộ sẹo khi trang điểm", "sợ phải nghỉ làm dài"],
+  "rao_can_chinh": "L6.3 lo chi phí + L6.5 sợ đau/kết quả không tự nhiên",
+
+  "ngan_sach": {"tu": 10000000, "den": 15000000},
+  "thoi_diem_mong_muon": "trước Tết Nguyên đán 2027",
+  "da_tu_van": "Đã gửi ảnh qua Zalo, tư vấn viên sơ bộ nghĩ tới nhóm cắt mí. CHƯA có bác sĩ khám trực tiếp.",
+
+  "nguoi_lap": "Ngọc Anh — CSKH",
+  "sdt_tu_van": "",
+  "hotline": "1900 6466",
+  "ghi_chu": "Khách bận, chỉ rảnh cuối tuần. Thích đọc gọn, ngại chữ dài."
+}

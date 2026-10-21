@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Báo giá {{meta.ma_bao_gia}} — slide</title>
+<style>
+/* ============================================================
+   BÁO GIÁ CÁ NHÂN HOÁ KANGNAM — bản SLIDE 1080x1920 để xuất JPG
+   Gửi Zalo / Messenger. Mỗi .slide là một ảnh.
+   Mở file kèm ?s=2 để chỉ hiện slide 2 (tool render dùng cách này để chụp).
+   ============================================================ */
+:root{
+  --navy:#074E84; --navy-900:#04365E; --navy-950:#022544;
+  --cyan:#00A5E0; --gold:#A66E29; --amber:#FBBF65;
+  --cta:#EF6103; --bg:#F3F6FA; --surface:#FFFFFF;
+  --ink:#0E2338; --ink-2:#4A5C70; --ink-3:#6E7E90; --line:#DCE3EC;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#C9D3DE;
+  font:400 30px/1.5 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+.slide{width:1080px;height:1920px;background:var(--surface);position:relative;
+  overflow:hidden;margin:0 auto 30px;display:flex;flex-direction:column}
+body[data-only]{background:#fff}
+body[data-only] .slide{margin:0}
+
+/* đầu / chân slide */
+.sh{background:var(--navy);color:#fff;padding:40px 56px 34px;flex:0 0 auto}
+.sh .bh{font:800 34px/1.2 inherit;letter-spacing:.5px}
+.sh .sub{font:600 21px/1.3 inherit;color:var(--amber);letter-spacing:2.5px;
+  text-transform:uppercase;margin-top:8px}
+.than{flex:1 1 auto;padding:46px 56px;overflow:hidden}
+.sf{flex:0 0 auto;background:var(--bg);border-top:1px solid var(--line);
+  padding:22px 56px;display:flex;justify-content:space-between;
+  font-size:21px;color:var(--ink-3)}
+h1{font:800 62px/1.18 inherit;color:var(--navy-900);margin:0 0 26px}
+h2{font:800 42px/1.25 inherit;color:var(--navy);margin:0 0 24px;
+  display:flex;align-items:center;gap:16px}
+h2::before{content:"";width:10px;height:42px;background:var(--cta);border-radius:5px;flex:0 0 auto}
+h3{font:700 32px/1.3 inherit;color:var(--navy-900);margin:0 0 10px}
+p{margin:0 0 18px}
+.the{background:var(--bg);border:1px solid var(--line);border-radius:26px;padding:30px 34px;margin-bottom:24px}
+.the-navy{background:var(--navy);color:#fff;border:0}
+.the-navy h3{color:#fff}
+.chip{display:inline-block;background:#E8EFFB;color:var(--navy);border-radius:999px;
+  padding:9px 24px;font-size:26px;font-weight:700;margin:0 10px 12px 0}
+.chip-lo{background:#FDEEE2;color:#A1430A}
+.nho{font-size:25px;color:var(--ink-2);line-height:1.45}
+ul{margin:0 0 0 30px;padding:0}
+li{margin-bottom:12px}
+
+/* slide 1 — bìa */
+.bia{background:linear-gradient(160deg,var(--navy-950),var(--navy) 58%,#0A5E9E);
+  color:#fff;justify-content:space-between;padding:86px 70px}
+.bia .logo{font:800 40px/1.2 inherit;letter-spacing:.5px}
+.bia .logo small{display:block;font:600 22px/1.4 inherit;color:var(--amber);
+  letter-spacing:3px;text-transform:uppercase;margin-top:10px}
+.bia h1{color:#fff;font-size:74px;margin:0 0 30px}
+.bia .ten-kh{font:700 36px/1.35 inherit;color:var(--amber);margin-bottom:18px}
+.bia .loi{font-size:31px;line-height:1.55;opacity:.92}
+.bia .ma{font-size:24px;opacity:.8;border-top:1px solid rgba(255,255,255,.25);padding-top:26px}
+
+/* bảng chi phí */
+table{width:100%;border-collapse:collapse;font-size:27px}
+th{background:var(--navy);color:#fff;text-align:left;padding:18px 20px;font-size:25px}
+td{padding:18px 20px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#F8FAFD}
+.so{text-align:right;white-space:nowrap}
+.tong{background:var(--navy);color:#fff;border-radius:24px;padding:30px 34px;
+  display:flex;justify-content:space-between;align-items:center;margin-top:26px}
+.tong .nhan{font-size:26px;opacity:.9}
+.tong .tien{font:800 50px/1 inherit;color:var(--amber)}
+.giam{color:var(--cta);font-weight:700}
+.gach{color:var(--ink-3);font-weight:400;font-size:23px}
+
+/* ảnh case */
+.anh{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.anh img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:20px;display:block}
+.anh figure{margin:0}
+.anh figcaption{text-align:center;font-size:24px;color:var(--ink-3);margin-top:10px}
+.o-anh-tam{aspect-ratio:1/1;border:4px dashed #B9C6D6;border-radius:20px;
+  background:repeating-linear-gradient(45deg,#F3F6FA,#F3F6FA 20px,#EAF0F7 20px,#EAF0F7 40px);
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:24px;color:var(--ink-3);padding:24px;line-height:1.4}
+
+/* lộ trình + CTA */
+.lo{counter-reset:b;list-style:none;margin:0 0 26px;padding:0}
+.lo li{position:relative;padding:0 0 26px 56px;border-left:3px solid var(--line);margin-left:18px}
+.lo li:last-child{border-left-color:transparent;padding-bottom:0}
+.lo li::before{counter-increment:b;content:counter(b);position:absolute;left:-21px;top:-6px;
+  width:40px;height:40px;border-radius:50%;background:var(--navy);color:#fff;
+  font:800 24px/40px inherit;text-align:center}
+.cta{background:var(--navy);color:#fff;border-radius:26px;padding:38px 40px;margin-top:auto}
+.cta h3{color:#fff;font-size:38px;margin-bottom:14px}
+.nut{display:inline-block;background:var(--cta);color:#fff;font:800 34px/1 inherit;
+  padding:26px 44px;border-radius:999px;margin:18px 0 10px}
+.lh{font-size:27px;line-height:1.6;margin-top:14px}
+.lh b{color:var(--amber)}
+.mien-tru{font-size:21px;line-height:1.45;color:var(--ink-3);margin-top:22px}
+.nhap{position:absolute;top:44%;left:0;right:0;text-align:center;
+  font:900 200px/1 inherit;color:rgba(239,97,3,.12);transform:rotate(-24deg);
+  letter-spacing:30px;z-index:99;pointer-events:none}
+</style>
+</head>
+<body>
+
+<!-- ===== 1. BÌA ===== -->
+<div class="slide bia" data-i="1">
+  {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
+  <div class="logo">BỆNH VIỆN THẨM MỸ KANGNAM<small>Chuẩn mực đầu tư nhan sắc</small></div>
+  <div>
+    <div class="ten-kh">Gửi {{khach.ten_hien_thi}}</div>
+    <h1>{{mo_dau.tieu_de}}</h1>
+    <div class="loi">{{mo_dau.loi_mo}}</div>
+  </div>
+  <div class="ma">{{meta.ma_bao_gia}} · {{meta.ngay}}{{#meta.hieu_luc_den}} · hiệu lực đến {{meta.hieu_luc_den}}{{/meta.hieu_luc_den}}<br>{{meta.co_so}}</div>
+</div>
+
+<!-- ===== 2. MONG MUỐN + PHƯƠNG ÁN ===== -->
+<div class="slide" data-i="2">
+  {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
+  <div class="sh"><div class="bh">Phương án dành riêng cho {{khach.xung_ho}}</div>
+    <div class="sub">{{meta.ma_bao_gia}}</div></div>
+  <div class="than">
+    {{#co_mong_muon}}
+    <div class="the">
+      <h3>Điều {{khach.xung_ho}} mong muốn</h3>
+      <div style="margin-top:14px">
+        {{#khach.mong_muon}}<span class="chip">{{.}}</span>{{/khach.mong_muon}}
+        {{#khach.noi_so}}<span class="chip chip-lo">lo: {{.}}</span>{{/khach.noi_so}}
+      </div>
+    </div>
+    {{/co_mong_muon}}
+    <div class="the the-navy">
+      <h3 style="font-size:40px">{{giai_phap.ten_phuong_an}}</h3>
+      <p style="margin:12px 0 0;font-size:29px;opacity:.94">{{giai_phap.vi_sao_hop}}</p>
+    </div>
+    {{#giai_phap.gom}}
+    <div style="margin-bottom:20px">
+      <h3>{{buoc}}</h3>
+      <div class="nho">{{noi_dung}}</div>
+    </div>
+    {{/giai_phap.gom}}
+  </div>
+  <div class="sf"><span>{{meta.co_so}}</span><span>2</span></div>
+</div>
+
+<!-- ===== 3. CHI PHÍ ===== -->
+<div class="slide" data-i="3">
+  {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
+  <div class="sh"><div class="bh">Chi phí dự tính</div><div class="sub">{{khach.ten_hien_thi}}</div></div>
+  <div class="than">
+    <table>
+      <tr><th>Hạng mục</th><th class="so">Thành tiền</th></tr>
+      {{#chi_phi.dong}}
+      <tr><td><b>{{ten}}</b>{{#dien_giai}}<div class="nho" style="font-size:23px">{{dien_giai}}</div>{{/dien_giai}}</td>
+          <td class="so">{{#gia_niem_yet_ht}}<s class="gach">{{gia_niem_yet_ht}}</s><br>{{/gia_niem_yet_ht}}{{thanh_tien_ht}}</td></tr>
+      {{/chi_phi.dong}}
+      {{#chi_phi.uu_dai}}
+      <tr><td class="giam">{{ten}}</td><td class="so giam">− {{gia_tri_ht}}</td></tr>
+      {{/chi_phi.uu_dai}}
+    </table>
+    <div class="tong">
+      <span class="nhan">Chi phí dự tính{{#chi_phi.co_uu_dai}} sau ưu đãi{{/chi_phi.co_uu_dai}}</span>
+      <span class="tien">{{chi_phi.sau_uu_dai_ht}}</span>
+    </div>
+    {{#chi_phi.tra_gop}}
+    <div class="the" style="margin-top:26px">
+      <h3>Chia nhỏ khoản đầu tư</h3>
+      <p style="margin:6px 0 0;font-size:34px"><b style="color:var(--navy)">{{so_tien_moi_ky_ht}}</b> / tháng × {{so_ky}} tháng</p>
+      {{#dieu_kien}}<div class="nho" style="margin-top:8px">{{dieu_kien}}</div>{{/dieu_kien}}
+    </div>
+    {{/chi_phi.tra_gop}}
+    <div class="mien-tru">Giá niêm yết tham khảo tại thời điểm lập báo giá. Chi phí cuối cùng do bác sĩ quyết định sau khi thăm khám trực tiếp.</div>
+  </div>
+  <div class="sf"><span>{{meta.ma_bao_gia}}</span><span>3</span></div>
+</div>
+
+<!-- ===== 4. CASE TƯƠNG TỰ ===== -->
+{{#co_bang_chung}}
+<div class="slide" data-i="4">
+  {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
+  <div class="sh"><div class="bh">Trường hợp tương tự</div><div class="sub">đã thực hiện tại Kangnam</div></div>
+  <div class="than">
+    {{#case_tuong_tu}}
+    <div class="the" style="padding:26px 28px">
+      <h3 style="font-size:29px">{{mo_ta}}{{#bac_si}} · BS {{bac_si}}{{/bac_si}}</h3>
+      <div class="nho" style="margin-bottom:18px">{{ket_qua}}</div>
+      {{#hien_anh}}
+      <div class="anh">
+        <figure>
+          {{#anh_truoc}}<img src="{{anh_truoc}}" alt="Trước">{{/anh_truoc}}
+          {{^anh_truoc}}<div class="o-anh-tam">Ô ẢNH TẠM<br>ảnh TRƯỚC · {{ma_case}}<br>cần ảnh thật đã có consent</div>{{/anh_truoc}}
+          <figcaption>Trước</figcaption>
+        </figure>
+        <figure>
+          {{#anh_sau}}<img src="{{anh_sau}}" alt="Sau">{{/anh_sau}}
+          {{^anh_sau}}<div class="o-anh-tam">Ô ẢNH TẠM<br>ảnh SAU · {{ma_case}}<br>cần ảnh thật đã có consent</div>{{/anh_sau}}
+          <figcaption>{{moc_chup}}</figcaption>
+        </figure>
+      </div>
+      {{/hien_anh}}
+    </div>
+    {{/case_tuong_tu}}
+    {{#co_album}}
+    <div class="the" style="border-left:8px solid var(--cta)">
+      <h3>{{case_album.nhan}}</h3>
+      <div class="nho" style="word-break:break-all;margin-top:6px">{{case_album.link}}</div>
+      <div class="nho" style="margin-top:8px">Em gửi kèm link này trong tin nhắn để {{khach.xung_ho}} bấm xem trực tiếp ạ.</div>
+    </div>
+    {{/co_album}}
+    {{#co_anh_bat_ky}}<div class="mien-tru">Hình ảnh được khách hàng đồng ý chia sẻ và ghi rõ thời điểm chụp. Kết quả thẩm mỹ phụ thuộc cơ địa từng người.</div>{{/co_anh_bat_ky}}
+  </div>
+  <div class="sf"><span>{{meta.co_so}}</span><span>4</span></div>
+</div>
+{{/co_bang_chung}}
+
+<!-- ===== 5. LỘ TRÌNH + CTA ===== -->
+<div class="slide" data-i="5">
+  {{#_nhap}}<div class="nhap">NHÁP</div>{{/_nhap}}
+  <div class="sh"><div class="bh">Bước tiếp theo</div><div class="sub">{{meta.ma_bao_gia}}</div></div>
+  <div class="than" style="display:flex;flex-direction:column">
+    {{#co_lo_trinh}}
+    <h2>Lộ trình của {{khach.xung_ho}}</h2>
+    <ol class="lo">{{#lo_trinh}}<li><b>{{moc}}</b> — {{viec}}</li>{{/lo_trinh}}</ol>
+    {{/co_lo_trinh}}
+    <div class="cta">
+      <h3>{{cta.buoc_tiep}}</h3>
+      <div class="nho" style="color:rgba(255,255,255,.9)">{{cta.mo_ta}}</div>
+      <div class="nut">{{cta.nut}}</div>
+      <div class="lh">
+        <b>Tư vấn viên:</b> {{meta.nguoi_lap}}{{#meta.sdt_tu_van}} · {{meta.sdt_tu_van}}{{/meta.sdt_tu_van}}<br>
+        <b>Tổng đài:</b> {{meta.hotline}}<br>
+        <b>Cơ sở:</b> {{cta.dia_chi}}
+      </div>
+    </div>
+    <div class="mien-tru">{{#phap_ly.mien_tru}}{{.}} {{/phap_ly.mien_tru}}</div>
+  </div>
+  <div class="sf"><span>{{meta.ma_bao_gia}} · {{meta.nguoi_lap}}</span><span>5</span></div>
+</div>
+
+<script>
+// chỉ hiện 1 slide khi mở kèm ?s=N — tool render dùng để chụp từng ảnh
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var s = new URLSearchParams(location.search).get('s');
+  if (s) {
+    document.body.setAttribute('data-only', s);
+    slides.forEach(function(sl, i){ sl.style.display = (String(i + 1) === s) ? 'flex' : 'none'; });
+  }
+  // thu nhỏ nội dung nếu tràn khung 1920px
+  slides.forEach(function(sl, i){
+    var than = sl.querySelector('.than'); if (!than) return;
+    var co = 1;
+    while (than.scrollHeight > than.clientHeight + 1 && co > 0.62){
+      co -= 0.04; than.style.zoom = co;
+    }
+    if (than.scrollHeight > than.clientHeight + 1){
+      sl.setAttribute('data-tran', '1');
+      console.warn('SLIDE ' + (i + 1) + ' TRAN KHUNG - rut gon noi dung');
+    } else if (!than.querySelector('.cta')){
+      // scrollHeight không bao giờ nhỏ hơn clientHeight -> đo chiều cao thật của nội dung
+      var con = than.children[than.children.length - 1];
+      if (con){
+        var hopThan = than.getBoundingClientRect();
+        var padTren = parseFloat(getComputedStyle(than).paddingTop) || 0;
+        var caoND = con.getBoundingClientRect().bottom - (hopThan.top + padTren);
+        if (caoND < than.clientHeight * 0.85){
+          // nội dung ngắn: dồn vào giữa khung cho cân, đỡ trống nửa dưới
+          than.style.display = 'flex';
+          than.style.flexDirection = 'column';
+          than.style.justifyContent = 'center';
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
