@@ -31,6 +31,25 @@ Trong `du-lieu.json`, điều kiện 1 được khai bằng `"consent": "ok"`. *
 5. ⛔ Không ảnh cận cảnh thao tác phẫu thuật, máu, vết mổ.
 6. ⛔ **Giảm cân / Lipo 360 / body:** không dùng ảnh so sánh **cơ thể** (rào R12). Thay bằng câu chuyện khách hàng. Tool chặn nếu `case_tuong_tu[].nhom` thuộc nhóm body.
 
+## 3a. LẤY ẢNH THẬT BẰNG CÔNG CỤ — `tools/anh_album.py`
+
+Album có **API công khai**, nên agent lấy được danh sách ảnh. Khoá API chỉ cần để *liệt kê*; **tải ảnh thì không cần khoá**.
+
+```bash
+python tools/anh_album.py                            # 29 album trong kho
+python tools/anh_album.py --album "cắt mí"            # ảnh trong album, kèm tag
+python tools/anh_album.py --album "cắt mí" --lay 2    # in sẵn khối JSON để dán
+```
+
+Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ảnh về nhúng vào file** dưới dạng data URI. Bản gửi khách vì thế **tự đứng một mình**: album đổi hay link chết thì file đã gửi vẫn nguyên.
+
+Khoá API để ở `template/album-key.local.json` hoặc biến môi trường `KN_ALBUM_KEY`.
+⛔ **Không commit khoá** — repo là public; `.gitignore` chặn `*.local.json`. Lỡ lộ thì vào app xoay khoá mới.
+
+> ⚠️ **API trả ảnh, không trả giấy phép.** Hiện **chưa ảnh nào gắn tag**, nên tool không tự biết ảnh nào đã có consent. Người lập báo giá tự kiểm — tool in câu hỏi đó trong bảng **Cân nhắc trước khi gửi**.
+
+Báo giá có ảnh thật được **thêm một trang** so với chuẩn 3 trang: ảnh trước–sau là thứ khách xem trước cả giá, nó đáng chỗ đó.
+
 ## 3b. LINK ALBUM GỬI KÈM BÁO GIÁ
 Một số dịch vụ có **album chia sẻ** đã được duyệt để gửi khách. Khai vào `du-lieu.json`:
 

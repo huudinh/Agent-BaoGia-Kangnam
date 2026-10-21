@@ -5,9 +5,12 @@ Quét toàn bộ chuỗi trong file dữ liệu báo giá và chặn trước kh
 Nguồn luật: Agent-LDP-Kangnam/knowledge/KF-11-cong-phap-ly.md (rào R0-R12, bảng từ cấm)
             + knowledge/BG-07-cong-phap-ly.md của chính agent này.
 
-Ba mức:
-  CHAN   — fail là KHÔNG XUẤT file, không có ngoại lệ.
-  CANH   — phải sửa hoặc phải có người duyệt, render vẫn chạy nhưng in cảnh báo.
+Ba mức — ranh giới: cổng CHẶN cái SAI TRONG CHỮ, cổng CẢNH nhường quyết định cho người.
+  CHAN   — fail là KHÔNG XUẤT file. Chỉ dành cho thứ sai ngay trong chữ viết ra:
+           cam kết kết quả · mốc hồi phục cứng · mời đại phẫu sai tuyến · ảnh cơ thể.
+           Những thứ này không ai "duyệt" cho đúng được, viết ra là sai.
+  CANH   — thứ cần NGƯỜI THẬT cân nhắc rồi tự quyết: tên bác sĩ đã duyệt quảng bá chưa ·
+           ảnh đã có consent chưa · tên thương mại thuốc. Tool in rõ, người lập chịu trách nhiệm.
   NHAC   — nhắc kiểm tra bằng mắt.
 
 Dùng độc lập:   python tools/cong_phap_ly.py out/KH-xxx/du-lieu.json
@@ -95,7 +98,10 @@ def _duyet_chuoi(obj, duong_dan="", ra=None):
         for i, v in enumerate(obj):
             _duyet_chuoi(v, f"{duong_dan}[{i}]", ra)
     elif isinstance(obj, str):
-        ra.append((duong_dan, obj))
+        # Bỏ qua ảnh/logo đã nhúng: chuỗi base64 dài chứa đủ mọi tổ hợp chữ cái
+        # nên chắc chắn "trúng" từ cấm — quét nó là tự tạo báo động giả.
+        if not obj.startswith("data:") and len(obj) < 4000:
+            ra.append((duong_dan, obj))
     return ra
 
 
@@ -146,13 +152,15 @@ def kiem_tra(du_lieu: dict) -> list[dict]:
         if khoa and khoa in noi_dung_kd:
             tt = b.get("trang_thai")
             if tt == "ngung_dung":
-                loi.append({"muc": "CHAN", "ma": "R4", "duong_dan": "(toàn văn)",
+                loi.append({"muc": "CANH", "ma": "R4", "duong_dan": "(toàn văn)",
                             "trich": b["ten"],
-                            "thay_bang": f"{b.get('ghi_chu', '')} — gỡ tên này khỏi báo giá"})
+                            "thay_bang": f"{b.get('ghi_chu', '')} — cân nhắc gỡ tên này, "
+                                         f"hoặc xác nhận với Chuyên môn rồi hãy gửi"})
             elif tt == "xung_dot":
-                loi.append({"muc": "CHAN", "ma": "R4", "duong_dan": "(toàn văn)",
+                loi.append({"muc": "CANH", "ma": "R4", "duong_dan": "(toàn văn)",
                             "trich": b["ten"],
-                            "thay_bang": "web và KF-02 lệch nhau — DỪNG, hỏi Pháp chế trước khi gửi"})
+                            "thay_bang": "web và danh sách duyệt quảng bá đang lệch nhau — "
+                                         "xác nhận với Pháp chế trước khi gửi"})
             elif tt == "can_xac_minh":
                 loi.append({"muc": "CANH", "ma": "R4", "duong_dan": "(toàn văn)",
                             "trich": b["ten"],
@@ -162,13 +170,14 @@ def kiem_tra(du_lieu: dict) -> list[dict]:
     for case in du_lieu.get("case_tuong_tu") or []:
         co_anh = bool(case.get("anh_truoc") or case.get("anh_sau"))
         if co_anh and not case.get("consent"):
-            loi.append({"muc": "CHAN", "ma": "R5", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
-                        "trich": "ảnh case không khai consent",
-                        "thay_bang": 'đặt "consent": "ok" khi đã có văn bản đồng ý còn hiệu lực, hoặc bỏ ảnh và dùng ô ảnh tạm'})
+            loi.append({"muc": "CANH", "ma": "R5", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
+                        "trich": "ảnh case chưa khai consent",
+                        "thay_bang": 'ảnh khách cần văn bản đồng ý còn hiệu lực. Có rồi thì đặt '
+                                     '"consent": "ok"; chưa chắc thì cân nhắc kỹ trước khi gửi'})
         if co_anh and not case.get("moc_chup"):
-            loi.append({"muc": "CHAN", "ma": "R5", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
+            loi.append({"muc": "CANH", "ma": "R5", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
                         "trich": "thiếu mốc thời gian chụp",
-                        "thay_bang": 'ghi đúng mốc, vd "sau 1 tháng" — bỏ mốc là làm sai lệch bằng chứng'})
+                        "thay_bang": 'nên ghi đúng mốc, vd "sau 1 tháng" — bỏ mốc là làm sai lệch bằng chứng'})
         if co_anh and (case.get("nhom") or "").lower() in ("body", "giam can", "giảm cân", "lipo"):
             loi.append({"muc": "CHAN", "ma": "R12", "duong_dan": f"case_tuong_tu[{case.get('ma_case', '?')}]",
                         "trich": "ảnh so sánh cơ thể",
@@ -207,7 +216,7 @@ def in_bao_cao(loi: list[dict]) -> None:
         print("  (Vẫn phải người thật rà: consent còn hiệu lực, DMKT, đúng pháp nhân.)")
         return
     for muc, nhan in (("CHAN", "CHẶN — không xuất file"),
-                      ("CANH", "CẢNH BÁO — cần sửa hoặc cần người duyệt"),
+                      ("CANH", "CÂN NHẮC — người lập đọc rồi tự quyết"),
                       ("NHAC", "NHẮC — kiểm bằng mắt")):
         nhom = [l for l in loi if l["muc"] == muc]
         if not nhom:

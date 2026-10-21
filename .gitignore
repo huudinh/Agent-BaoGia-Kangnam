@@ -1,6 +1,8 @@
 out/*
 !out/.gitkeep
 tools/huong-dan.html
+# khoá API và cấu hình riêng từng máy — KHÔNG commit
+*.local.json
 __pycache__/
 *.pyc
 # *.png: chi bo qua anh chup man hinh tam, KHONG bo qua logo

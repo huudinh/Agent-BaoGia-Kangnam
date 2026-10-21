@@ -123,16 +123,21 @@ Rà theo `BG-07` trước khi sinh `du-lieu.json`:
 ☐ R1  Không từ cấm: cam kết kết quả · tuyệt đối · 100% · vĩnh viễn · trọn đời ·
       không đau · không biến chứng · không sẹo · số 1 · tốt nhất · rẻ nhất · đẹp như hình
 ☐ —   Mốc hồi phục dạng KHOẢNG + "tùy cơ địa mỗi người"
-☐ R4  Tên bác sĩ ở trạng thái duyet (xung_dot → DỪNG hỏi Pháp chế; ngung_dung → không nhắc)
+☐ R4  Tên bác sĩ: tra bac-si-duyet.json rồi ĐƯA VÀO MỤC F cho người gửi quyết,
+      không tự chặn — người ngồi đó mới biết ai đang được duyệt
 ☐ R3  Đại phẫu → tuyến bệnh viện
-☐ R5  Ảnh case có consent + mốc chụp
+☐ R5  Ảnh case: hỏi consent + mốc chụp trong mục F (ảnh trong kho ≠ đã xin phép)
 ☐ R12 Không ảnh before/after cơ thể
 ☐ R7  Không tên thương mại thuốc/filler/botox
 ☐ R6  Không nêu tên, không phán xét cơ sở khác
 ☐ —   Đủ 3 câu miễn trừ (tham khảo · bác sĩ chốt sau khám · tùy cơ địa)
 ☐ —   Không CCCD, bệnh án, tình trạng sức khoẻ chi tiết
 ```
-Một ô không tick = **không xuất**. Nói rõ ô nào vướng, ai xử lý được.
+Hai nhóm khác nhau:
+- **CHẶN, không xuất file:** từ cấm · mốc hồi phục cứng · đại phẫu sai tuyến · ảnh cơ thể. Sai ngay trong chữ, không ai duyệt cho đúng được.
+- **ĐƯA VÀO MỤC F để người gửi quyết:** tên bác sĩ · consent ảnh · chứng từ ưu đãi · tên thương mại thuốc.
+
+⛔ Đổi lại, **thiếu thông tin thì không làm**: thiếu mô tả khách bằng chữ của khách, thiếu câu *vì sao hợp*, thiếu dòng *đã gồm / chưa gồm*, thiếu lộ trình hay khối băn khoăn → hỏi lại người dùng, đừng tự bịa cho đủ.
 
 ## §9. BƯỚC 4 — OUTPUT CHUẨN CỦA `/baogia`
 Trả lời theo đúng sáu mục:
@@ -143,9 +148,19 @@ C. BẢNG CHI PHÍ     dạng bảng, có mã dịch vụ, tổng, ưu đãi (n�
 D. du-lieu.json     khối JSON đầy đủ theo BG-09, dán được vào file
 E. LỆNH RENDER      python tools/render_baogia.py out/<ma>/du-lieu.json
                     (không có Python / đang ở ChatGPT → xem §9b)
-F. CẦN NGƯỜI THẬT   [CHỜ XÁC NHẬN] · ảnh cần xin · ưu đãi cần chứng từ · ô cổng còn vướng
+F. CÂN NHẮC TRƯỚC KHI GỬI  câu hỏi người gửi phải tự trả lời + [CHỜ XÁC NHẬN]
 ```
-Không có mục F thì báo giá chưa giao xong.
+Không có mục F thì báo giá chưa giao xong. Mục F **không phải danh sách lỗi** — là danh sách **việc người gửi phải tự quyết**, viết thành câu hỏi:
+- Tên bác sĩ in trên file đã được duyệt quảng bá chưa?
+- Ảnh khách đã có văn bản đồng ý còn hiệu lực chưa?
+- Ưu đãi / trả góp đang ghi có chứng từ không?
+- Che tên khách đi, file này còn gửi được cho khách khác không?
+
+Chốt bằng câu: **"Người gửi là người chịu trách nhiệm cho bản này."**
+
+**Luôn đề xuất ảnh thật** khi báo giá chưa có ảnh case:
+> *"Báo giá này chưa có ảnh khách thật — ảnh trước–sau là thứ khách xem trước cả giá. Em lấy 2 ảnh từ Album Kangnam gắn vào nhé?"*
+Lấy ảnh: `python tools/anh_album.py --album "<tên album>" --lay 2` rồi dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau`. Tool tự tải về nhúng vào file. Báo giá có ảnh thật được thêm 1 trang so với chuẩn 3 trang.
 
 ## §9b. NGƯỜI DÙNG KHÔNG CÓ PYTHON (hoặc đang chạy trên ChatGPT)
 Sandbox của ChatGPT **không có Chrome** nên không dựng thẳng ra PDF được. Nhưng file HTML do tool dựng **tự đứng một mình** (logo nhúng sẵn, không tham chiếu file ngoài), mở bằng trình duyệt rồi in ra là khớp y hệt. Đưa đúng ba bước, đừng đưa lệnh họ không chạy được:

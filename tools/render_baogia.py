@@ -35,11 +35,29 @@ for _luong in (sys.stdout, sys.stderr):
     if hasattr(_luong, "reconfigure"):
         _luong.reconfigure(encoding="utf-8", errors="replace")
 
-SO_TRANG_CHUAN = 3   # PDF A4 chuẩn 3 trang (BG-03 mục 8); dài hơn thì tool cảnh báo
+SO_TRANG_CHUAN = 3   # PDF A4 chuẩn 3 trang (BG-03 mục 8); dài hơn thì tool cảnh báo.
+                     # Có ảnh case thật thì được thêm 1 trang — ảnh đáng chỗ đó.
 
+# Trường phải điền đủ thì báo giá mới ra hồn. Cổng dữ liệu nay siết chặt hơn
+# phần "ai đã duyệt" — thà bắt người lập điền đủ còn hơn chặn vì thiếu con dấu.
 TRUONG_BAT_BUOC = [
-    "meta.ma_bao_gia", "meta.ngay", "meta.co_so", "meta.nguoi_lap",
-    "khach.ten_hien_thi", "mo_dau.tieu_de", "giai_phap.ten_phuong_an", "chi_phi.dong",
+    ("meta.ma_bao_gia", "mã báo giá"),
+    ("meta.ngay", "ngày lập"),
+    ("meta.co_so", "cơ sở thực hiện — quyết định dịch vụ đại phẫu có được mời hay không"),
+    ("meta.nguoi_lap", "người lập — in lên file, ai gửi thì chịu trách nhiệm bản đó"),
+    ("khach.ten_hien_thi", "tên khách"),
+    ("khach.mo_ta_ngan", "mô tả tình trạng khách bằng CHỮ CỦA KHÁCH — thiếu là mất cá nhân hoá"),
+    ("khach.mong_muon", "điều khách mong muốn (2-4 ý)"),
+    ("mo_dau.tieu_de", "tiêu đề lời hứa"),
+    ("mo_dau.loi_mo", "lời mở 3 câu"),
+    ("giai_phap.ten_phuong_an", "tên phương án"),
+    ("giai_phap.vi_sao_hop", "VÌ SAO phương án này hợp với khách NÀY — phần đắt giá nhất"),
+    ("chi_phi.dong", "dòng chi phí"),
+    ("chi_phi.ghi_chu_gia", "dòng đã gồm / chưa gồm — khách sợ phát sinh chứ không sợ đắt"),
+    ("lo_trinh", "lộ trình từng bước"),
+    ("giai_toa", "khối băn khoăn — lấy đúng nỗi lo khách đã nói"),
+    ("cta.buoc_tiep", "bước tiếp theo"),
+    ("cta.dia_chi", "địa chỉ cơ sở khách tới khám"),
 ]
 
 # ------------------------------------------------------------------ tiện ích
@@ -129,12 +147,38 @@ def render(mau: str, ctx: dict, cha: list | None = None) -> str:
 
 def cong_du_lieu(d: dict) -> list[str]:
     loi = []
-    for t in TRUONG_BAT_BUOC:
+    for t, vi_sao in TRUONG_BAT_BUOC:
         if not _that(lay(d, t)):
-            loi.append(f"thiếu trường bắt buộc: {t}")
+            loi.append(f"{t}  —  {vi_sao}")
     if not (d.get("chi_phi") or {}).get("dong"):
-        loi.append("chi_phi.dong rỗng — báo giá phải có ít nhất 1 dòng chi phí")
+        loi.append("chi_phi.dong  —  báo giá phải có ít nhất 1 dòng chi phí")
     return loi
+
+
+def can_nhac_truoc_khi_gui(d: dict, loi_pl: list[dict]) -> list[str]:
+    """Những thứ tool KHÔNG tự quyết được — người gửi đọc rồi tự chịu trách nhiệm."""
+    o = []
+    ten_bs = [c.get("bac_si") for c in (d.get("case_tuong_tu") or []) if c.get("bac_si")]
+    if ten_bs:
+        o.append("Tên bác sĩ in trên file (%s) đã được duyệt quảng bá chưa?"
+                 % ", ".join(sorted(set(ten_bs))))
+    co_anh = [c for c in (d.get("case_tuong_tu") or []) if c.get("anh_truoc") or c.get("anh_sau")]
+    if co_anh:
+        thieu = [c.get("ma_case", "?") for c in co_anh if not c.get("consent")]
+        o.append("Ảnh khách đã có văn bản đồng ý còn hiệu lực chưa?"
+                 + (" (chưa khai consent: %s)" % ", ".join(thieu) if thieu else ""))
+    if (d.get("chi_phi") or {}).get("uu_dai"):
+        o.append("Ưu đãi đang ghi có chứng từ còn hiệu lực không?")
+    if (d.get("chi_phi") or {}).get("tra_gop"):
+        o.append("Chính sách trả góp này đúng với cơ sở %s chứ?" % lay(d, "meta.co_so", ""))
+    if d.get("_co_dai_phau"):
+        o.append("Có dịch vụ ĐẠI PHẪU — khách đã biết phẫu thuật thực hiện tại tuyến bệnh viện chưa?")
+    o.append("Đọc lại mục chi phí: đã gồm / chưa gồm đã nói đủ chưa?")
+    o.append("Che tên khách đi, file này còn gửi được cho khách khác không? Còn = chưa cá nhân hoá.")
+    for l in loi_pl:
+        if l["muc"] == "CANH":
+            o.append("[%s] %s → %s" % (l["ma"], l["trich"], l["thay_bang"]))
+    return o
 
 
 def cong_bang_gia(d: dict, bang: dict) -> list[str]:
@@ -185,7 +229,7 @@ def cong_bang_gia(d: dict, bang: dict) -> list[str]:
 # ------------------------------------------------------------- chuẩn bị ngữ cảnh
 
 
-def dung_ngu_canh(d: dict, bang: dict, nhap: bool) -> dict:
+def dung_ngu_canh(d: dict, bang: dict, nhap: bool, goc_anh: Path) -> dict:
     tra = {s["ma"]: s for s in bang["dich_vu"]}
     cp = d["chi_phi"]
     tong = 0
@@ -229,6 +273,11 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool) -> dict:
         pa["gia_ht"] = tien(pa.get("gia"))
 
     for c in d.get("case_tuong_tu") or []:
+        # ảnh có thể là link album, URL bất kỳ, hay file trên máy — nhúng hết vào
+        # file để bản gửi khách tự đứng một mình, không phụ thuộc album còn sống
+        for o in ("anh_truoc", "anh_sau"):
+            if c.get(o):
+                c[o] = nhung_anh(c[o], goc_anh)
         c["co_anh"] = bool(c.get("anh_truoc") or c.get("anh_sau"))
         # case kể bằng chữ (không định dùng ảnh) thì không dựng ô ảnh tạm;
         # khai can_anh = true khi case SẼ có ảnh nhưng đang chờ xin
@@ -324,6 +373,43 @@ def chay_chrome(chrome: str, them: list[str], url: str) -> None:
             raise RuntimeError(f"Chrome trả mã {kq.returncode}")
 
 
+def nhung_anh(nguon: str, goc: Path) -> str:
+    """Biến link ảnh thành data URI để file gửi khách tự đứng một mình.
+
+    Nhận: URL http(s) (vd link từ Album Kangnam) · đường dẫn tương đối cạnh
+    du-lieu.json · hoặc data URI sẵn. Lấy không được thì trả "" để template
+    dựng ô ảnh tạm, kèm cảnh báo — không bao giờ để <img> trỏ vào link chết.
+    """
+    import base64
+    import mimetypes
+
+    nguon = (nguon or "").strip()
+    if not nguon or nguon.startswith("data:"):
+        return nguon
+
+    try:
+        if nguon.startswith(("http://", "https://")):
+            import urllib.request
+            req = urllib.request.Request(nguon, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=30) as r:
+                raw = r.read()
+                loai = r.headers.get_content_type()
+        else:
+            f = (goc / nguon) if not Path(nguon).is_absolute() else Path(nguon)
+            raw = f.read_bytes()
+            loai = mimetypes.guess_type(f.name)[0] or "image/jpeg"
+    except Exception as e:
+        print(f"  ! Không lấy được ảnh {nguon[:70]} — {e}")
+        print("    Dùng ô ảnh tạm thay thế. Kiểm lại link, hoặc tải ảnh về cạnh du-lieu.json.")
+        return ""
+
+    if not loai.startswith("image/"):
+        print(f"  ! {nguon[:70]} trả về {loai}, không phải ảnh. Dùng ô ảnh tạm.")
+        return ""
+    print(f"  ảnh       : nhúng {round(len(raw) / 1024)} KB từ {nguon[:62]}")
+    return "data:%s;base64,%s" % (loai, base64.b64encode(raw).decode())
+
+
 def dem_trang_pdf(pdf: Path) -> int:
     """Đếm số trang của PDF Chrome xuất ra, không cần thư viện ngoài."""
     try:
@@ -384,7 +470,7 @@ def main(argv=None):
     print("  cổng bảng giá : PASS" + ("  (có dịch vụ ĐẠI PHẪU)" if d.get("_co_dai_phau") else ""))
 
     # chuẩn hoá trước khi soi pháp lý, để cổng đọc đúng văn bản sẽ in ra giấy
-    d = dung_ngu_canh(d, bang, a.nhap)
+    d = dung_ngu_canh(d, bang, a.nhap, f.parent)
 
     # --- cổng 3
     loi_pl = cong_phap_ly.kiem_tra(d)
@@ -425,9 +511,13 @@ def main(argv=None):
         chay_chrome(chrome, [f"--print-to-pdf={pdf}", "--no-pdf-header-footer",
                              "--print-to-pdf-no-header"], html_a4.as_uri())
         so_trang = dem_trang_pdf(pdf)
+        co_anh_that = any(c.get("anh_truoc") or c.get("anh_sau")
+                          for c in d.get("case_tuong_tu") or [])
+        chuan = SO_TRANG_CHUAN + (1 if co_anh_that else 0)
         print(f"  => PDF    : {pdf}  ({so_trang} trang)")
-        if so_trang > SO_TRANG_CHUAN:
-            print(f"  ! Báo giá dài {so_trang} trang, chuẩn là {SO_TRANG_CHUAN}. "
+        if so_trang > chuan:
+            them = " (đã cộng 1 trang cho ảnh case thật)" if co_anh_that else ""
+            print(f"  ! Báo giá dài {so_trang} trang, chuẩn là {chuan}{them}. "
                   f"Rút gọn lời mở, bước phương án hoặc khối băn khoăn (BG-03 mục 8).")
 
     if "jpg" in a.dinh_dang and html_slide:
@@ -440,9 +530,28 @@ def main(argv=None):
             ket = png_sang_jpg(png, ra / f"{ten}-{i:02d}.jpg")
             print(f"  => ảnh {i} : {ket}")
 
-    canh = [l for l in loi_pl if l["muc"] in ("CANH", "NHAC")]
-    if canh:
-        print(f"\n! Còn {len(canh)} cảnh báo cần người thật xử lý trước khi gửi khách (xem ở trên).")
+    # Gợi ý ảnh thật: khách tin ảnh hơn tin chữ
+    co_anh = any(c.get("anh_truoc") or c.get("anh_sau") for c in d.get("case_tuong_tu") or [])
+    if not co_anh:
+        lh = GOC / "template" / "thong-tin-lien-he.json"
+        album = ""
+        if lh.exists():
+            album = json.loads(lh.read_text(encoding="utf-8")).get("album_anh_khach", "")
+        print("\n  GỢI Ý — báo giá này chưa có ảnh khách thật.")
+        print("  Ảnh trước–sau là thứ khách xem trước cả giá. Lấy ảnh:")
+        print("      python tools/anh_album.py --album \"<tên album>\" --lay 2")
+        if album:
+            print("      hoặc tự chọn trong %s" % album)
+        print("  rồi dán link vào case_tuong_tu[].anh_truoc / anh_sau — tool tự tải về")
+        print("  nhúng vào file, bản gửi khách vẫn tự đứng một mình.")
+
+    print("\n" + "=" * 68)
+    print("  CÂN NHẮC TRƯỚC KHI GỬI — tool không tự quyết được những việc này")
+    print("=" * 68)
+    for i, o in enumerate(can_nhac_truoc_khi_gui(d, loi_pl), 1):
+        print("  %d. %s" % (i, o))
+    print("\n  Người gửi là người chịu trách nhiệm cho bản này. Đọc xong rồi hãy gửi.")
+
     if a.nhap:
         print("\n! BẢN NHÁP — đã đóng dấu NHÁP, KHÔNG gửi khách hàng.")
     return 0

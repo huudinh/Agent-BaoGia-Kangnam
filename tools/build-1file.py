@@ -28,6 +28,7 @@ NGUON = [
     "tools/render_baogia.py",
     "tools/cong_phap_ly.py",
     "tools/render_banggia.py",
+    "tools/anh_album.py",
     "template/baogia-a4.html",
     "template/baogia-slide.html",
     "template/banggia.html",
@@ -44,6 +45,7 @@ KHUNG = '''#!/usr/bin/env python3
     python baogia-1file.py du-lieu.json              # HTML + PDF + 5 ảnh (cần Chrome)
     python baogia-1file.py du-lieu.json --chi-html   # chỉ HTML (chạy được ở ChatGPT)
     python baogia-1file.py --banggia "nâng mũi"      # bảng giá cả nhóm dịch vụ
+    python baogia-1file.py --album "cắt mí" --lay 2  # lấy link ảnh thật (cần khoá API)
 
 File xuất ra nằm cạnh du-lieu.json. HTML tự đứng một mình: logo nhúng sẵn,
 không tham chiếu file ngoài — mở bằng trình duyệt rồi Ctrl+P là ra PDF.
@@ -70,6 +72,18 @@ def main(argv):
     if len(argv) < 2 or argv[1] in ("-h", "--help"):
         print(__doc__)
         return 2
+
+    if argv[1] == "--album":
+        tmp = pathlib.Path(tempfile.mkdtemp(prefix="album-"))
+        try:
+            for rel, b64 in FILES.items():
+                f = tmp / rel
+                f.parent.mkdir(parents=True, exist_ok=True)
+                f.write_bytes(base64.b64decode(b64))
+            return subprocess.run(
+                [sys.executable, str(tmp / "tools" / "anh_album.py")] + argv[1:]).returncode
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
 
     if argv[1] == "--banggia":
         tmp = pathlib.Path(tempfile.mkdtemp(prefix="banggia-"))

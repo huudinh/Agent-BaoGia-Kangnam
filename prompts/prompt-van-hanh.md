@@ -134,6 +134,35 @@ Không dựng được ở ChatGPT — ảnh cần Chrome chụp. Hai lối:
 
 ---
 
+## 4c. Gắn ảnh khách thật vào báo giá
+
+Ảnh trước–sau là thứ khách xem **trước cả giá**. Agent luôn tự đề xuất gắn ảnh khi báo giá chưa có.
+
+```bash
+python tools/anh_album.py                          # 29 album trong kho
+python tools/anh_album.py --album "cắt mí"          # ảnh trong album, kèm tag
+python tools/anh_album.py --album "cắt mí" --lay 2  # in sẵn khối JSON để dán
+```
+
+Nói thường với agent cũng được:
+
+```
+Gắn 2 ảnh cắt mí thật từ album vào báo giá này
+```
+
+```
+Album có ảnh nào hợp với ca sửa mí không?
+```
+
+Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ảnh về nhúng vào file**. Bản gửi khách tự đứng một mình: album đổi hay link chết thì file đã gửi vẫn nguyên. Báo giá có ảnh thật được **thêm một trang** so với chuẩn 3 trang.
+
+**Khoá API** để ở `template/album-key.local.json` hoặc biến môi trường `KN_ALBUM_KEY` — chỉ cần để *liệt kê*, tải ảnh thì không cần.
+⛔ **Không commit khoá lên GitHub** (repo công khai). `.gitignore` đã chặn `*.local.json`.
+
+> ⚠️ **API trả ảnh, không trả giấy phép.** Hiện chưa ảnh nào gắn tag consent, nên tool không tự biết ảnh nào đã xin phép khách. Câu hỏi đó nằm trong bảng *Cân nhắc trước khi gửi*, người gửi tự trả lời.
+
+---
+
 ## 5. Lệnh render — nhắc nhanh
 
 ```

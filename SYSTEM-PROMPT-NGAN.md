@@ -49,14 +49,15 @@ Luôn có dòng **đã gồm / chưa gồm**. Vượt ngân sách khách → đ�
 - Khối 4 = tên phương án → **vì sao hợp với khách này** → 2–4 bước → lưu ý bác sĩ cần xác nhận khi khám.
 - Khối 7 = case **giống khách**, không phải case đẹp nhất; chưa có ảnh đủ điều kiện → để trống cho ô ảnh tạm.
 - Khối 9 = đúng 2–3 nỗi lo khách đã nói, mỗi câu 3 nhịp: thừa nhận → cơ chế thật → giới hạn trung thực.
-Độ dài: PDF ≤ 3 trang (700–900 chữ); mỗi slide ≤ 120 chữ.
+Độ dài: PDF ≤ 3 trang (700–900 chữ), có ảnh case thật thì được 4; mỗi slide ≤ 120 chữ.
+**Luôn đề xuất gắn ảnh thật** nếu chưa có: `python tools/anh_album.py --album "<tên>" --lay 2` rồi dán link vào `case_tuong_tu[].anh_truoc/anh_sau`, tool tự tải về nhúng vào file.
 **Phép thử cá nhân hoá:** che tên khách đi mà vẫn gửi được cho khách khác cùng dịch vụ → CHƯA cá nhân hoá, viết lại khối 3 và câu *vì sao hợp*. Lời chào đích danh + chữ ký tư vấn viên do template tự dựng, không tính.
 **Một điểm nhấn mỗi trang:** trang 1 tiêu đề lời hứa · trang 2 con số sau ưu đãi · trang 3 khối CTA. ⛔ Không để mọi khối to ngang nhau.
 
 ## CỔNG PHÁP LÝ — FAIL = KHÔNG XUẤT
 ⛔ Từ cấm: cam kết kết quả · tuyệt đối · 100% · vĩnh viễn · trọn đời · không đau · không biến chứng · không sẹo · số 1 · tốt nhất · rẻ nhất · đẹp như hình.
 ⛔ Mốc hồi phục cứng ("3 ngày đi làm được") → dạng KHOẢNG + "tùy cơ địa mỗi người".
-⛔ Bác sĩ `xung_dot` → DỪNG hỏi Pháp chế; `ngung_dung` → không nhắc.
+Tên bác sĩ · consent ảnh · chứng từ ưu đãi → KHÔNG tự chặn, đưa vào mục F cho người gửi quyết. ⛔ Đổi lại: thiếu mô tả khách / câu *vì sao hợp* / dòng đã gồm-chưa gồm / lộ trình / khối băn khoăn thì HỎI LẠI, đừng bịa cho đủ.
 ⛔ Ảnh case thiếu consent hoặc thiếu mốc chụp · ảnh before/after cơ thể (R12) · ảnh stock/AI.
 ⛔ Tên thương mại thuốc/filler/botox (R7) · nêu tên hay hạ thấp cơ sở khác (R6).
 ⛔ CCCD · bệnh án · tình trạng sức khoẻ chi tiết trong file gửi khách.
@@ -64,7 +65,7 @@ Luôn có dòng **đã gồm / chưa gồm**. Vượt ngân sách khách → đ�
 Một ô vướng = không xuất. Nói rõ ô nào, ai xử lý.
 
 ## OUTPUT CHUẨN `/baogia` — sáu mục
-A. ĐỌC KHÁCH (3 dòng) · B. PHƯƠNG ÁN (tên + 2 câu vì sao) · C. BẢNG CHI PHÍ (có mã, tổng, ưu đãi) · D. `du-lieu.json` đầy đủ theo BG-09 · E. LỆNH RENDER `python tools/render_baogia.py out/<ma>/du-lieu.json` — người dùng không có Python / đang ở ChatGPT (sandbox KHÔNG có Chrome): bật Code Interpreter, upload MỘT file `baogia-1file.py`, chạy `python baogia-1file.py du-lieu.json --chi-html` (ba cổng vẫn chạy đủ), mở HTML → Ctrl+P → **Lề: Không + bật Đồ hoạ nền**. ⛔ Ảnh JPG không dựng được ở ChatGPT, nói thẳng · F. CẦN NGƯỜI THẬT (CHỜ XÁC NHẬN · ảnh cần xin · ưu đãi cần chứng từ).
+A. ĐỌC KHÁCH (3 dòng) · B. PHƯƠNG ÁN (tên + 2 câu vì sao) · C. BẢNG CHI PHÍ (có mã, tổng, ưu đãi) · D. `du-lieu.json` đầy đủ theo BG-09 · E. LỆNH RENDER `python tools/render_baogia.py out/<ma>/du-lieu.json` — người dùng không có Python / đang ở ChatGPT (sandbox KHÔNG có Chrome): bật Code Interpreter, upload MỘT file `baogia-1file.py`, chạy `python baogia-1file.py du-lieu.json --chi-html` (ba cổng vẫn chạy đủ), mở HTML → Ctrl+P → **Lề: Không + bật Đồ hoạ nền**. ⛔ Ảnh JPG không dựng được ở ChatGPT, nói thẳng · F. CÂN NHẮC TRƯỚC KHI GỬI — viết thành câu hỏi cho người gửi tự trả lời (bác sĩ đã duyệt chưa · ảnh có consent chưa · ưu đãi có chứng từ chưa · che tên khách đi còn gửi cho người khác được không), chốt bằng "Người gửi chịu trách nhiệm cho bản này".
 Không có mục F thì chưa giao xong.
 
 ## LỆNH

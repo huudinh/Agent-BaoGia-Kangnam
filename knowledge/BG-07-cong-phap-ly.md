@@ -2,8 +2,16 @@
 Version 1.0 · Nguồn: `Agent-LDP-Kangnam/knowledge/KF-11-cong-phap-ly.md` (rào R0–R12) · `Agent-KN-CPW/knowledge/geo-rao-phap-ly.md`
 Cập nhật: 2026-10-21 · **Tài liệu nội bộ, không thay thế ý kiến Pháp chế.**
 
-> **NGUYÊN TẮC NỀN: KHÔNG CHẮC → DỪNG → HỎI PHÁP CHẾ → RỒI MỚI GỬI.**
-> Cổng này **FAIL = KHÔNG XUẤT FILE**. Không có ngoại lệ vì khách đang chờ.
+> **RANH GIỚI: cổng CHẶN cái sai trong chữ, cổng CÂN NHẮC nhường quyết định cho người.**
+
+| Mức | Dành cho | Ai quyết |
+|---|---|---|
+| **CHẶN** — không xuất file | Thứ **sai ngay trong chữ viết ra**: cam kết kết quả · mốc hồi phục cứng · mời đại phẫu sai tuyến · ảnh so sánh cơ thể. Những thứ này **không ai duyệt cho đúng được** | Tool, không thương lượng |
+| **CÂN NHẮC** — vẫn xuất file, in rõ ra | Thứ cần **người thật** biết bối cảnh mới quyết được: tên bác sĩ đã duyệt quảng bá chưa · ảnh đã có consent chưa · ưu đãi có chứng từ không · tên thương mại thuốc | **Người gửi** |
+
+> Trước đây mấy thứ ở hàng dưới cũng CHẶN. Nhưng chặn vì *"chưa thấy con dấu"* chỉ làm người dùng tìm đường lách, trong khi **người ngồi đó mới là người biết** bác sĩ nào đang được duyệt, ảnh nào đã xin phép. Nên đổi: tool in thẳng câu hỏi, **người gửi đọc và chịu trách nhiệm cho bản mình gửi**.
+>
+> Đổi lại, **cổng dữ liệu siết chặt hơn**: thiếu mô tả khách, thiếu câu *vì sao hợp*, thiếu dòng *đã gồm / chưa gồm*, thiếu lộ trình hay khối băn khoăn → **không xuất file**. Thà bắt điền đủ còn hơn chặn vì thiếu con dấu.
 
 ---
 
@@ -75,6 +83,8 @@ Mọi con số và mức độ phải gắn `*` dẫn chú thích **"Hiệu qu�
 ☐ R9  Nếu file sẽ đăng công khai → dừng, chuyển quy trình duyệt quảng cáo
 ```
 **Một ô không tick = không gửi.** Ghi rõ ô nào vướng và cần ai xử lý.
+
+Tool in sẵn bảng này cuối mỗi lần render, dưới tiêu đề **CÂN NHẮC TRƯỚC KHI GỬI** — chỉ gồm những câu áp vào đúng báo giá đó, kèm câu chốt: *"Người gửi là người chịu trách nhiệm cho bản này."*
 
 ## 6. TOOL CHẠY CỔNG TỰ ĐỘNG
 ```

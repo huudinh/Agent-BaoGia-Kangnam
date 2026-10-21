@@ -1,5 +1,36 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v2.1 — 2026-10-21 · đổi cổng duyệt thành trách nhiệm người gửi + ảnh thật từ album
+
+**Nới ràng buộc "ai đã duyệt chưa", siết ràng buộc "đã điền đủ chưa".**
+
+| | Trước | Nay |
+|---|---|---|
+| Tên bác sĩ chưa duyệt / xung đột | **CHẶN**, không xuất file | **CÂN NHẮC** — in câu hỏi, người gửi quyết |
+| Ảnh thiếu consent / thiếu mốc chụp | **CHẶN** | **CÂN NHẮC** |
+| Thiếu mô tả khách, câu *vì sao hợp*, dòng *đã gồm/chưa gồm*, lộ trình, khối băn khoăn | bỏ qua | **CHẶN** |
+
+Lý do: chặn vì *"chưa thấy con dấu"* chỉ làm người dùng tìm đường lách, trong khi **người ngồi đó mới biết** bác sĩ nào đang được duyệt, ảnh nào đã xin phép. Thứ vẫn CHẶN cứng là cái **sai ngay trong chữ**: cam kết kết quả · mốc hồi phục cứng · đại phẫu sai tuyến · ảnh cơ thể — không ai duyệt cho đúng được.
+
+Cuối mỗi lần render, tool in bảng **CÂN NHẮC TRƯỚC KHI GỬI**: chỉ gồm câu hỏi áp vào đúng báo giá đó, chốt bằng *"Người gửi là người chịu trách nhiệm cho bản này."* Cổng dữ liệu nay kiểm **17 trường**, mỗi trường thiếu in kèm lý do vì sao cần.
+
+**Ảnh khách thật từ Album Kangnam.** Album có API công khai (khoá chỉ cần để liệt kê, tải ảnh thì không):
+
+```bash
+python tools/anh_album.py                            # 29 album
+python tools/anh_album.py --album "cắt mí" --lay 2    # in sẵn JSON để dán
+```
+
+`render_baogia.py` **tự tải ảnh về nhúng data URI** — nhận link album, URL bất kỳ, hay file trên máy. Bản gửi khách tự đứng một mình: album đổi hay link chết thì file đã gửi vẫn nguyên. Lấy không được thì dựng ô ảnh tạm + cảnh báo, **không bao giờ để `<img>` trỏ vào link chết**.
+
+Báo giá có ảnh thật được **thêm 1 trang** (3 → 4): ảnh trước–sau là thứ khách xem trước cả giá. Ảnh case đổi sang tỉ lệ 4/3 cho gọn. Bộ não được dạy **luôn tự đề xuất** gắn ảnh khi báo giá chưa có.
+
+⛔ **Khoá API không nằm trong repo** — `template/album-key.local.json`, `.gitignore` chặn `*.local.json`. Repo là public.
+
+> 🔧 Lỗi bắt được khi làm: cổng pháp lý quét cả chuỗi base64 của logo và "tìm thấy" chữ **HIV** → báo động giả PDPA. Chuỗi base64 dài chứa đủ mọi tổ hợp chữ cái nên chắc chắn trúng từ cấm. Nay bỏ qua chuỗi `data:` và chuỗi dài quá 4.000 ký tự.
+
+---
+
 ## v2.0 — 2026-10-21 · lệnh `/banggia` + prompt nói thường
 
 Prompt kiểu *"Tạo cho tôi bảng giá dịch vụ nâng mũi để gửi cho khách hàng bằng html"* là **việc hằng ngày** của tư vấn viên, nhưng agent chưa có năng lực đó — thêm prompt mà không có năng lực thì agent sẽ tự bịa bảng giá. Nên làm năng lực trước.
