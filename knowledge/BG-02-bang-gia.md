@@ -1,5 +1,5 @@
 # BG-02 — BẢNG GIÁ & LUẬT NÓI VỀ TIỀN
-Version 1.0 · Nguồn số: `template/bang-gia.json` ← `Kangnam-Agent-Factory/knowledge/K4-dich-vu.md` §5 (web `/bang-gia`, bản 09/2026)
+Version 1.1 · Nguồn số: `template/bang-gia.json` — **đã đối chiếu trực tiếp với web `/bang-gia/` ngày 2026-10-21**
 Cập nhật: 2026-10-21
 
 ---
@@ -56,12 +56,13 @@ Không khai `ly_do_lech` → cổng bảng giá chặn. Ba lý do hợp lệ:
 ⛔ Tuyệt đối không "giảm giá cho chị vì chị dễ thương" — giảm giá không nguồn là rủi ro vận hành, không phải kỹ năng bán hàng.
 
 ## 4. CẢNH BÁO ĐANG CÓ TRONG BẢNG (phải hỏi lại trước khi báo)
+- **Cắt mí Plasma — lệch nguồn.** Web `/bang-gia/` niêm yết **8.000.000đ**; chính sách nội bộ 21/10/2026 ghi niêm yết **10.000.000đ** + ưu đãi **8.000.000đ**. Khách trả 8.000.000đ ở cả hai cách hiểu, nhưng **chỉ in giá gạch ngang 10.000.000đ khi Vận hành xác nhận** mức niêm yết đó — in một mức giảm giá không có thật là rủi ro.
 - **Phí sửa mí** — mức giảm 40–50% **tuỳ khu vực**. Xác nhận với cơ sở thực hiện trước khi chốt con số; chưa xác nhận thì ghi khoảng 1.500.000–1.800.000đ kèm `[CHỜ XÁC NHẬN]`.
 - **Lipo mini nhiều vùng 18.000.000đ** rẻ hơn **mini 1 vùng 34.000.000đ** — nghi lệch dữ liệu.
 
-> ✅ Đã đóng: nghi vấn giá cắt mí Plasma 7.200.000đ — chính sách 2026-10-21 chốt niêm yết 10.000.000đ, ưu đãi 8.000.000đ.
+> ✅ Đã đóng: nghi vấn giá cắt mí Plasma **7.200.000đ** (meta website cũ) — web `/bang-gia/` ngày 21/10/2026 ghi 8.000.000đ, không còn con số 7,2tr.
 
-Hai mục này mang cờ `canh_bao` trong JSON; cổng sẽ nhắc. Báo giá cho khách → **xác nhận với bệnh viện trước**.
+Ba mục trên mang cờ `canh_bao` trong JSON; cổng sẽ nhắc. Báo giá cho khách → **xác nhận với bệnh viện trước**.
 
 ## 5. GIÁ ĐÃ GỒM / CHƯA GỒM — luôn phải ghi
 Khách không sợ đắt, khách sợ **phát sinh**. Mỗi báo giá phải có một dòng dạng:
@@ -92,6 +93,17 @@ Chỉ nêu khi **chính sách có thật** tại cơ sở đó. Ghi đủ: số 
 | 6 · trung niên trẻ hoá | Lộ trình nhiều mốc · chi phí theo giai đoạn thay vì một cục |
 
 ## 9. CẬP NHẬT BẢNG GIÁ
+
+**Đối chiếu với web trước, đừng sửa tay:**
+```bash
+python tools/doi_chieu_gia_web.py          # tải https://benhvienthammykangnam.com.vn/bang-gia/ rồi so
+python tools/doi_chieu_gia_web.py --ghi    # lấy giá web ghi đè các mục LỆCH GIÁ
+```
+Tool khớp tên theo **độ trùng từ** (ghép cặp tốt nhất toàn cục), nên web đổi cách viết tên vẫn nhận ra. Tên web khác hẳn thì khai `ten_web` trong JSON để lần sau khớp tuyệt đối.
+⛔ Không có `--ghi` thì tool **không tự sửa giá** — giá là thứ đi thẳng vào túi khách, không để máy đổi sau lưng người.
+
+**Kết quả lần đối chiếu 2026-10-21:** 86 dòng trên web · **85 khớp · 0 lệch giá** · 1 mục lệch nguồn (cắt mí Plasma, xem mục 4) · `mat.phi-sua-mi` là chính sách nội bộ, web không đăng.
+
 Khi bệnh viện đổi giá:
 1. Sửa `template/bang-gia.json` (mục `cap_nhat` ghi ngày mới).
 2. Ghi lại thay đổi vào `doc/CHANGELOG.md`.

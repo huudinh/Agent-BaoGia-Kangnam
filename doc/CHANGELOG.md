@@ -1,5 +1,27 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v2.2 — 2026-10-21 · đối chiếu bảng giá với web chính thức
+
+Việc còn treo số 1 từ v1.0 — *"xác nhận bảng giá đang dùng là bản mới nhất"* — nay **đóng được**.
+
+**`tools/doi_chieu_gia_web.py`** tải thẳng <https://benhvienthammykangnam.com.vn/bang-gia/>, đọc 9 bảng HTML, so từng dòng với `bang-gia.json` và chia bốn nhóm: KHỚP · LỆCH GIÁ · WEB CÓ REPO THIẾU · REPO CÓ WEB KHÔNG THẤY.
+
+**Kết quả: 86 dòng trên web → 85 khớp, 0 lệch giá.** Bảng giá trong repo đúng.
+
+Hai lỗi trong chính bộ so khớp, sửa trước khi tin kết quả:
+- Hàm `khoa()` ban đầu **bỏ cả phần trong ngoặc**, nên *"Chỉnh hàm 1 hàm"* và *"Chỉnh hàm 1 hàm khó, ghép xương"* thành cùng một khoá → đẻ ra một "lệch giá" giả 59tr↔85,5tr. Nay so theo **tập từ (Jaccard)**, giữ nguyên phần trong ngoặc vì đó mới là thứ phân biệt.
+- Duyệt **tuần tự** làm dòng web đứng trước giành mất mục của dòng đứng sau (*Tạo hình vú combo* cướp mục *Treo ngực sa trễ*) → thêm một "lệch giá" giả nữa. Nay **ghép cặp tốt nhất toàn cục**: xếp mọi cặp theo độ giống rồi lấy dần từ cao xuống.
+
+**Thay đổi trong `bang-gia.json`** (81 → 87 dịch vụ):
+- Thêm `ten_web` cho 10 mục web viết tên khác, để lần sau khớp tuyệt đối.
+- Tách `spa.lien-he` gộp thành **5 dịch vụ Spa riêng** đúng như web; thêm `nha.danh-bong`.
+- `mat.phi-sua-mi` đánh dấu `khong_tren_web` — đó là chính sách nội bộ.
+- `nguon` ghi rõ đã đối chiếu web ngày nào bằng tool nào.
+
+🔶 **Một lệch nguồn cần Vận hành chốt:** web niêm yết cắt mí Plasma **8.000.000đ**, chính sách nội bộ ghi niêm yết **10.000.000đ** + ưu đãi **8.000.000đ**. Khách trả 8.000.000đ ở cả hai cách hiểu — nhưng **chỉ in giá gạch ngang 10.000.000đ khi Vận hành xác nhận**. In một mức giảm giá không có thật là rủi ro, nên mục này mang cờ `canh_bao`.
+
+---
+
 ## v2.1 — 2026-10-21 · đổi cổng duyệt thành trách nhiệm người gửi + ảnh thật từ album
 
 **Nới ràng buộc "ai đã duyệt chưa", siết ràng buộc "đã điền đủ chưa".**

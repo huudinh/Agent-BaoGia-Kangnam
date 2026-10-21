@@ -103,7 +103,7 @@ Agent-BaoGia-Kangnam/
 │   ├── BG-10-vong-hoc.md
 │   └── BG-11-noi-dau-cat-mi.md      ← chuyên sâu cắt mí: 9 chân dung + 10 nỗi lo
 ├── template/
-│   ├── bang-gia.json         82 dịch vụ — NGUỒN GIÁ DUY NHẤT
+│   ├── bang-gia.json         87 dịch vụ — NGUỒN GIÁ DUY NHẤT, đã đối chiếu web
 │   ├── bac-si-duyet.json     22 hồ sơ, 4 trạng thái
 │   ├── thong-tin-lien-he.json  hotline — NGUỒN DUY NHẤT
 │   ├── logo-kangnam.png      logo thật, tool nhúng vào file xuất ra
@@ -116,6 +116,8 @@ Agent-BaoGia-Kangnam/
 ├── tools/
 │   ├── render_baogia.py      3 cổng chặn + render qua Chrome headless
 │   ├── render_banggia.py     bảng giá một nhóm dịch vụ
+│   ├── doi_chieu_gia_web.py  so bảng giá repo với web chính thức
+│   ├── anh_album.py          lấy link ảnh khách thật từ Album Kangnam
 │   ├── cong_phap_ly.py       quét rào R0-R12 + bảng từ cấm
 │   ├── baogia-1file.py       ★ CẢ BỘ TRONG MỘT FILE — upload lên ChatGPT
 │   ├── build-1file.py        dựng file trên (chạy lại sau khi sửa template)
