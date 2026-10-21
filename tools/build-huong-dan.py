@@ -63,7 +63,7 @@ DATA_FILES = [
     ("bac-si-duyet.json", "Bác sĩ được nêu tên",
      "4 trạng thái: duyet · can_xac_minh · xung_dot · ngung_dung. Chỉ duyet mới được in ra file.", True),
     ("thong-tin-lien-he.json", "Hotline in lên báo giá",
-     "Nguồn duy nhất. Đổi số ở đây là mọi báo giá sinh ra sau đó đổi theo.", True),
+     "@@MO_TA_HOTLINE@@", True),
     ("du-lieu.mau.json", "Mẫu đầu ra — ca cắt mí lần đầu",
      "Nạp kèm để agent sinh JSON đúng cấu trúc ngay lần đầu.", False),
     ("du-lieu.mau-sua-mi.json", "Mẫu đầu ra — ca sửa mí",
@@ -236,6 +236,14 @@ merged = ("# TRI THỨC GỘP — AGENT-BAOGIA-KANGNAM\n"
                         for nm, _t, _d, _s in BG_ORDER))
 
 payload = {"a": brain, "b": short, "c": merged}
+lien_he = json.loads(doc("template/thong-tin-lien-he.json"))
+HOTLINE = lien_he["hotline"]
+for _i, _m in enumerate(DATA_FILES):
+    if _m[0] == "thong-tin-lien-he.json":
+        DATA_FILES[_i] = (_m[0], _m[1],
+                          "Nguồn duy nhất. Số đang dùng: %s. Đổi ở đây là mọi báo giá "
+                          "sinh ra sau đó đổi theo." % HOTLINE, _m[3])
+
 prompt_cards, prompt_n, counts = build_prompts(payload)
 meta_box = build_meta(payload)
 file_cards = build_files(payload)
@@ -275,6 +283,7 @@ for k, v in [
     ("@@N_DICHVU@@", str(len(bang_gia["dich_vu"]))),
     ("@@N_BACSI@@", str(n_duyet)),
     ("@@CAP_NHAT@@", bang_gia["cap_nhat"]),
+    ("@@HOTLINE@@", HOTLINE),
     ("@@PAYLOAD@@", blob),
 ]:
     html = html.replace(k, v)

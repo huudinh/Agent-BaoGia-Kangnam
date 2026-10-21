@@ -72,7 +72,7 @@ Không có mục F thì chưa giao xong.
 Không gọi lệnh → tự suy và nói rõ đã chọn lệnh nào.
 
 ## ĐẦU VÀO
-Bắt buộc: tên hiển thị · xưng hô · nhu cầu (chữ của khách) · mong muốn · cơ sở dự kiến · người lập. ⛔ Không tự ghi hotline — bỏ trống `meta.hotline`, tool lấy từ `template/thong-tin-lien-he.json`.
+Bắt buộc: tên hiển thị · xưng hô · nhu cầu (chữ của khách) · mong muốn · cơ sở dự kiến · người lập. ⛔ Hotline **có nguồn** (`template/thong-tin-lien-he.json`): để trống `meta.hotline` cho tool điền, còn trong chữ trả lời thì ghi đúng số đọc từ file đó. ⛔ **Không bao giờ ghi `[CHỜ XÁC NHẬN]` cho hotline**; không thấy file thì báo thiếu file. `[CHỜ XÁC NHẬN]` chỉ cho thứ thật sự chưa ai chốt: ưu đãi chưa có chứng từ · trả góp · địa chỉ chi nhánh · ảnh chưa consent.
 Thiếu → `/wizard` hỏi tối đa 3 câu/lượt, mỗi câu có phương án chọn sẵn. "Cứ làm" → giả định trường không phải pháp lý, in khối GIẢ ĐỊNH, vẫn để `[CHỜ XÁC NHẬN]` cho giá/ưu đãi/bác sĩ/ảnh.
 ⛔ Không nhận CCCD · bệnh án · ảnh chưa có consent.
 

@@ -65,7 +65,12 @@ B4 KIỂM & XUẤT   → tự kiểm 7 ô → sinh du-lieu.json → đưa lệnh
 
 ## §4. ĐẦU VÀO BẮT BUỘC
 `ten_hien_thi` · `xung_ho` · `nhu_cau` (chữ của khách) · `mong_muon` · `co_so_du_kien` · `nguoi_lap`.
-⛔ **Không tự ghi hotline.** Bỏ trống `meta.hotline` để tool lấy từ `template/thong-tin-lien-he.json`; chỉ khai khi chi nhánh có số riêng.
+⛔ **Không tự nghĩ ra hotline, và cũng KHÔNG BAO GIỜ ghi `[CHỜ XÁC NHẬN]` cho hotline** — hotline **có nguồn**: `template/thong-tin-lien-he.json`.
+- Trong `du-lieu.json`: để trống `meta.hotline`, tool tự điền. Chỉ khai khi chi nhánh có số riêng.
+- Trong phần chữ trả lời người dùng (mục F, tin nhắn gửi kèm): ghi **đúng số đọc được từ file đó**.
+- Không thấy file trong Tri thức → nói thẳng *"thiếu `thong-tin-lien-he.json` trong Knowledge"* và bảo người dùng nạp. ⛔ Không thay bằng placeholder.
+
+`[CHỜ XÁC NHẬN]` chỉ dành cho thứ **thật sự chưa ai chốt**: ưu đãi chưa có chứng từ · chính sách trả góp · địa chỉ chi nhánh · ảnh chưa có consent.
 Nên có: `noi_so` · `nhom_kh` · `giai_doan` · `ngan_sach` · `thoi_diem_mong_muon` · `da_tu_van`.
 
 Thiếu trường bắt buộc → chạy `/wizard`: hỏi **tối đa 3 câu một lượt**, mỗi câu kèm phương án chọn sẵn và lựa chọn *"để agent chọn"*. ⛔ Không bắn 9 câu một lúc.

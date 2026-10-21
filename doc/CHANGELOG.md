@@ -1,5 +1,21 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v1.9 — 2026-10-21 · hotline không bao giờ là [CHỜ XÁC NHẬN]
+
+Agent đang ghi `[CHỜ XÁC NHẬN]` vào ô hotline. Đó là triệu chứng của **quên nạp `template/thong-tin-lien-he.json` vào Knowledge** — file này mới có từ v1.6 nên mọi GPT cấu hình trước đó đều thiếu.
+
+Sửa ở ba lớp, để lỗi này không lặp lại dù người dùng quên:
+
+**Tool** — `meta.hotline` chứa `CHỜ` hoặc bắt đầu bằng `[` thì coi như bỏ trống, tự điền số thật từ nguồn và in cảnh báo. Người dùng không phải sửa tay.
+
+**Bộ não** — phân biệt rõ: `[CHỜ XÁC NHẬN]` chỉ dành cho thứ **thật sự chưa ai chốt** (ưu đãi chưa có chứng từ · trả góp · địa chỉ chi nhánh · ảnh chưa consent). Hotline, giá và tên bác sĩ đều **có nguồn** — không thấy nguồn thì nói thẳng *"thiếu file X trong Knowledge"*, ⛔ không thay bằng placeholder.
+
+**Trang hướng dẫn** — in thẳng **số đang dùng** ở mục Kiến thức và trên thẻ copy của file, số lấy động từ JSON nên không lệch. Ai thấy placeholder là biết ngay mình quên nạp file nào.
+
+Bảng *"`[CHỜ XÁC NHẬN]` dùng đúng chỗ"* nằm ở `BG-09` mục 2.
+
+---
+
 ## v1.8 — 2026-10-21 · cả bộ render gói trong MỘT file
 
 v1.7 bảo người dùng ChatGPT "kẹp file ZIP của repo vào chat" — đúng về kỹ thuật nhưng **không ai làm vậy mỗi lần báo giá**. Nên gói lại.

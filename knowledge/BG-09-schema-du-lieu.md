@@ -34,6 +34,19 @@ Agent **chỉ sinh ra `du-lieu.json`** và câu lệnh render. Agent **không t�
 
 ⛔ **Không nhập:** CCCD/CMND · số bảo hiểm · bệnh án · ảnh khách chưa có consent · tình trạng bệnh lý chi tiết.
 
+### `[CHỜ XÁC NHẬN]` dùng đúng chỗ
+
+| Thứ | Có nguồn chưa | Ghi gì |
+|---|---|---|
+| **Hotline** | ✅ `template/thong-tin-lien-he.json` | Để trống `meta.hotline`, tool điền. ⛔ **Không bao giờ** `[CHỜ XÁC NHẬN]` |
+| **Giá dịch vụ** | ✅ `template/bang-gia.json` | Mã không có trong bảng mới ghi `[CHỜ XÁC NHẬN]` |
+| **Tên bác sĩ** | ✅ `template/bac-si-duyet.json` | Trạng thái không phải `duyet` thì gỡ tên, không ghi placeholder |
+| **Ưu đãi** | ❌ cần chứng từ | `[CHỜ XÁC NHẬN]` đúng chỗ |
+| **Chính sách trả góp** | ❌ chưa chốt | `[CHỜ XÁC NHẬN]` đúng chỗ |
+| **Địa chỉ chi nhánh** | ❌ chưa có trong repo | `[CHỜ XÁC NHẬN]` đúng chỗ |
+
+Thấy `[CHỜ XÁC NHẬN]` ở ba dòng đầu nghĩa là **quên nạp file dữ liệu cứng vào Knowledge**, không phải thiếu dữ liệu thật. Tool render tự thay placeholder của hotline bằng số thật và in cảnh báo.
+
 Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa 3 câu một lượt.
 
 ## 3. ĐẦU RA — `du-lieu.json`

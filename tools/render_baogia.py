@@ -236,6 +236,11 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool) -> dict:
 
     # hotline: nguồn duy nhất là template/thong-tin-lien-he.json,
     # chỉ ghi đè khi báo giá khai số riêng của chi nhánh
+    # agent lỡ ghi [CHỜ XÁC NHẬN] vào hotline -> coi như bỏ trống, điền số thật
+    _ht = str(d["meta"].get("hotline") or "")
+    if "CHỜ" in _ht.upper() or _ht.strip().startswith("["):
+        print("  ! meta.hotline đang là placeholder — hotline CÓ nguồn, tool tự điền số thật.")
+        d["meta"]["hotline"] = ""
     if not d["meta"].get("hotline"):
         lh = GOC / "template" / "thong-tin-lien-he.json"
         if lh.exists():
