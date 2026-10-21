@@ -125,24 +125,30 @@ Mỗi ảnh trả lời đúng một câu của khách: *"họ có hiểu tôi k
 
 ## 4. TYPOGRAPHY
 ```css
-"Google Sans","Google Sans Text","Product Sans","Be Vietnam Pro","Segoe UI",Roboto,…
+"Google Sans","Google Sans Text","Be Vietnam Pro","Segoe UI",Roboto,…
 ```
 
-**Google Sans là font nội bộ của Google** — không bán, không có trên Google Fonts, không được phép nhúng lại. Nó đứng đầu danh sách để máy nào *đã có sẵn* thì dùng; máy không có (gần như tất cả) rơi xuống **Be Vietnam Pro** — font mở, thiết kế riêng cho tiếng Việt nên dấu chồng (ồ, ể, ữ) dựng đúng, hình chữ hình học gần với Google Sans.
+**Google Sans**, font chính. Nó từng là font nội bộ của Google, nay đã phát hành trên Google Fonts **giấy phép OFL** (`fonts.google.com/metadata/fonts/Google%20Sans` → `"license":"ofl"`) nên nhúng lại được, và có sẵn bộ chữ tiếng Việt. Be Vietnam Pro đứng sau làm lớp đỡ. ⛔ **Product Sans thì không** — font đó vẫn thuộc giấy phép `googlerestricted`, không được nhúng.
+
+| Luật | |
+|---|---|
+| **Độ đậm tối đa 700** | Google Sans là font **variable, trục wght chỉ tới 700**. ⛔ Không khai `800`/`900` trong CSS: trình duyệt hoặc kẹp về 700, hoặc tự bôi đậm giả — chữ nhoè, dấu tiếng Việt dính vào thân chữ |
+| Một file cho cả dải | Google Fonts trả **cùng một woff2** cho mọi độ đậm 400–700. Bộ nhúng gom theo URL rồi khai `font-weight: 400 700`; không gom thì file phình gấp bốn |
 
 Font **nhúng thẳng vào file** dưới dạng data URI, không dùng `<link>` tới CDN:
 ```bash
-python tools/nhung-font.py                    # sinh template/font-nhung.css (~225 KB)
-python tools/nhung-font.py --font "Inter"     # đổi sang font khác
+python tools/nhung-font.py --font "Google Sans" --nang 400 500 600 700
+python tools/nhung-font.py --font "Inter"      # đổi sang font khác
 ```
+Kết quả: `template/font-nhung.css` — **59 KB**, hai mảnh (latin + vietnamese).
 ⛔ **Không `<link>` tới Google Fonts** — máy render có thể không có mạng, font tải chậm làm Chrome chụp hụt chữ, và file khách mở lại sau một tháng sẽ phụ thuộc CDN còn sống. Nhúng data URI giải quyết cả ba.
 
 Thiếu `font-nhung.css` thì tool in cảnh báo và file vẫn ra, chỉ là dùng font hệ thống — **không gửi khách bản đó** nếu đang cần bản đúng nhận diện.
 
 | Vai trò | A4 | Slide |
 |---|---|---|
-| Tiêu đề chính | 19pt/800 | 62–74px/800 |
-| Tiêu đề khối | 12,5pt/800 | 42px/800 |
+| Tiêu đề chính | 19pt/700 | 56–74px/700 |
+| Tiêu đề khối | 12,5pt/700 | 42px/700 |
 | Thân | 11,5pt | 30px |
 | Chú thích / miễn trừ | 8,3–9pt | 21–25px |
 

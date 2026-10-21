@@ -63,27 +63,40 @@ def main() -> int:
         print("✗ Google Fonts không trả @font-face nào — kiểm lại tên font.")
         return 1
 
-    ra, bo, tong = [], 0, 0
+    # Font VARIABLE (Google Sans là một ví dụ): Google Fonts trả CÙNG MỘT file
+    # woff2 cho nhiều độ đậm. Nhúng từng khối một là lặp y nguyên file đó mấy
+    # lần. Gom theo URL rồi khai một @font-face với DẢI độ đậm.
+    nhom: dict[str, dict] = {}
+    bo = 0
     for k in khoi:
         dai = re.search(r"unicode-range:\s*([^;]+);", k)
         pham_vi = dai.group(1) if dai else ""
-        # chỉ giữ latin + vietnamese
         if pham_vi and not (pham_vi.startswith(DAU_HIEU_LATIN)
                             or DAU_HIEU_VIET in pham_vi):
             bo += 1
             continue
         u = re.search(r"url\((https://[^)]+\.woff2)\)", k)
-        if not u:
+        nang = re.search(r"font-weight:\s*(\d+)", k)
+        if not u or not nang:
             bo += 1
             continue
-        b = tai(u.group(1))
+        g = nhom.setdefault(u.group(1), {"khoi": k, "nang": [], "viet": DAU_HIEU_VIET in pham_vi})
+        g["nang"].append(int(nang.group(1)))
+
+    ra, tong = [], 0
+    for url, g in nhom.items():
+        b = tai(url)
         tong += len(b)
         uri = "data:font/woff2;base64," + base64.b64encode(b).decode("ascii")
-        ra.append(re.sub(r"url\(https://[^)]+\)", f"url({uri})", k, count=1))
-        nang = re.search(r"font-weight:\s*(\d+)", k)
-        print(f"  nhúng {a.font} {nang.group(1) if nang else '?'}"
-              f" · {'việt' if DAU_HIEU_VIET in pham_vi else 'latin'}"
-              f" · {len(b) / 1024:.1f} KB")
+        k = re.sub(r"url\(https://[^)]+\)", f"url({uri})", g["khoi"], count=1)
+        lo, hi = min(g["nang"]), max(g["nang"])
+        dai_nang = str(lo) if lo == hi else f"{lo} {hi}"
+        k = re.sub(r"font-weight:\s*[^;]+;", f"font-weight: {dai_nang};", k, count=1)
+        ra.append(k)
+        print(f"  nhúng {a.font} {dai_nang}"
+              f" · {'việt' if g['viet'] else 'latin'}"
+              f" · {len(b) / 1024:.1f} KB"
+              + (f"  (một file cho {len(g['nang'])} độ đậm)" if lo != hi else ""))
 
     if not ra:
         print("✗ Không nhúng được mảnh font nào.")

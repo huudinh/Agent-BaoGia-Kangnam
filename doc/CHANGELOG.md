@@ -1,5 +1,30 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v2.6 — 2026-10-21 · Google Sans thật, không phải font thay thế
+
+Ở v2.5 tôi kết luận **sai**: *"Google Sans là font nội bộ của Google, không bán, không có trên Google Fonts, không được phép nhúng lại"*, rồi lấy Be Vietnam Pro đứng thay. Kiểm lại bằng chính API của Google Fonts thì:
+
+```
+fonts.google.com/metadata/fonts/Google%20Sans   → "license": "ofl"
+fonts.google.com/metadata/fonts/Product%20Sans  → không có trong danh mục
+```
+
+**Google Sans đã phát hành OFL**, có sẵn bộ chữ tiếng Việt, nhúng lại được. Thứ vẫn bị hạn chế là **Product Sans** (`googlerestricted`) — đã gỡ khỏi khai báo `font-family` để không ai tưởng nó dùng được.
+
+Nay nhúng Google Sans thật. Hai điều phải xử lý kèm:
+
+**Nó là font variable, trục `wght` chỉ tới 700.** Template đang khai `800` ở 25 chỗ và `900` ở 3 chỗ (chữ NHÁP). Khai quá dải thì trình duyệt hoặc kẹp về 700, hoặc **tự bôi đậm giả** — chữ nhoè và dấu tiếng Việt dính vào thân chữ. Đổi cả 28 chỗ về `700` cho khai báo khớp thứ thật sự render ra.
+
+**Google Fonts trả cùng một file woff2 cho mọi độ đậm.** Bộ nhúng ban đầu duyệt từng khối `@font-face` nên nhúng lặp đúng file đó bốn lần: 235 KB. Nay gom theo URL rồi khai một `@font-face` với dải `font-weight: 400 700` → **59 KB**, nhẹ hơn cả bản Be Vietnam Pro 225 KB.
+
+| | v2.5 (Be Vietnam Pro) | v2.6 (Google Sans) |
+|---|---|---|
+| `font-nhung.css` | 225 KB · 10 mảnh | **59 KB · 2 mảnh** |
+| Độ đậm | 400–900 rời | 400–700 liền dải |
+| Bundle một file | 554 KB | **308 KB** |
+
+---
+
 ## v2.5 — 2026-10-21 · ba ảnh gửi Zalo · ba ô ảnh khách thật · font nhúng
 
 ### Bộ gửi Zalo: 6 ảnh → 3
