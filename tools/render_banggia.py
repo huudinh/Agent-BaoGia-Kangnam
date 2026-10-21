@@ -155,6 +155,9 @@ def main(argv=None):
         "cta_nut": "Nhắn giờ %s tiện — em giữ lịch khám" % a.xung_ho,
     }
 
+    fo = GOC / "template" / "font-nhung.css"
+    ctx["font_nhung"] = fo.read_text(encoding="utf-8") if fo.exists() else ""
+
     logo = GOC / "template" / "logo-kangnam.png"
     if logo.exists():
         import base64

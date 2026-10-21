@@ -2,7 +2,7 @@
 Version 1.0 · Token lấy nguyên từ `Agent-LDP-Kangnam/knowledge/KF-09-design-system.md` (production v3.0)
 Cập nhật: 2026-10-21
 
-> ⚠️ **File này nói về ấn phẩm GỬI KHÁCH** (PDF + slide JPG): navy `#074E84` + cam `#EF6103`, font hệ thống.
+> ⚠️ **File này nói về ấn phẩm GỬI KHÁCH** (PDF + slide JPG): navy `#074E84` + cam `#EF6103`, font nhúng sẵn.
 > **Trang hướng dẫn nội bộ** (`tools/huong-dan.tpl.html`) dùng **bảng màu khác** — nâu đỏ `#8A1F33` + vàng `#86560D` + nền kem, chung với `Agent-LDP-Kangnam` và `Agent-AdsOptimize-Kangnam-QT`.
 > Hai bảng phục vụ hai người đọc: khách hàng và nhân viên. ⛔ Không trộn.
 
@@ -33,7 +33,7 @@ Trên nền navy (bìa slide, khối CTA): chữ trắng, nhãn phụ dùng `--a
 | Bản | File | Kích thước | Dùng khi |
 |---|---|---|---|
 | **A4 / PDF** | `template/baogia-a4.html` | 210×297mm, 4 trang | Gửi email, khách in ra, khách đưa người nhà xem |
-| **Slide / JPG** | `template/baogia-slide.html` | 1080×1920, 6 ảnh | Gửi Zalo / Messenger — khách xem ngay trong luồng chat |
+| **Slide / JPG** | `template/baogia-slide.html` | 1080×1920, **3 ảnh** | Gửi Zalo / Messenger — khách xem ngay trong luồng chat |
 
 > Mặc định xuất **cả hai**. Khách chat Zalo thường không mở PDF; khách cần bàn với người nhà thì cần PDF.
 
@@ -68,7 +68,7 @@ Mỗi trang có **đúng một thứ to nhất**. Mọi thứ còn lại phải 
 | **A4 trang 3** | **Con số sau ưu đãi** trong dải navy | bảng chi phí · đã gồm/chưa gồm · lộ trình: nền trắng |
 | **A4 trang 4** | **Khối CTA navy** | case · băn khoăn · miễn trừ: nền trắng |
 | **Slide 1** | Tiêu đề lời hứa trên nền navy | — |
-| **Slide 4** | Con số sau ưu đãi (50px, màu amber) | — |
+| **Slide 2** | Con số sau ưu đãi (50px, màu amber) | — |
 
 Ba cách hạ cấp một khối mà không phải xoá nó: bỏ nền card → dùng vạch màu bên trái · giảm cỡ chữ xuống cỡ chú thích · xếp 2 cột thay vì 1 cột dọc.
 
@@ -89,7 +89,7 @@ Phần lớn khách mở báo giá **trên điện thoại, trong lúc đang là
 
 | Khách nhận bằng | Gửi file nào | Vì sao |
 |---|---|---|
-| **Zalo · Messenger** | **6 ảnh JPG** | Hiện thẳng trong luồng chat, không phải tải, không phải phóng to |
+| **Zalo · Messenger** | **3 ảnh JPG** | Hiện thẳng trong luồng chat, không phải tải, không phải phóng to |
 | **Muốn lưu lại · đưa người nhà · in** | **PDF** | Đọc độc lập, in ra được |
 | **Gửi link mở trên điện thoại** | **file HTML** | Tự co theo bề ngang màn hình |
 
@@ -104,21 +104,40 @@ Phần lớn khách mở báo giá **trên điện thoại, trong lúc đang là
 **Luật kiểm:** mở file HTML ở bề ngang **390px**. Không được có thanh cuộn ngang, và con số *chi phí sau ưu đãi* phải đọc được mà không phóng to.
 ⚠️ Chrome headless có bề ngang tối thiểu **500px** — chụp ở 390px sẽ ra ảnh bị cắt dù layout đúng. Đo bằng `matchMedia` thay vì tin vào ảnh chụp.
 
-## 3. SÁU SLIDE — nội dung cố định
+## 3. BA ẢNH — nội dung cố định
+
+Bộ gửi Zalo **luôn đúng 3 ảnh**, không nhiều hơn. Gửi 6 ảnh vào một khung chat là bắt khách vuốt qua sáu lần trước khi thấy con số; ba ảnh thì đọc hết trong một lần vuốt.
+
 ```
-1  Bìa       navy đặc · tên khách · tiêu đề cá nhân hoá · mã báo giá
-2  Vấn đề    từng cặp vấn đề → cách xử lý (xếp dọc cho dễ đọc trên điện thoại)
-3  Phương án card phương án + các bước
-4  Chi phí   bảng rút gọn + tổng sau ưu đãi (số lớn nhất) + đã gồm/chưa gồm
-5  Case      case tương tự + ảnh trước–sau + album + câu miễn trừ  (ẩn nếu không có)
-6  Bước tiếp lộ trình + khối CTA + miễn trừ
+1  Bìa + vấn đề  navy đặc · tên khách · tiêu đề · từng cặp vấn đề → cách xử lý
+2  Giải pháp+tiền card phương án · bảng chi phí · tổng sau ưu đãi (số lớn nhất)
+3  Bằng chứng    case tương tự · 3 ô ảnh thật · album · khối CTA · liên hệ
 ```
-> Slide 2 và 3 tách ra vì nhồi cả hai vào một ảnh thì chữ quá đặc trên màn hình điện thoại.
-Tool tự đếm số slide thật và chụp từng ảnh; thiếu case thì còn 5 ảnh.
+
+Mỗi ảnh trả lời đúng một câu của khách: *"họ có hiểu tôi không"* → *"làm gì, bao nhiêu"* → *"ai giống tôi đã làm, giờ tôi làm gì tiếp"*.
+
+| Luật | |
+|---|---|
+| Số ảnh | **luôn 3**. Thiếu case thì ảnh 3 chỉ còn phần CTA, không bỏ ảnh |
+| Dung lượng chữ | ≤ **170 chữ** mỗi ảnh (trước đây 120 khi còn 6 ảnh) |
+| Lộ trình & các bước phương án | **không lên ảnh** — chúng nằm ở PDF. Ảnh là bản liếc qua, PDF là bản đọc kỹ |
+| Ảnh 1 | là slide **duy nhất không có `.than`** → có vòng đo tràn khung riêng, xem mục 6 |
 
 ## 4. TYPOGRAPHY
-Một họ chữ hệ thống: `"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif`.
-⛔ **Không nhúng Google Fonts** — máy render có thể không có mạng, và font tải chậm làm Chrome chụp hụt.
+```css
+"Google Sans","Google Sans Text","Product Sans","Be Vietnam Pro","Segoe UI",Roboto,…
+```
+
+**Google Sans là font nội bộ của Google** — không bán, không có trên Google Fonts, không được phép nhúng lại. Nó đứng đầu danh sách để máy nào *đã có sẵn* thì dùng; máy không có (gần như tất cả) rơi xuống **Be Vietnam Pro** — font mở, thiết kế riêng cho tiếng Việt nên dấu chồng (ồ, ể, ữ) dựng đúng, hình chữ hình học gần với Google Sans.
+
+Font **nhúng thẳng vào file** dưới dạng data URI, không dùng `<link>` tới CDN:
+```bash
+python tools/nhung-font.py                    # sinh template/font-nhung.css (~225 KB)
+python tools/nhung-font.py --font "Inter"     # đổi sang font khác
+```
+⛔ **Không `<link>` tới Google Fonts** — máy render có thể không có mạng, font tải chậm làm Chrome chụp hụt chữ, và file khách mở lại sau một tháng sẽ phụ thuộc CDN còn sống. Nhúng data URI giải quyết cả ba.
+
+Thiếu `font-nhung.css` thì tool in cảnh báo và file vẫn ra, chỉ là dùng font hệ thống — **không gửi khách bản đó** nếu đang cần bản đúng nhận diện.
 
 | Vai trò | A4 | Slide |
 |---|---|---|
@@ -129,17 +148,29 @@ Một họ chữ hệ thống: `"Segoe UI", Roboto, "Helvetica Neue", Arial, san
 
 Chữ nhỏ nhất trên slide gửi Zalo **không dưới 21px** — dưới mức đó khách đọc trên điện thoại sẽ bỏ qua.
 
-## 5. ẢNH
+## 5. ẢNH — ba ô, không phải hai
+- **Ba ô ảnh** mỗi case: `anh_truoc` · `anh_sau` · `anh_them`. Ô thứ ba có thì lưới tự chuyển 3 cột.
+- **Nhãn dưới ô đặt lại được**: `chu_thich_truoc` (mặc định *Trước*) · `chu_thich_sau` (mặc định lấy `moc_chup`) · `chu_thich_them` (mặc định *Góc khác*).
+  > ⚠️ Ảnh trong Album Kangnam phần lớn **đã là ảnh ghép trước–sau sẵn**. Dán ba ảnh đó vào rồi để nhãn mặc định là sai: mỗi ô đã có cả trước lẫn sau. Lúc đó đặt nhãn kiểu *Ca 1 · Ca 2 · Ca 3*, hoặc tên kỹ thuật từng ca.
+- Ô thứ ba **không có ô ảnh tạm** — hai ô trước–sau đã đủ để nhắc đi xin ảnh.
 - Tỉ lệ ô ảnh case: **1:1**, `object-fit:cover`.
 - Đường dẫn ảnh trong `du-lieu.json`: để **cùng thư mục** với file `du-lieu.json` rồi ghi tên file (`anh/truoc-01.jpg`), hoặc dùng URL tuyệt đối.
 - Chưa có ảnh → để trống, template tự dựng **ô ảnh tạm** gạch chéo ghi rõ cần ảnh gì.
 - ⛔ Không `<img>` trỏ tới URL không tồn tại — Chrome render ra ô vỡ, gửi khách là mất điểm.
 
 ## 6. TRÀN KHUNG
-Slide có script tự thu nhỏ nội dung (zoom xuống tối đa 62%) khi tràn 1920px, và ghi cảnh báo ra console. Nội dung ngắn thì tự dồn vào giữa khung.
+Slide có script tự thu nhỏ nội dung (zoom xuống tối đa 62%) khi tràn 1920px. Nội dung ngắn thì tự dồn vào giữa khung.
+
+Thu hết cỡ mà vẫn tràn thì script gắn `data-tran` lên slide, và tool **đọc lại DOM bằng `--dump-dom`** để báo ra màn hình:
+```
+! Slide 1 TRÀN KHUNG — nội dung bị cắt ở mép dưới.
+```
+Phải đọc DOM mới biết, vì `overflow:hidden` **cắt gọn phần thừa** — ảnh chụp ra trông vẫn "đẹp", chỉ là mất mất đoạn cuối.
+
+> Ảnh 1 (bìa) không có `.than` nên vòng đo cũ bỏ qua nó. Từ khi bìa gánh thêm lưới vấn đề thì nó cũng tràn được, nên có nhánh đo riêng: đo cả khung slide, thu khối giữa.
 → Thấy chữ nhỏ bất thường trong ảnh xuất ra nghĩa là **nội dung đang quá dài**: cắt bớt chữ, đừng chấp nhận bản thu nhỏ.
 
-**A4 không thu nhỏ và không cắt chữ** — nội dung dài thì trang tự dãn sang trang in kế tiếp. Tool **đếm số trang PDF** sau khi render và cảnh báo nếu vượt 3:
+**A4 không thu nhỏ và không cắt chữ** — nội dung dài thì trang tự dãn sang trang in kế tiếp. Tool **đếm số trang PDF** sau khi render và cảnh báo nếu vượt 4:
 
 ```
 => PDF : ...pdf  (5 trang)

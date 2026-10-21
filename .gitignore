@@ -1,6 +1,8 @@
 out/*
 !out/.gitkeep
 tools/huong-dan.html
+# file render ra khi chay thu ngay trong template/ — artifact, khong phai nguon
+template/BG-*
 # khoá API và cấu hình riêng từng máy — KHÔNG commit
 *.local.json
 __pycache__/

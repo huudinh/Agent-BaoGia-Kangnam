@@ -39,7 +39,7 @@ Agent sẽ hỏi lại vài câu (tối đa 3 câu một lượt). Trả lời n
 ### Bước 3 — Nhận file
 Agent đưa bạn một khối JSON và một dòng lệnh. Người kỹ thuật trong đội chạy dòng lệnh đó (hoặc agent tự chạy nếu dùng trong Claude Code), ra:
 - **1 file PDF** — gửi email, in, đưa khách bàn với người nhà
-- **6 ảnh JPG** — gửi thẳng Zalo/Messenger
+- **3 ảnh JPG** — gửi thẳng Zalo/Messenger
 
 ---
 

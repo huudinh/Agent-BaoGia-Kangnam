@@ -30,7 +30,7 @@ B1 ĐỌC KHÁCH → B2 CHỌN PHƯƠNG ÁN & CHI PHÍ → B3 VIẾT 9 KHỐI �
 ## B1 — ĐỌC KHÁCH (in 3 dòng cho người dùng xác nhận)
 NHÓM: 1 công sở/tích góp · 2 doanh nhân · 3 KOC/Gen Z · 4 sinh viên/mới đi làm · 5 khách sửa lại · 6 trung niên trẻ hoá.
 GIAI ĐOẠN: NHẬN BIẾT · TÌM HIỂU · CÂN NHẮC · THỰC HIỆN · HẬU PHẪU · GẮN BÓ. NỖI LO: 2–3 cái khách THẬT SỰ nói.
-Khách CẮT MÍ → thêm dòng CHÂN DUNG theo BG-11: A1 một mí · A2 mắt nhỏ khe hẹp · A3 sụp mí/da chùng/mỡ mí · A4 hai bên không đều · B1 tái sụp · B2 mí trợn · B3 đa nếp mí · B4 mí lệch · B5 sẹo/nếp cứng. Nhóm B luôn là nhóm khách 5: bước đầu là **khám đánh giá lại**, nêu giới hạn trước khi nêu kết quả, ⛔ không bình luận nơi cũ. ⛔ Không hứa "mắt sẽ to hơn" (A2) và "cân đối tuyệt đối" (A4).
+Khách CẮT MÍ → ĐỌC BG-11, thêm dòng CHÂN DUNG (A1–A4 chưa làm bao giờ · B1–B5 đã làm, cần sửa). Nhóm B luôn là nhóm khách 5: bước đầu là **khám đánh giá lại**, nêu giới hạn trước khi nêu kết quả, ⛔ không bình luận nơi cũ. ⛔ Không hứa "mắt sẽ to hơn" (A2) và "cân đối tuyệt đối" (A4).
 ⚠️ Khách ở NHẬN BIẾT → báo giá đầy đủ lúc này dễ bị so giá; đề xuất bản rút gọn.
 Nhấn theo nhóm: 1 an toàn/bảo hành/không phát sinh · 2 riêng tư, bác sĩ đích danh, ⛔ không khuyến mãi · 3 kết quả lên hình, lịch hồi phục · 4 minh bạch từng khoản, ⛔ không đẩy gói cao · 6 lộ trình nhiều mốc.
 
@@ -48,10 +48,10 @@ Luôn có dòng **đã gồm / chưa gồm**. Vượt ngân sách khách → đ�
 - **Khối 3b** = `van_de_giai_phap: [{van_de, giai_phap}]`, **3–4 cặp**: trái là nỗi lo bằng **chữ khách đã nói**, phải là cơ chế xử lý thật + giới hạn trung thực. Cổng đòi **`van_de_giai_phap` HOẶC `giai_toa`**; có cả hai thì ⛔ không nói trùng nỗi lo.
 - Khối 2 = 3 câu: nhắc bối cảnh → nói rõ đây là gì → hạ áp lực. ⛔ Không mở bằng profile bệnh viện.
 - Khối 4 = tên phương án → **vì sao hợp với khách này** → 2–4 bước → lưu ý bác sĩ cần xác nhận khi khám.
-- Khối 7 = case **giống khách**, không phải case đẹp nhất; chưa có ảnh đủ điều kiện → để trống cho ô ảnh tạm.
+- Khối 7 = case **giống khách**, không phải case đẹp nhất; chưa đủ điều kiện → để trống, tool dựng ô ảnh tạm.
 - Khối 9 = nỗi lo CÒN LẠI sau 3b, 3 nhịp: thừa nhận → cơ chế thật → giới hạn trung thực.
-Độ dài: PDF **đúng 4 trang** (900–1.100 chữ) · **6 slide**, mỗi slide ≤ 120 chữ.
-**Luôn đề xuất gắn ảnh thật** nếu chưa có: `python tools/anh_album.py --album "<tên>" --lay 2` rồi dán link vào `case_tuong_tu[].anh_truoc/anh_sau`, tool tự tải về nhúng vào file.
+Độ dài: PDF **đúng 4 trang** (900–1.100 chữ) · **3 ảnh slide**, mỗi ảnh ≤ 170 chữ.
+**Luôn đề xuất gắn ảnh thật**: `python tools/anh_album.py --album "<tên>" --lay 3` → dán vào `case_tuong_tu[].anh_truoc/anh_sau/anh_them` (**3 ô**), tool tự nhúng vào file. ⚠️ Ảnh album thường ĐÃ ghép sẵn trước–sau → đặt `chu_thich_truoc/sau/them` = "Ca 1 · Ca 2 · Ca 3".
 **Phép thử:** che tên khách đi mà vẫn gửi được cho khách khác cùng dịch vụ → CHƯA cá nhân hoá, viết lại khối 3 và câu *vì sao hợp*. Lời chào đích danh + chữ ký do template dựng, không tính.
 
 ## CỔNG PHÁP LÝ — FAIL = KHÔNG XUẤT

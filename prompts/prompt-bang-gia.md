@@ -72,7 +72,7 @@ Chín nhóm trong bảng giá: **Mắt** (12) · **Mũi** (13) · **Khuôn mặt
 | Đầu vào | tên nhóm dịch vụ | thông tin khách |
 | Nội dung | toàn bộ dịch vụ trong nhóm | **một phương án** cho khách đó |
 | Có giá không | giá niêm yết tham khảo | giá theo phương án + ưu đãi |
-| File | 1 HTML (hoặc PDF) | PDF 4 trang + 6 ảnh JPG |
+| File | 1 HTML (hoặc PDF) | PDF 4 trang + 3 ảnh JPG |
 | Dùng khi | khách mới hỏi, chưa biết gì về khách | đã nói chuyện, biết mong muốn và nỗi lo |
 | Rủi ro | khách đem đi so giá | thấp — vì nó nói về khách, không nói về giá |
 

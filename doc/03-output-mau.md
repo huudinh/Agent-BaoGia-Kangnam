@@ -64,7 +64,7 @@ BÁO GIÁ BG-2026-1021-01 — Chị Thu Hà
              nếu dùng lại làm ấn phẩm phát hành thì phải xin GXNNDQC
 
   HTML A4   : out\BG-2026-1021-01\BG-2026-1021-01.html
-  HTML slide: out\BG-2026-1021-01\BG-2026-1021-01-slide.html  (6 slide)
+  HTML slide: out\BG-2026-1021-01\BG-2026-1021-01-slide.html  (3 slide)
   trình duyệt: C:\Program Files\Google\Chrome\Application\chrome.exe
   => PDF    : out\BG-2026-1021-01\BG-2026-1021-01.pdf  (4 trang)
   => ảnh 1..5 : out\BG-2026-1021-01\BG-2026-1021-01-0X.jpg
@@ -72,7 +72,7 @@ BÁO GIÁ BG-2026-1021-01 — Chị Thu Hà
 ! Còn 1 cảnh báo cần người thật xử lý trước khi gửi khách.
 ```
 
-**File ra:** 1 PDF 4 trang + 6 ảnh JPG 1080×1920 (~160–270 KB/ảnh, gửi Zalo thoải mái).
+**File ra:** 1 PDF 4 trang + 3 ảnh JPG 1080×1920 (~220–280 KB/ảnh, gửi Zalo thoải mái).
 
 Tool đếm số trang PDF sau khi render. Vượt 4 trang → in thêm dòng:
 ```
@@ -109,11 +109,8 @@ Thử sửa `du-lieu.json` thành *"cam kết mắt đẹp tự nhiên 100%, b�
 
 | Ảnh | Nội dung |
 |---|---|
-| 1 | Bìa navy — *Gửi Chị Thu Hà* · "Đôi mắt mở hơn — mà vẫn là mắt của chị" · mã + hiệu lực |
-| 2 | Từng cặp **vấn đề → cách xử lý**, xếp dọc |
-| 3 | Card phương án + 4 bước |
-| 4 | Bảng chi phí + **17.200.000đ** (số lớn nhất) + đã gồm/chưa gồm + dòng miễn trừ |
-| 5 | Case tương tự + 2 ô ảnh trước–sau + album + câu miễn trừ |
-| 6 | Lộ trình 5 bước + khối CTA cam + thông tin liên hệ |
+| 1 | Bìa navy — *Gửi Chị Thu Hà* · "Đôi mắt mở hơn — mà vẫn là mắt của chị" · từng cặp **vấn đề → cách xử lý** · mã + hiệu lực |
+| 2 | Card phương án + bảng chi phí + **17.200.000đ** (số lớn nhất) + đã gồm/chưa gồm |
+| 3 | Case tương tự + **3 ô ảnh thật** + album + khối CTA cam + thông tin liên hệ |
 
-Thiếu case → còn 5 ảnh, báo giá vẫn hợp lệ.
+Luôn đúng **3 ảnh**. Thiếu case thì ảnh 3 chỉ còn phần CTA, báo giá vẫn hợp lệ.

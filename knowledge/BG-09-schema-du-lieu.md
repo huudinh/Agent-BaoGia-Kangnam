@@ -107,7 +107,12 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
       "nhom": "mat",                   // body/lipo/giảm cân → chặn ảnh (R12)
       "consent": "ok",                 // BẮT BUỘC nếu có ảnh
       "can_anh": true,                 // case SẼ có ảnh nhưng đang chờ xin → dựng ô ảnh tạm
-      "anh_truoc": "anh/truoc-01.jpg", "anh_sau": "anh/sau-01.jpg" }
+      "anh_truoc": "anh/truoc-01.jpg",
+      "anh_sau": "anh/sau-01.jpg",
+      "anh_them": "anh/them-01.jpg",   // ô ảnh THỨ BA — lưới tự chuyển 3 cột
+      "chu_thich_truoc": "Trước",      // ba nhãn đều đặt lại được. Ảnh album Kangnam
+      "chu_thich_sau": "sau 1 tháng",  // thường ĐÃ ghép sẵn trước–sau → lúc đó đặt
+      "chu_thich_them": "Góc khác" }   // "Ca 1 · Ca 2 · Ca 3" (BG-08 mục 5)
   ],
 
   "case_album": {                      // link album đã duyệt gửi khách (BG-06 mục 3b)
@@ -129,7 +134,7 @@ Thiếu trường bắt buộc → agent chạy `/wizard` hỏi dẫn, tối đa
 ```
 
 ## 4. TRƯỜNG TOOL TỰ TÍNH — agent không cần ghi
-`chi_phi.tong_tam_tinh` · `tong_ht` · `sau_uu_dai` · `sau_uu_dai_ht` · `*_ht` (chuỗi tiền) · `gia_niem_yet_ht` (tự in khi `gia` = `uu_dai_hien_hanh` của bảng giá) · `co_van_de` · `co_case` · `co_album` · `co_bang_chung` · `co_anh_bat_ky` · `hien_anh` · `co_lo_trinh` · `co_giai_toa` · `co_phuong_an_khac` · `co_luu_y` · `_co_dai_phau` · `phap_ly.mien_tru` (nếu để trống).
+`chi_phi.tong_tam_tinh` · `tong_ht` · `sau_uu_dai` · `sau_uu_dai_ht` · `*_ht` (chuỗi tiền) · `gia_niem_yet_ht` (tự in khi `gia` = `uu_dai_hien_hanh` của bảng giá) · `co_van_de` · `co_case` · `co_album` · `co_bang_chung` · `co_anh_bat_ky` · `hien_anh` · `co_anh_them` · `chu_thich_*` · `co_lo_trinh` · `co_giai_toa` · `co_phuong_an_khac` · `co_luu_y` · `_co_dai_phau` · `phap_ly.mien_tru` (nếu để trống) · `font_nhung` (nội dung `template/font-nhung.css`).
 
 Muốn ghi đè tổng (vd giá gói đã duyệt) thì khai thẳng `chi_phi.sau_uu_dai`.
 

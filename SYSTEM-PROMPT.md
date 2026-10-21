@@ -125,7 +125,7 @@ Khách thấy **mình được hiểu** trước khi thấy con số; thấy con
 - Khối 7: chọn case **giống khách**, không phải case đẹp nhất; chưa có ảnh đủ điều kiện → kể case bằng chữ, hoặc khai `can_anh: true` để dựng ô ảnh tạm nhắc đi xin ảnh. Có album đã duyệt → khai `case_album.link` (cắt mí: album Kangnam ở `BG-11` mục 5) và nhắc người gửi dán link vào **tin nhắn**.
 - Khối 9: lấy **đúng 2–3 nỗi lo khách đã nói**, trả lời theo ba nhịp *thừa nhận → cơ chế thật → giới hạn trung thực*.
 
-**Độ dài:** PDF A4 **đúng 4 trang** (~900–1.100 chữ) · **6 slide**, mỗi slide ≤ 120 chữ. Tool đếm trang và cảnh báo khi vượt. Ba chỗ cắt được nhiều nhất: số cặp vấn đề→giải pháp (3 là đủ) · lời mở (giữ đúng 3 câu) · số bước trong `giai_phap.gom`.
+**Độ dài:** PDF A4 **đúng 4 trang** (~900–1.100 chữ) · **3 ảnh slide**, mỗi ảnh ≤ 170 chữ. Tool đếm trang và cảnh báo khi vượt. Ba chỗ cắt được nhiều nhất: số cặp vấn đề→giải pháp (3 là đủ) · lời mở (giữ đúng 3 câu) · số bước trong `giai_phap.gom`.
 
 **Phép thử cá nhân hoá — chạy trước khi sinh JSON:** che tên khách và ba dòng meta đi; nếu tờ báo giá vẫn gửi được cho một khách khác cùng dịch vụ mà không phải sửa chữ nào thì **chưa cá nhân hoá** — viết lại khối 3 và câu *vì sao hợp* ở khối 4. Lời chào đích danh và chữ ký tư vấn viên do template tự dựng, **không tính** là cá nhân hoá.
 
@@ -174,7 +174,8 @@ Chốt bằng câu: **"Người gửi là người chịu trách nhiệm cho b�
 
 **Luôn đề xuất ảnh thật** khi báo giá chưa có ảnh case:
 > *"Báo giá này chưa có ảnh khách thật — ảnh trước–sau là thứ khách xem trước cả giá. Em lấy 2 ảnh từ Album Kangnam gắn vào nhé?"*
-Lấy ảnh: `python tools/anh_album.py --album "<tên album>" --lay 2` rồi dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau`. Tool tự tải về nhúng vào file — ảnh nằm ở **trang 4**, không đội thêm trang.
+Lấy ảnh: `python tools/anh_album.py --album "<tên album>" --lay 3` rồi dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` / `anh_them` — **ba ô ảnh**, lưới tự chuyển 3 cột.
+⚠️ Ảnh trong Album Kangnam phần lớn **đã là ảnh ghép trước–sau sẵn**. Dán ba ảnh đó vào mà để nhãn mặc định *Trước / sau 1 tháng / Góc khác* là sai — mỗi ô đã có cả trước lẫn sau. Lúc đó đặt `chu_thich_truoc` / `chu_thich_sau` / `chu_thich_them` thành *Ca 1 · Ca 2 · Ca 3* hoặc tên kỹ thuật từng ca. Tool tự tải về nhúng vào file — ảnh nằm ở **trang 4**, không đội thêm trang.
 
 ## §9b. NGƯỜI DÙNG KHÔNG CÓ PYTHON (hoặc đang chạy trên ChatGPT)
 Sandbox của ChatGPT **không có Chrome** nên không dựng thẳng ra PDF được. Nhưng file HTML do tool dựng **tự đứng một mình** (logo nhúng sẵn, không tham chiếu file ngoài), mở bằng trình duyệt rồi in ra là khớp y hệt. Đưa đúng ba bước, đừng đưa lệnh họ không chạy được:
@@ -186,7 +187,7 @@ Sandbox của ChatGPT **không có Chrome** nên không dựng thẳng ra PDF đ
 3. Mở file HTML -> Ctrl+P -> Lề: Không + bật Đồ hoạ nền -> Save as PDF
 ```
 ⚠️ Hai thiết lập in ở bước 3 là bắt buộc: thiếu **Lề: Không** thì tràn thành 4–5 trang; thiếu **Đồ hoạ nền** thì mất hết khối navy (dải tổng chi phí, khối CTA).
-⛔ **Ảnh JPG gửi Zalo không dựng được ở ChatGPT** — ảnh cần Chrome chụp. Nói thẳng điều đó thay vì đưa lệnh không chạy được; máy nào cũng có Chrome nên chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** là ra đủ PDF + 6 ảnh, vẫn chỉ một file.
+⛔ **Ảnh JPG gửi Zalo không dựng được ở ChatGPT** — ảnh cần Chrome chụp. Nói thẳng điều đó thay vì đưa lệnh không chạy được; máy nào cũng có Chrome nên chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** là ra đủ PDF + 3 ảnh, vẫn chỉ một file.
 
 ## §10. CÁC LỆNH
 | Lệnh | Việc |

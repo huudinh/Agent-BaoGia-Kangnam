@@ -1,5 +1,53 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v2.5 — 2026-10-21 · ba ảnh gửi Zalo · ba ô ảnh khách thật · font nhúng
+
+### Bộ gửi Zalo: 6 ảnh → 3
+Sáu ảnh trong một khung chat là bắt khách vuốt sáu lần mới thấy con số. Nay **luôn đúng 3 ảnh**, mỗi ảnh trả lời một câu của khách:
+
+```
+1  Bìa + vấn đề   tên khách · tiêu đề · từng cặp vấn đề → cách xử lý
+2  Giải pháp+tiền card phương án · bảng chi phí · tổng sau ưu đãi
+3  Bằng chứng     case · 3 ô ảnh thật · album · khối CTA · liên hệ
+```
+Lộ trình và các bước phương án **rời khỏi ảnh**, chỉ còn trong PDF: ảnh là bản liếc qua, PDF là bản đọc kỹ. Hạn chữ mỗi ảnh nới 120 → 170. Số ảnh **không còn phụ thuộc có case hay không** — thiếu case thì ảnh 3 chỉ còn phần CTA.
+
+Hai lỗi lộ ra khi gộp, cùng một nguyên nhân là **khung cắt âm thầm**:
+- **Ảnh 1 không có `.than`** nên vòng đo tràn khung bỏ qua nó suốt từ đầu. Hồi bìa chỉ có tên + tiêu đề thì không sao; nay bìa gánh cả lưới vấn đề thì tràn được, mà `overflow:hidden` cắt gọn nên ảnh chụp ra trông vẫn "đẹp". Thêm nhánh đo riêng cho bìa: đo cả khung slide, thu khối giữa.
+- Thu hết cỡ mà vẫn tràn thì script gắn `data-tran`, nhưng **không ai đọc được** vì nó nằm trong console trình duyệt. Nay tool chạy thêm một lượt `--dump-dom` và in `! Slide N TRÀN KHUNG`.
+
+Lượt `--dump-dom` đầu tiên trả về `None`: `subprocess.run(text=True)` để Python tự đoán encoding, trên Windows nó lấy cp1252, gặp chữ tiếng Việt là luồng đọc chết lặng lẽ và `stdout` thành `None`. Khai `encoding="utf-8", errors="replace"` tường minh.
+
+Ảnh 3 chưa có ảnh khách thì CTA bị `margin-top:auto` ghim xuống đáy, hở một mảng trắng giữa ảnh. Bọc khối bằng chứng vào `.bc{flex:1;justify-content:center}` để nó nuốt phần trống rồi căn giữa.
+
+### Ba ô ảnh khách thật
+Thêm `case_tuong_tu[].anh_them` — ô ảnh thứ ba, lưới tự chuyển 3 cột, nhúng data URI vào **cả JPG, PDF lẫn HTML** như hai ô kia. `anh_album.py --lay 3` in sẵn khối JSON đủ ba ảnh.
+
+Ba nhãn dưới ô ảnh nay **đặt lại được**: `chu_thich_truoc` · `chu_thich_sau` · `chu_thich_them`. Lý do tìm ra khi render thử bằng ảnh thật: **ảnh trong Album Kangnam phần lớn đã là ảnh ghép trước–sau sẵn**, nên dán ba ảnh đó vào mà để nhãn mặc định *Trước / sau 1 tháng / Góc khác* là sai — mỗi ô đã có cả trước lẫn sau. Với ảnh album, nhãn đúng là *Ca 1 · Ca 2 · Ca 3*.
+
+Ô thứ ba không dựng ô ảnh tạm — hai ô trước–sau đã đủ để nhắc đi xin ảnh.
+
+### Font: Google Sans, và vì sao không thể chỉ có Google Sans
+Yêu cầu: ảnh/PDF/HTML dùng **Google Sans**.
+
+**Google Sans là font nội bộ của Google** — không bán, không có trên Google Fonts, không được phép nhúng lại. Khai mỗi tên đó thì gần như mọi máy sẽ âm thầm rơi về font hệ thống, tức là *không* có thiết kế thống nhất. Nên:
+
+```css
+"Google Sans","Google Sans Text","Product Sans","Be Vietnam Pro","Segoe UI",Roboto,…
+```
+
+Google Sans đứng đầu để máy nào đã có sẵn thì dùng. Máy không có rơi xuống **Be Vietnam Pro** — font mở, thiết kế riêng cho tiếng Việt nên dấu chồng (ồ, ể, ữ) dựng đúng, hình chữ hình học gần Google Sans nhất trong các font nhúng lại được.
+
+`tools/nhung-font.py` tải woff2 từ Google Fonts rồi **nhúng base64 vào `template/font-nhung.css`** (225 KB, 10 mảnh: 5 độ đậm × 2 bộ latin/vietnamese, bỏ latin-ext không dùng). Cả ba tool render chèn file này vào mọi file xuất ra. ⛔ Không `<link>` tới CDN: máy render có thể không có mạng, font tải chậm làm Chrome chụp hụt chữ, và file khách mở lại sau một tháng sẽ phụ thuộc CDN còn sống.
+
+Đổi font khác: `python tools/nhung-font.py --font "Inter"` rồi sửa tên trong khai báo `font-family` của ba template.
+
+Lời chào viết tay (*"Gửi chị Thu Hà,"*) bỏ `Segoe Script`: font đó dựng dấu tiếng Việt lệch, nay dùng chính font đã nhúng ở dáng nghiêng.
+
+Kích thước file ra: HTML 344 KB · PDF 168 KB · mỗi JPG 220–280 KB. Bundle một file 554 KB.
+
+---
+
 ## v2.4 — 2026-10-21 · Kangnam không có trả góp, bỏ hẳn
 
 Vận hành xác nhận: **Kangnam không có chính sách trả góp.** Đây là việc còn treo số 6 từ v1.0 (*"chính sách trả góp chính thức — ngân hàng liên kết, số kỳ, phí chuyển đổi"*) — nay **đóng, bằng câu trả lời không**.

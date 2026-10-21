@@ -121,7 +121,7 @@ Thư viện câu trả lời theo rào cản: [[BG-05-noi-so-phan-doi]].
 | Bản | Khổ | Dung lượng chữ |
 |---|---|---|
 | PDF A4 | **4 trang**, mỗi trang một mạch | ~900–1.100 chữ. Quá 4 trang là đang viết brochure, không phải báo giá |
-| JPG slide | **6 ảnh** 1080×1920 | mỗi ảnh ≤ 120 chữ. Tràn khung → tool tự thu nhỏ và cảnh báo |
+| JPG slide | **3 ảnh** 1080×1920 | mỗi ảnh ≤ 170 chữ. Tràn khung → tool tự thu nhỏ và cảnh báo |
 
 Tool đếm số trang PDF và cảnh báo khi vượt 4. Ba chỗ cắt được nhiều nhất: số cặp vấn đề→giải pháp (3 là đủ) · lời mở (giữ đúng 3 câu) · số bước trong `giai_phap.gom`.
 

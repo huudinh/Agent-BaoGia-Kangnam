@@ -85,7 +85,7 @@ Tool render cần **Python + Chrome**. Sandbox của ChatGPT **không có Chrome
 
 | Máy của bạn | Cách lấy file |
 |---|---|
-| **Có Python + Chrome** | `render_baogia.py` → PDF 4 trang + 6 ảnh JPG. Đầy đủ nhất |
+| **Có Python + Chrome** | `render_baogia.py` → PDF 4 trang + 3 ảnh JPG. Đầy đủ nhất |
 | **Chỉ có Chrome, không có Python** | Nhờ ChatGPT dựng HTML bằng `baogia-1file.py` → mở bằng Chrome → Ctrl+P ra PDF |
 | **Không cài được gì** | Như trên; mở HTML trên điện thoại cũng đọc được, trang tự co |
 
@@ -129,7 +129,7 @@ Mở file `.html` bằng Chrome hoặc Edge → **Ctrl+P**:
 ### Ảnh JPG gửi Zalo thì sao
 
 Không dựng được ở ChatGPT — ảnh cần Chrome chụp. Hai lối:
-- **Có Chrome:** cài thêm Python rồi chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** — ra đủ PDF + 6 ảnh, vẫn chỉ cần một file, không cần ZIP cũng không cần ChatGPT.
+- **Có Chrome:** cài thêm Python rồi chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** — ra đủ PDF + 3 ảnh, vẫn chỉ cần một file, không cần ZIP cũng không cần ChatGPT.
 - **Gấp:** mở file `*-slide.html`, chụp màn hình từng slide. Xấu hơn nhưng dùng được.
 
 ---
@@ -166,7 +166,7 @@ Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ả
 ## 5. Lệnh render — nhắc nhanh
 
 ```
-python tools/render_baogia.py out/<ma>/du-lieu.json                  # PDF + 6 ảnh JPG
+python tools/render_baogia.py out/<ma>/du-lieu.json                  # PDF + 3 ảnh JPG
 python tools/render_baogia.py out/<ma>/du-lieu.json --dinh-dang jpg  # chỉ ảnh Zalo
 python tools/render_baogia.py out/<ma>/du-lieu.json --dinh-dang pdf  # chỉ PDF
 python tools/render_baogia.py out/<ma>/du-lieu.json --chi-html       # chỉ dựng HTML để xem

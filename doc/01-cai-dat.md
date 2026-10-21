@@ -42,7 +42,7 @@ Agent-BaoGia-Kangnam
 
 **Mô tả** — 225 ký tự, nằm dưới giới hạn 300 của ChatGPT. Đây là dòng người dùng thấy **trước khi mở agent**, đừng để trống.
 ```
-Tạo báo giá cá nhân hoá cho từng khách hàng Kangnam: đọc thông tin khách, chọn phương án theo bảng giá chính thức, viết nội dung đã qua cổng pháp lý, rồi xuất ra PDF A4 và 6 ảnh gửi Zalo. Không bịa giá, không cam kết kết quả.
+Tạo báo giá cá nhân hoá cho từng khách hàng Kangnam: đọc thông tin khách, chọn phương án theo bảng giá chính thức, viết nội dung đã qua cổng pháp lý, rồi xuất ra PDF A4 và 3 ảnh gửi Zalo. Không bịa giá, không cam kết kết quả.
 ```
 
 **Câu mở đầu hội thoại** — ô *Conversation starters* của ChatGPT. Claude và Gemini không có ô này, cứ dán vào chat lần đầu.
@@ -154,7 +154,7 @@ Không có Chrome → chạy `--chi-html` rồi mở file HTML, Ctrl+P → **Sav
 
 ```bash
 # chạy thẳng trên máy — chỉ cần đúng file này, không cần cả repo
-python baogia-1file.py du-lieu.json              # HTML + PDF + 6 ảnh (cần Chrome)
+python baogia-1file.py du-lieu.json              # HTML + PDF + 3 ảnh (cần Chrome)
 python baogia-1file.py du-lieu.json --chi-html   # chỉ HTML (chạy được ở ChatGPT)
 ```
 

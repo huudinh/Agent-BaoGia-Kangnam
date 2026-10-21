@@ -38,10 +38,10 @@ Album có **API công khai**, nên agent lấy được danh sách ảnh. Khoá 
 ```bash
 python tools/anh_album.py                            # 29 album trong kho
 python tools/anh_album.py --album "cắt mí"            # ảnh trong album, kèm tag
-python tools/anh_album.py --album "cắt mí" --lay 2    # in sẵn khối JSON để dán
+python tools/anh_album.py --album "cắt mí" --lay 3    # in sẵn khối JSON 3 ảnh để dán
 ```
 
-Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ảnh về nhúng vào file** dưới dạng data URI. Bản gửi khách vì thế **tự đứng một mình**: album đổi hay link chết thì file đã gửi vẫn nguyên.
+Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` / `anh_them` → **tool tự tải ảnh về nhúng vào file** dưới dạng data URI. Ba ô ảnh, không phải hai — xem [[BG-08-design-system]] mục 5 về cách đặt nhãn khi ảnh album vốn đã ghép sẵn trước–sau. Bản gửi khách vì thế **tự đứng một mình**: album đổi hay link chết thì file đã gửi vẫn nguyên.
 
 Khoá API để ở `template/album-key.local.json` hoặc biến môi trường `KN_ALBUM_KEY`.
 ⛔ **Không commit khoá** — repo là public; `.gitignore` chặn `*.local.json`. Lỡ lộ thì vào app xoay khoá mới.

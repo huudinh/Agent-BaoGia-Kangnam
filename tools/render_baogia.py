@@ -172,7 +172,8 @@ def can_nhac_truoc_khi_gui(d: dict, loi_pl: list[dict]) -> list[str]:
     if ten_bs:
         o.append("Tên bác sĩ in trên file (%s) đã được duyệt quảng bá chưa?"
                  % ", ".join(sorted(set(ten_bs))))
-    co_anh = [c for c in (d.get("case_tuong_tu") or []) if c.get("anh_truoc") or c.get("anh_sau")]
+    co_anh = [c for c in (d.get("case_tuong_tu") or [])
+              if c.get("anh_truoc") or c.get("anh_sau") or c.get("anh_them")]
     if co_anh:
         thieu = [c.get("ma_case", "?") for c in co_anh if not c.get("consent")]
         o.append("Ảnh khách đã có văn bản đồng ý còn hiệu lực chưa?"
@@ -278,10 +279,19 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool, goc_anh: Path) -> dict:
     for c in d.get("case_tuong_tu") or []:
         # ảnh có thể là link album, URL bất kỳ, hay file trên máy — nhúng hết vào
         # file để bản gửi khách tự đứng một mình, không phụ thuộc album còn sống
-        for o in ("anh_truoc", "anh_sau"):
+        for o in ("anh_truoc", "anh_sau", "anh_them"):
             if c.get(o):
                 c[o] = nhung_anh(c[o], goc_anh)
-        c["co_anh"] = bool(c.get("anh_truoc") or c.get("anh_sau"))
+        c["co_anh"] = bool(c.get("anh_truoc") or c.get("anh_sau") or c.get("anh_them"))
+        # ảnh thứ ba chỉ hiện khi có ảnh thật — không dựng ô ảnh tạm cho nó,
+        # hai ô trước–sau đã đủ để nhắc đi xin ảnh
+        c["co_anh_them"] = bool(c.get("anh_them"))
+        # Nhãn dưới mỗi ô ảnh đặt lại được: ảnh trong Album Kangnam thường ĐÃ LÀ
+        # ảnh ghép trước–sau, lúc đó nhãn "Trước"/"Sau" là sai — ghi "Ca 1, 2, 3"
+        # hoặc tên kỹ thuật thì đúng hơn.
+        c.setdefault("chu_thich_truoc", "Trước")
+        c.setdefault("chu_thich_sau", c.get("moc_chup") or "Sau")
+        c.setdefault("chu_thich_them", "Góc khác")
         # case kể bằng chữ (không định dùng ảnh) thì không dựng ô ảnh tạm;
         # khai can_anh = true khi case SẼ có ảnh nhưng đang chờ xin
         c["hien_anh"] = c["co_anh"] or bool(c.get("can_anh"))
@@ -317,6 +327,14 @@ def dung_ngu_canh(d: dict, bang: dict, nhap: bool, goc_anh: Path) -> dict:
     d["co_luu_y"] = bool(lay(d, "giai_phap.diem_can_luu_y"))
     d["co_van_de"] = bool(d.get("van_de_giai_phap"))
     d["co_mong_muon"] = bool(kh.get("mong_muon") or kh.get("noi_so"))
+    # Font nhúng sẵn (data URI) — sinh bằng tools/nhung-font.py. Thiếu file thì
+    # không sao: khai báo font-family còn font hệ thống đứng sau đỡ.
+    fo = GOC / "template" / "font-nhung.css"
+    d["font_nhung"] = fo.read_text(encoding="utf-8") if fo.exists() else ""
+    if not d["font_nhung"]:
+        print("  ! Thiếu template/font-nhung.css — file xuất ra dùng font hệ thống. "
+              "Chạy: python tools/nhung-font.py")
+
     # logo thật nhúng thẳng vào file (data URI) để HTML/PDF xuất ra tự đứng một mình
     logo = GOC / "template" / "logo-kangnam.png"
     if logo.exists():
@@ -366,15 +384,36 @@ def tim_chrome() -> str | None:
     return None
 
 
-def chay_chrome(chrome: str, them: list[str], url: str) -> None:
+def chay_chrome(chrome: str, them: list[str], url: str) -> str:
     with tempfile.TemporaryDirectory() as hs:
         lenh = [chrome, "--headless=new", "--disable-gpu", "--no-first-run",
                 "--no-default-browser-check", "--hide-scrollbars",
                 f"--user-data-dir={hs}", "--virtual-time-budget=4000"] + them + [url]
-        kq = subprocess.run(lenh, capture_output=True, text=True, timeout=180)
+        # encoding tường minh: --dump-dom trả HTML tiếng Việt, để Python tự đoán
+        # thì trên Windows nó dùng cp1252, luồng đọc chết và stdout thành None
+        kq = subprocess.run(lenh, capture_output=True, text=True, timeout=180,
+                            encoding="utf-8", errors="replace")
         if kq.returncode != 0:
             print(kq.stderr[-1500:], file=sys.stderr)
             raise RuntimeError(f"Chrome trả mã {kq.returncode}")
+        return kq.stdout
+
+
+def slide_bi_tran(chrome: str, html: Path) -> list[int]:
+    """Slide nào thu nhỏ hết cỡ mà vẫn tràn 1920px thì script gắn data-tran.
+
+    Ảnh chụp ra trông vẫn "đẹp" vì overflow:hidden cắt gọn phần thừa — nên phải
+    đọc lại DOM mới biết, không thể nhìn ảnh mà đoán.
+    """
+    try:
+        dom = chay_chrome(chrome, ["--dump-dom"], html.as_uri())
+    except Exception:
+        return []
+    ra = []
+    for i, the in enumerate(re.findall(r'<div class="slide[^>]*>', dom), start=1):
+        if "data-tran" in the:
+            ra.append(i)
+    return ra
 
 
 def nhung_anh(nguon: str, goc: Path) -> str:
@@ -530,9 +569,14 @@ def main(argv=None):
                         html_slide.as_uri() + f"?s={i}")
             ket = png_sang_jpg(png, ra / f"{ten}-{i:02d}.jpg")
             print(f"  => ảnh {i} : {ket}")
+        tran = slide_bi_tran(chrome, html_slide)
+        if tran:
+            print(f"  ! Slide {', '.join(map(str, tran))} TRÀN KHUNG — nội dung bị cắt "
+                  f"ở mép dưới. Rút gọn cặp vấn đề→giải pháp hoặc câu 'vì sao hợp'.")
 
     # Gợi ý ảnh thật: khách tin ảnh hơn tin chữ
-    co_anh = any(c.get("anh_truoc") or c.get("anh_sau") for c in d.get("case_tuong_tu") or [])
+    co_anh = any(c.get("anh_truoc") or c.get("anh_sau") or c.get("anh_them")
+                 for c in d.get("case_tuong_tu") or [])
     if not co_anh:
         lh = GOC / "template" / "thong-tin-lien-he.json"
         album = ""
@@ -540,10 +584,10 @@ def main(argv=None):
             album = json.loads(lh.read_text(encoding="utf-8")).get("album_anh_khach", "")
         print("\n  GỢI Ý — báo giá này chưa có ảnh khách thật.")
         print("  Ảnh trước–sau là thứ khách xem trước cả giá. Lấy ảnh:")
-        print("      python tools/anh_album.py --album \"<tên album>\" --lay 2")
+        print("      python tools/anh_album.py --album \"<tên album>\" --lay 3")
         if album:
             print("      hoặc tự chọn trong %s" % album)
-        print("  rồi dán link vào case_tuong_tu[].anh_truoc / anh_sau — tool tự tải về")
+        print("  rồi dán link vào case_tuong_tu[].anh_truoc / anh_sau / anh_them — tool tự tải về")
         print("  nhúng vào file, bản gửi khách vẫn tự đứng một mình.")
 
     print("\n" + "=" * 68)

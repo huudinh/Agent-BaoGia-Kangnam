@@ -3,7 +3,7 @@
 
     python tools/anh_album.py                          # liệt kê các album
     python tools/anh_album.py --album "cắt mí"          # liệt kê ảnh trong album
-    python tools/anh_album.py --album "cắt mí" --lay 2  # in sẵn JSON 2 ảnh đầu
+    python tools/anh_album.py --album "cắt mí" --lay 3  # in sẵn JSON 3 ảnh đầu
 
 KHOÁ API — chỉ cần để *liệt kê*; tải ảnh thì không cần. Lấy theo thứ tự:
     1. tham số --khoa
@@ -71,7 +71,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="Duyệt Album Kangnam lấy link ảnh thật")
     ap.add_argument("--album", help="tên hoặc id album, vd: \"cắt mí\"")
     ap.add_argument("--lay", type=int, metavar="N",
-                    help="in sẵn khối JSON case_tuong_tu với N ảnh đầu")
+                    help="in sẵn khối JSON case_tuong_tu với N ảnh đầu (nên dùng 3)")
     ap.add_argument("--khoa", help="khoá API (ưu tiên hơn env và file local)")
     a = ap.parse_args(argv)
 
@@ -133,6 +133,8 @@ def main(argv=None):
                 "consent": "",
                 "anh_truoc": lay[0]["imageUrl"] if len(lay) > 0 else "",
                 "anh_sau": lay[1]["imageUrl"] if len(lay) > 1 else "",
+                "anh_them": lay[2]["imageUrl"] if len(lay) > 2 else "",
+                "chu_thich_them": "Góc khác" if len(lay) > 2 else "",
             }]
         }
         print("\nDán khối này vào du-lieu.json (nhớ sửa phần trong ngoặc vuông):\n")

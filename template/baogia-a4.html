@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Báo giá {{meta.ma_bao_gia}} — {{khach.ten_hien_thi}}</title>
 <style>
+{{{font_nhung}}}
 /* ============================================================
    BÁO GIÁ CÁ NHÂN HOÁ KANGNAM — khổ A4 in / xuất PDF
    Token màu lấy nguyên từ KF-09 (production v3.0). Không trộn bảng màu khác.
@@ -22,7 +23,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
-  font:400 10.5pt/1.5 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font:400 10.5pt/1.5 "Google Sans","Google Sans Text","Product Sans","Be Vietnam Pro","Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
   color:var(--ink); background:#D9E0E8; -webkit-print-color-adjust:exact; print-color-adjust:exact;
 }
 /* min-height chứ KHÔNG phải height cố định: nội dung dài thì trang tự dãn sang
@@ -104,8 +105,7 @@ body{
 
 /* ---------- hero trang 1: điểm nhấn duy nhất của trang ---------- */
 .hero{padding:2mm 0 4mm;border-bottom:1px solid var(--line);margin-bottom:13px}
-.gui{font:400 15pt/1.2 'Segoe Script','Bradley Hand','Brush Script MT',cursive;
-  color:var(--cta);margin:0 0 4px}
+.gui{font:400 italic 14.5pt/1.2 inherit;color:var(--cta);margin:0 0 4px}
 .hero h1{font:800 22pt/1.2 inherit;color:var(--navy-900);margin:0 0 7px;letter-spacing:-.3px}
 .hero .loi-mo{font-size:10.5pt;color:var(--ink-2);margin:0;max-width:62ch}
 
@@ -174,6 +174,7 @@ tfoot td{padding:6px 8px;font-weight:700}
 .case-head{background:#E8EFFB;padding:7px 10px;font-weight:700;color:var(--navy);font-size:9pt}
 .case-body{padding:8px 10px;font-size:8.8pt;color:var(--ink-2)}
 .anh{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 11px 11px}
+.anh.ba{grid-template-columns:1fr 1fr 1fr}
 .anh figure{margin:0}
 .anh img{width:100%;aspect-ratio:1/1;object-fit:cover;border-radius:var(--r-sm);display:block}
 .anh figcaption{font-size:8.4pt;color:var(--ink-3);text-align:center;margin-top:3px}
@@ -399,17 +400,23 @@ tfoot td{padding:6px 8px;font-weight:700}
       <div class="case-head">{{mo_ta}}{{#bac_si}} · Bác sĩ {{bac_si}}{{/bac_si}}</div>
       <div class="case-body">{{ket_qua}}</div>
       {{#hien_anh}}
-      <div class="anh">
+      <div class="anh{{#co_anh_them}} ba{{/co_anh_them}}">
         <figure>
           {{#anh_truoc}}<img src="{{anh_truoc}}" alt="Trước">{{/anh_truoc}}
           {{^anh_truoc}}<div class="o-anh-tam">Ô ẢNH TẠM<br>Ảnh TRƯỚC — case {{ma_case}}<br><b>cần ảnh thật đã có consent</b></div>{{/anh_truoc}}
-          <figcaption>Trước</figcaption>
+          <figcaption>{{chu_thich_truoc}}</figcaption>
         </figure>
         <figure>
           {{#anh_sau}}<img src="{{anh_sau}}" alt="Sau">{{/anh_sau}}
           {{^anh_sau}}<div class="o-anh-tam">Ô ẢNH TẠM<br>Ảnh SAU — case {{ma_case}}<br><b>cần ảnh thật đã có consent</b></div>{{/anh_sau}}
-          <figcaption>{{moc_chup}}</figcaption>
+          <figcaption>{{chu_thich_sau}}</figcaption>
         </figure>
+        {{#co_anh_them}}
+        <figure>
+          <img src="{{anh_them}}" alt="{{chu_thich_them}}">
+          <figcaption>{{chu_thich_them}}</figcaption>
+        </figure>
+        {{/co_anh_them}}
       </div>
       {{/hien_anh}}
     </div>

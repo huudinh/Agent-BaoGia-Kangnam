@@ -30,7 +30,7 @@ BG_ORDER = [
     ("BG-05-noi-so-phan-doi", "Nỗi sợ & phản đối", "Khuôn trả lời 3 nhịp cho khối băn khoăn", False),
     ("BG-06-proof-case", "Case & ảnh trước–sau", "4 điều kiện dùng một case · link album · ô ảnh tạm", False),
     ("BG-01-ho-so-thuong-hieu", "Hồ sơ thương hiệu", "Giọng viết · cơ sở & tuyến · bác sĩ · giới hạn phát ngôn", False),
-    ("BG-08-design-system", "Design system", "Token màu · 4 trang A4 · 6 slide · giới hạn độ dài", False),
+    ("BG-08-design-system", "Design system", "Token màu · 4 trang A4 · 3 ảnh slide · font nhúng", False),
     ("BG-09-schema-du-lieu", "Schema dữ liệu", "Cấu trúc du-lieu.json — đầu vào/đầu ra của tool", False),
     ("BG-10-vong-hoc", "Vòng học", "4 chỉ số thật — hiện đang trống, chờ dữ liệu", False),
 ]
@@ -49,7 +49,7 @@ META_FORM = {
     "ten": "Agent-BaoGia-Kangnam",
     "mota": ("Tạo báo giá cá nhân hoá cho từng khách hàng Kangnam: đọc thông tin khách, "
              "chọn phương án theo bảng giá chính thức, viết nội dung đã qua cổng pháp lý, "
-             "rồi xuất ra PDF A4 và 6 ảnh gửi Zalo. Không bịa giá, không cam kết kết quả."),
+             "rồi xuất ra PDF A4 và 3 ảnh gửi Zalo. Không bịa giá, không cam kết kết quả."),
     "starters": [
         "/baogia — em dán đoạn chat với khách vào đây",
         "/wizard cắt mí",

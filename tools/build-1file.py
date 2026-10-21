@@ -36,6 +36,7 @@ NGUON = [
     "template/bac-si-duyet.json",
     "template/thong-tin-lien-he.json",
     "template/logo-kangnam.png",
+    "template/font-nhung.css",
 ]
 
 KHUNG = '''#!/usr/bin/env python3
