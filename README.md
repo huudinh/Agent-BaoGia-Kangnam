@@ -12,6 +12,28 @@ Không tối ưu cho "file đẹp". Một tờ báo giá đẹp mà không ai đ
 
 > **Bắt đầu nhanh:** chưa từng dùng agent nào → [`doc/04-prompt-nguoi-moi.md`](doc/04-prompt-nguoi-moi.md). Muốn cài ngay → [`doc/01-cai-dat.md`](doc/01-cai-dat.md).
 
+## 📘 Hướng dẫn cài đặt
+
+**<https://claude.ai/artifact/WZuxB6N8YyEH4mQoCboJFj>**
+
+Trang gồm đúng ba mục: **① Cài đặt** — nút tải ZIP, 5 bước, 4 tab nền tảng, ba thẻ Copy bộ não và **15 thẻ copy từng file tri thức + dữ liệu cứng** · **② 25 prompt mẫu** copy được, 5 nhóm lọc (có nhóm *Hỏi dẫn* cho người chưa có thông tin khách) · **③ Kiến thức** — bảng 11 file, ba cổng chặn, chính sách giá cắt mí Plasma, album ảnh và việc còn treo.
+
+> Nội dung trong trang lấy thẳng từ repo này nên luôn khớp bản mới nhất. Dựng lại sau khi sửa knowledge hoặc bảng giá: `python tools/build-huong-dan.py` rồi republish cùng URL.
+
+---
+
+## 📦 Lấy code
+
+**Repo:** <https://github.com/huudinh/Agent-BaoGia-Kangnam>
+
+| Cách | Làm gì |
+|---|---|
+| **Tải ZIP** (không cần biết git) | <https://github.com/huudinh/Agent-BaoGia-Kangnam/archive/refs/heads/main.zip> → giải nén bằng **Extract All**, ⛔ đừng kéo file trực tiếp từ cửa sổ ZIP (lỗi hay gặp nhất) |
+| **Clone** | `git clone https://github.com/huudinh/Agent-BaoGia-Kangnam.git` |
+| **Cập nhật bản mới** | `git pull` — hoặc tải lại ZIP và **giữ lại thư mục `out/` của bạn** |
+
+Thư mục `out/` không nằm trong repo (đã `.gitignore`) — file báo giá của khách là dữ liệu cá nhân, không commit lên GitHub.
+
 ---
 
 ## 1. Vì sao agent này tồn tại
@@ -90,7 +112,9 @@ Agent-BaoGia-Kangnam/
 │   └── du-lieu.mau-sua-mi.json  mẫu ca sửa mí (giá ưu đãi + phí sửa mí + link album)
 ├── tools/
 │   ├── render_baogia.py      3 cổng chặn + render qua Chrome headless
-│   └── cong_phap_ly.py       quét rào R0-R12 + bảng từ cấm
+│   ├── cong_phap_ly.py       quét rào R0-R12 + bảng từ cấm
+│   ├── build-huong-dan.py    dựng trang hướng dẫn từ nội dung thật trong repo
+│   └── huong-dan.tpl.html    template trang hướng dẫn (sửa file này, không sửa .html sinh ra)
 ├── prompts/                  mẫu prompt copy được
 ├── doc/                      cài đặt · lệnh · output mẫu · CHANGELOG
 └── out/                      file xuất ra (không commit)

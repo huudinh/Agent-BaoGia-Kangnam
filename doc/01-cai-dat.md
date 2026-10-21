@@ -8,6 +8,29 @@ Dùng được nửa não mà chưa có nửa tay thì vẫn ra nội dung báo 
 
 ---
 
+> 📘 **Bản web của tài liệu này:** <https://claude.ai/artifact/WZuxB6N8YyEH4mQoCboJFj>
+> Có nút Copy sẵn cho bộ não và từng file tri thức — đỡ phải mở file thủ công. Nội dung lấy thẳng từ repo nên luôn khớp.
+
+## 0. Lấy code về máy (làm trước tiên)
+
+**Repo:** <https://github.com/huudinh/Agent-BaoGia-Kangnam>
+
+**Cách 1 — tải ZIP, không cần biết git:**
+1. Mở <https://github.com/huudinh/Agent-BaoGia-Kangnam/archive/refs/heads/main.zip>
+2. Chuột phải file ZIP → **Extract All…** → chọn thư mục.
+   ⛔ **Đừng kéo file trực tiếp từ cửa sổ xem ZIP** — đây là lỗi hay gặp nhất, file ra thiếu và tool báo không tìm thấy template.
+3. Thư mục dùng sau khi giải nén: `Agent-BaoGia-Kangnam-main\` — mọi lệnh trong tài liệu này chạy từ đây.
+
+**Cách 2 — clone (nhận bản cập nhật bằng `git pull`):**
+```bash
+git clone https://github.com/huudinh/Agent-BaoGia-Kangnam.git
+cd Agent-BaoGia-Kangnam
+```
+
+> Thư mục `out/` **không có trong repo** (đã `.gitignore`). File báo giá chứa thông tin khách hàng — không commit lên GitHub, kể cả repo riêng tư.
+
+---
+
 ## A. Nửa não — Claude Project (khuyến nghị)
 
 1. Vào [claude.ai](https://claude.ai) → **Projects** → **Create project**. Tên: `Agent-BaoGia-Kangnam`.

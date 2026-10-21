@@ -1,0 +1,710 @@
+<title>Báo giá Kangnam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Lora:ital,wght@1,600&display=swap" rel="stylesheet">
+<style>
+/* Bảng màu dùng chung của bộ tài liệu hướng dẫn agent Kangnam
+   — lấy nguyên từ Agent-AdsOptimize-Kangnam-QT / Agent-LDP-Kangnam. */
+:root{
+  --ground:#EADDD8; --surface:#FFFFFF; --surface-2:#F7EBE6; --surface-3:#F7EBE6;
+  --ink:#1F0E17; --ink-2:#4D2E39; --ink-3:#7A5560;
+  --line:#D6BDB8; --line-2:#E6D2CD; --line-gold:#E6D2CD;
+  --primary:#8A1F33; --primary-ink:#6B1526; --primary-wash:#F7E4E4; --on-primary:#FFFFFF;
+  --gold:#86560D; --gold-soft:#A9761A; --gold-wash:#F9ECD2; --on-gold:#FFFFFF;
+  --band:#3A1425; --band-ink:#FBEEF1; --band-accent:#EDBD6B;
+  --ok:#4F5E22; --ok-bg:#EFF3E0;
+  --warn:#86560D; --warn-bg:#F9ECD2;
+  --stop:#8A1F33; --stop-bg:#F7E4E4;
+  --f:'Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --f2:'Lora',Georgia,'Times New Roman',serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --r:10px; --r-lg:14px;
+  --sh:0 1px 2px rgba(58,20,37,.10),0 2px 6px rgba(58,20,37,.05);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E0609; --surface:#352228; --surface-2:#412A32; --surface-3:#412A32;
+    --ink:#FBEFEC; --ink-2:#E8D2CF; --ink-3:#BDA2A7;
+    --line:#603D46; --line-2:#4B3038; --line-gold:#4B3038;
+    --primary:#F09AA1; --primary-ink:#F7B9BD; --primary-wash:#43242B; --on-primary:#20101A;
+    --gold:#EEC074; --gold-soft:#D09A46; --gold-wash:#3B2A17; --on-gold:#20101A;
+    --band:#2B1020; --band-ink:#FBEEF1; --band-accent:#EDBD6B;
+    --ok:#B3C975; --ok-bg:#1F2A12;
+    --warn:#EEC074; --warn-bg:#3B2A17;
+    --stop:#F09AA1; --stop-bg:#43242B;
+    --sh:0 1px 2px rgba(0,0,0,.45),0 3px 10px rgba(0,0,0,.30);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E0609; --surface:#352228; --surface-2:#412A32; --surface-3:#412A32;
+  --ink:#FBEFEC; --ink-2:#E8D2CF; --ink-3:#BDA2A7;
+  --line:#603D46; --line-2:#4B3038; --line-gold:#4B3038;
+  --primary:#F09AA1; --primary-ink:#F7B9BD; --primary-wash:#43242B; --on-primary:#20101A;
+  --gold:#EEC074; --gold-soft:#D09A46; --gold-wash:#3B2A17; --on-gold:#20101A;
+  --band:#2B1020; --band-ink:#FBEEF1; --band-accent:#EDBD6B;
+  --ok:#B3C975; --ok-bg:#1F2A12;
+  --warn:#EEC074; --warn-bg:#3B2A17;
+  --stop:#F09AA1; --stop-bg:#43242B;
+  --sh:0 1px 2px rgba(0,0,0,.45),0 3px 10px rgba(0,0,0,.30);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font:400 15.5px/1.62 var(--f);-webkit-font-smoothing:antialiased}
+.wrap{max-width:940px;margin:0 auto;padding-inline:20px}
+@media(max-width:480px){.wrap{padding-inline:16px}}
+h1,h2,h3{line-height:1.18;text-wrap:balance;margin:0}
+p{margin:0 0 .8em}
+a{color:var(--primary);text-decoration-thickness:1px;text-underline-offset:2px}
+code{font-family:var(--mono);font-size:.88em;background:var(--surface-2);
+  border:1px solid var(--line-2);border-radius:5px;padding:.08em .35em;overflow-wrap:anywhere}
+:focus-visible{outline:2.5px solid var(--primary);outline-offset:2px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- băng đầu trang ---------- */
+header.top{background:var(--band);color:var(--band-ink);border-bottom:4px solid var(--band-accent)}
+.eyebrow{font:italic 600 17px/1.3 var(--f2);color:var(--band-accent);margin:0 0 6px}
+.top h1{font-size:clamp(28px,5.4vw,40px);font-weight:800;letter-spacing:-.02em;color:#fff}
+.lede{margin:12px 0 0;font-size:17px;color:rgba(255,255,255,.86);max-width:62ch}
+.lede b{color:#fff}
+.top .dim{color:rgba(255,255,255,.62);font-size:14px}
+.top .dim a{color:var(--band-accent)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
+.chip{font-size:12.5px;font-weight:600;color:rgba(255,255,255,.80);
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);
+  border-radius:999px;padding:5px 11px}
+.chip.on{color:var(--on-gold);background:var(--band-accent);border-color:var(--band-accent)}
+
+/* ---------- thanh điều hướng ---------- */
+nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  background:var(--band);border-bottom:1px solid rgba(255,255,255,.16)}
+nav.bar .wrap{display:flex;gap:2px;align-items:center;overflow-x:auto;
+  padding-block:9px;scrollbar-width:none}
+nav.bar .wrap::-webkit-scrollbar{display:none}
+nav.bar a{flex:0 0 auto;font-size:13px;font-weight:600;color:rgba(255,255,255,.74);
+  text-decoration:none;padding:6px 11px;border-radius:7px}
+nav.bar a:hover{background:rgba(255,255,255,.14);color:#fff}
+.themebtn{flex:0 0 auto;margin-left:auto;font:600 12.5px var(--f);
+  color:rgba(255,255,255,.74);background:transparent;cursor:pointer;
+  border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:5px 12px}
+.themebtn:hover{background:rgba(255,255,255,.14);color:#fff}
+
+/* ---------- mục ---------- */
+section{padding-block:46px;border-top:1px solid var(--line);scroll-margin-top:62px}
+section:first-of-type{border-top:0}
+.sec-h{margin-bottom:22px}
+.sec-h .pre{font:italic 600 15px/1.3 var(--f2);color:var(--gold);display:block}
+.sec-h h2{font-size:clamp(21px,3.4vw,27px);font-weight:800;color:var(--primary-ink);margin-top:3px}
+.sec-h .bar{display:block;width:42px;height:3px;border-radius:3px;background:var(--gold-soft);margin-top:11px}
+.sec-h p{margin:12px 0 0;color:var(--ink-2);max-width:66ch}
+h3.sub{font-size:16px;font-weight:800;color:var(--primary-ink)}
+h3.sub .pre2{font:italic 600 14px/1.3 var(--f2);color:var(--gold);display:block;font-weight:600}
+.dim{color:var(--ink-3);font-size:13px}
+
+/* ---------- lưới chung ---------- */
+.grid{display:grid;gap:14px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.g3,.g2{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  padding:18px;box-shadow:var(--sh)}
+.card h3{font-size:16px;font-weight:800;color:var(--primary-ink);margin-bottom:6px}
+.card p:last-child{margin-bottom:0}
+
+/* ---------- dải ba bước ---------- */
+.steps{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--r-lg);overflow:hidden;margin:0 0 18px;grid-template-columns:repeat(3,1fr)}
+@media(max-width:700px){.steps{grid-template-columns:1fr}}
+.steps div{background:var(--surface);padding:15px 16px}
+.steps b{display:block;font-size:13px;font-weight:800;color:var(--primary-ink);margin-bottom:3px}
+.steps span{font-size:13.5px;color:var(--ink-2)}
+.steps .n{display:inline-grid;place-content:center;width:21px;height:21px;border-radius:50%;
+  background:var(--band);color:#fff;font:800 11.5px var(--f);margin-right:7px;vertical-align:1px}
+
+/* ---------- khối tải ---------- */
+.dl{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--gold-soft);
+  border-radius:var(--r-lg);padding:22px 20px;text-align:center;box-shadow:var(--sh);margin:0 0 16px}
+.dl h3{font-size:17px;font-weight:800;color:var(--primary-ink);margin:0 0 4px}
+.dl p{margin:0;font-size:14px;color:var(--ink-2)}
+a.dl-btn{display:inline-flex;align-items:center;gap:9px;margin:14px 0 0;background:var(--primary);
+  color:var(--on-primary);font:800 16.5px var(--f);text-decoration:none;padding:14px 26px;
+  border-radius:9px;box-shadow:0 2px 0 var(--gold-soft)}
+a.dl-btn:hover{background:var(--primary-ink)}
+.dl .alt{margin-top:13px;font-size:13px;color:var(--ink-3)}
+
+/* ---------- tabs nền tảng ---------- */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 -1px;position:relative;z-index:1}
+.tab{border:1px solid var(--line);border-bottom-color:transparent;background:var(--surface-2);
+  color:var(--ink-3);font:700 13.5px var(--f);padding:9px 16px;
+  border-radius:var(--r) var(--r) 0 0;cursor:pointer}
+.tab:hover{color:var(--primary-ink)}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--primary-ink);
+  border-top:3px solid var(--primary);border-bottom-color:var(--surface);padding-top:7px}
+.tabpanel{background:var(--surface);border:1px solid var(--line);
+  border-radius:0 var(--r-lg) var(--r-lg) var(--r-lg);padding:18px;box-shadow:var(--sh)}
+ol.list{margin:0;padding-left:1.25em}
+ol.list li{margin-bottom:9px}
+ol.list li::marker{font-weight:800;color:var(--primary)}
+
+/* ---------- thẻ copy bộ não ---------- */
+.cc{display:flex;flex-direction:column;gap:11px;background:var(--surface);
+  border:1px solid var(--line);border-top:4px solid var(--gold-soft);
+  border-radius:var(--r-lg);padding:17px;box-shadow:var(--sh)}
+.cc .tag{font-size:11.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.cc h3{font-size:17px;font-weight:800;color:var(--primary-ink);margin:0}
+.cc .meta{font-size:13px;color:var(--ink-2);margin:0;flex:1}
+.cc .count{font-variant-numeric:tabular-nums;font-weight:700;color:var(--ink)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:100%;
+  min-height:44px;border:0;border-radius:9px;background:var(--primary);color:var(--on-primary);
+  font:800 14.5px var(--f);letter-spacing:.2px;cursor:pointer;
+  box-shadow:0 2px 0 var(--gold-soft);transition:background-color .15s,transform .1s}
+.btn:hover{background:var(--primary-ink)}
+.btn:active{transform:translateY(1px);box-shadow:0 1px 0 var(--gold-soft)}
+.btn.done{background:var(--ok);box-shadow:0 2px 0 rgba(0,0,0,.12)}
+details.peek,details.fview{border-top:1px solid var(--line-2);padding-top:10px}
+details.peek summary,details.fview summary{cursor:pointer;font-size:13px;font-weight:600;
+  color:var(--primary);list-style:none}
+details summary::-webkit-details-marker{display:none}
+details.peek summary::before,details.fview summary::before{content:"▸ ";color:var(--ink-3)}
+details[open].peek summary::before,details[open].fview summary::before{content:"▾ "}
+.filebody,pre.code{margin:10px 0 0;max-height:260px;overflow:auto;background:var(--surface-2);
+  border:1px solid var(--line-2);border-radius:var(--r);padding:12px;
+  font:400 12px/1.5 var(--mono);white-space:pre-wrap;word-break:break-word;color:var(--ink-2)}
+pre.code{margin-top:0}
+
+/* ---------- thẻ file tri thức ---------- */
+.files{margin-top:8px}
+.fcard{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--surface);
+  margin:0 0 9px;box-shadow:var(--sh)}
+.fcard.hi{border:2px solid var(--gold-soft)}
+.fcard-h{display:flex;gap:10px;align-items:center;padding:11px 13px;flex-wrap:wrap}
+.fname{font:700 13.4px var(--mono);color:var(--ink);overflow-wrap:anywhere}
+.fbadge{font-size:10.5px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;
+  padding:3px 8px;border-radius:999px;background:var(--gold-wash);color:var(--gold);
+  border:1px solid var(--gold-soft)}
+.fsize{font-size:12.5px;color:var(--ink-3);font-variant-numeric:tabular-nums;margin-left:auto}
+.fhow{margin:0;padding:0 13px 11px;font-size:13.8px;color:var(--ink-2)}
+.fhow b{color:var(--ink)}
+.fcard details.fview{margin:0 13px 11px}
+@media(max-width:520px){.fsize{margin-left:0}}
+
+/* ---------- nút copy nhỏ ---------- */
+.copy{font:700 13px var(--f);padding:7px 14px;border-radius:7px;cursor:pointer;
+  border:1px solid var(--primary);background:transparent;color:var(--primary);white-space:nowrap}
+.copy:hover{background:var(--primary-wash)}
+.copy.done{border-color:var(--ok);color:var(--ok);background:var(--ok-bg)}
+
+/* ---------- bảng ---------- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:540px;font-size:14px}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line-2);vertical-align:top}
+thead th{font-size:11.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;
+  color:rgba(255,255,255,.94);background:var(--band);border-bottom:0;white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tr.hl td{background:var(--gold-wash)}
+td.num,th.num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap;color:var(--ink-2)}
+.star{color:var(--gold-soft)}
+s{color:var(--ink-3);font-weight:400}
+
+/* ---------- ghi chú ---------- */
+.note{border-radius:0 var(--r) var(--r) 0;padding:13px 16px;font-size:14.5px;
+  background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--gold-soft);
+  box-shadow:var(--sh);color:var(--ink-2);margin:14px 0}
+.note b{font-weight:800;color:var(--ink)}
+.note.warn{border-left-color:var(--gold-soft);background:var(--warn-bg)}
+.note.ok{border-left-color:var(--ok);background:var(--ok-bg)}
+.note.stop{background:var(--band);color:var(--band-ink);border:1px solid var(--band-accent);
+  border-left:5px solid var(--band-accent);border-radius:var(--r)}
+.note.stop b{color:#fff}
+.note.stop code{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.22);color:var(--band-ink)}
+.note.stop i{color:var(--band-accent);font-style:normal}
+.note + .note{margin-top:10px}
+.note p:last-child{margin-bottom:0}
+
+/* ---------- so sánh hai cột ---------- */
+.vs{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--r-lg);overflow:hidden;grid-template-columns:1fr 1fr}
+@media(max-width:620px){.vs{grid-template-columns:1fr}}
+.vs > div{background:var(--surface);padding:16px 18px}
+.vs .h{font:800 11.5px var(--f);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:7px}
+.vs .w{font-size:17px;font-weight:800;color:var(--primary-ink);margin-bottom:7px}
+.vs p{font-size:13.8px;color:var(--ink-2);margin:0}
+.vs .me{font-size:12.8px;color:var(--ink-3);margin-top:9px;padding-top:9px;
+  border-top:1px solid var(--line-2)}
+
+/* ---------- prompt ---------- */
+.qa-bar{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:0 0 16px}
+.qa-bar button{font:600 13px var(--f);padding:6px 13px;border:1px solid var(--line);
+  background:var(--surface);color:var(--ink-3);border-radius:999px;cursor:pointer;white-space:nowrap}
+.qa-bar button:hover{color:var(--primary-ink);border-color:var(--primary)}
+.qa-bar button[aria-pressed="true"]{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+.prompt{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);
+  margin:0 0 12px;overflow:hidden;box-shadow:var(--sh)}
+.prompt-h{display:flex;gap:11px;align-items:center;padding:12px 15px;flex-wrap:wrap;
+  background:var(--surface-2);border-bottom:1px solid var(--line-2)}
+.prompt-h .n{flex:none;font:700 12.5px var(--mono);color:var(--primary-ink);font-variant-numeric:tabular-nums}
+.prompt-h .t{font-size:14.8px;font-weight:700;flex:1;min-width:0;color:var(--ink)}
+.prompt-h .k{flex:none;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--line);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.prompt-b{margin:0;padding:14px 15px;max-height:260px;overflow:auto;
+  font:400 12.6px/1.66 var(--mono);color:var(--ink-2);white-space:pre-wrap;
+  overflow-wrap:anywhere;background:var(--surface)}
+.prompt-f{display:flex;gap:10px;align-items:center;justify-content:space-between;
+  padding:11px 15px;flex-wrap:wrap;border-top:1px solid var(--line-2);background:var(--surface-2)}
+.prompt-f .get{font-size:12.8px;color:var(--ink-3);flex:1;min-width:150px}
+@media (max-width:420px){.prompt-h .k{display:none}}
+
+/* ---------- chân trang ---------- */
+footer{border-top:1px solid var(--line);background:var(--surface);
+  padding-block:30px;font-size:13px;color:var(--ink-3)}
+footer b{color:var(--ink-2)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);
+  bottom:calc(20px + env(safe-area-inset-bottom,0px));
+  background:var(--band);color:var(--band-ink);font:700 13.5px var(--f);padding:10px 18px;
+  border-radius:999px;z-index:90;box-shadow:0 8px 24px rgba(0,0,0,.3);
+  opacity:0;pointer-events:none;transition:opacity .18s ease}
+.toast.on{opacity:1}
+</style>
+
+<header class="top">
+  <div class="wrap" style="padding-block:42px 36px">
+    <p class="eyebrow">Hướng dẫn cài đặt &amp; prompt mẫu</p>
+    <h1>Agent-BaoGia-Kangnam</h1>
+    <p class="lede">Biến thông tin <b>một khách hàng cụ thể</b> — hoặc nguyên đoạn chat — thành một tờ báo giá
+      cá nhân hoá: <b>1 file PDF A4 3 trang</b> để gửi email, in, đưa người nhà xem, và <b>5 ảnh JPG</b> gửi thẳng Zalo.</p>
+    <div class="chips">
+      <span class="chip on">v1.2</span>
+      <span class="chip">@@N_FILE@@ file tri thức</span>
+      <span class="chip">@@N_DICHVU@@ dịch vụ trong bảng giá</span>
+      <span class="chip">7 lệnh</span>
+      <span class="chip">3 cổng chặn</span>
+      <span class="chip">Claude · ChatGPT · Gemini</span>
+    </div>
+    <p class="dim" style="margin-top:18px">Đo bằng <b>tỉ lệ phản hồi · tỉ lệ đặt khám · tỉ lệ show-up · tỉ lệ chốt</b>.
+      Không đo bằng “file có đẹp không”. ·
+      <a href="https://github.com/huudinh/Agent-BaoGia-Kangnam" target="_blank" rel="noopener">repo trên GitHub</a></p>
+  </div>
+</header>
+
+<nav class="bar">
+  <div class="wrap">
+    <a href="#cai-dat">1 · Cài đặt</a>
+    <a href="#prompt">2 · @@PROMPT_N@@ prompt mẫu</a>
+    <a href="#kien-thuc">3 · Kiến thức</a>
+    <a href="#chan">4 · Việc đang chờ</a>
+    <button class="themebtn" id="theme" type="button">Đổi nền</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ======================= 1 · CÀI ĐẶT ======================= -->
+<section id="cai-dat">
+  <div class="sec-h">
+    <span class="pre">Mục 1</span>
+    <h2>Cài đặt theo nền tảng</h2>
+    <span class="bar"></span>
+    <p>Agent có <b>hai nửa</b>. Nửa não là prompt + tri thức, chạy trên Claude · ChatGPT · Gemini,
+      không cần cài gì lên máy. Nửa tay là tool render ra PDF và JPG, cần Python và Chrome —
+      hầu hết máy đã có sẵn. Chỉ có nửa não thì vẫn ra <i>nội dung</i> báo giá, chỉ là phải tự trình bày.</p>
+  </div>
+
+  <div class="steps">
+    <div><b><span class="n">1</span>Lấy bộ file</b><span>Tải ZIP rồi giải nén bằng <b>Extract&nbsp;All</b></span></div>
+    <div><b><span class="n">2</span>Tạo project + dán bộ não</b><span>Thẻ A cho Claude/Gemini · Thẻ B cho ChatGPT</span></div>
+    <div><b><span class="n">3</span>Upload tri thức</b><span>@@N_FILE@@ file <code>knowledge/</code> <b>+ 2 file JSON dữ liệu cứng</b></span></div>
+  </div>
+
+  <div class="dl">
+    <h3>Tải bộ file</h3>
+    <p>Toàn bộ repo: bộ não · @@N_FILE@@ file tri thức · bảng giá @@N_DICHVU@@ dịch vụ · 4 nhóm prompt mẫu ·
+      template PDF &amp; slide · tool render · tài liệu.</p>
+    <a class="dl-btn" href="https://github.com/huudinh/Agent-BaoGia-Kangnam/archive/refs/heads/main.zip">⬇ Tải ZIP</a>
+    <p class="alt">Thư mục cần dùng sau khi giải nén: <code>Agent-BaoGia-Kangnam-main/</code><br>
+      Hoặc clone: <button class="copy" data-copy="clone" type="button">Copy lệnh git clone</button></p>
+  </div>
+
+  <div class="note stop">
+    <p style="margin-bottom:0"><b>⛔ Giải nén bằng Extract All.</b> Đừng kéo file trực tiếp từ cửa sổ xem ZIP —
+      đây là lỗi hay gặp nhất: file ra thiếu và tool báo <i>không tìm thấy template</i>.</p>
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 10px">Chọn nền tảng</h3>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="claude" type="button">Claude Project</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="gpt" type="button">ChatGPT Custom GPT</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="gemini" type="button">Gemini Gems</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="code" type="button">Claude Code</button>
+  </div>
+
+  <div class="tabpanel" data-panel="claude">
+    <h3 class="sub" style="margin-bottom:10px">Claude Project — khuyến nghị</h3>
+    <p class="dim" style="margin-bottom:13px">Ô instructions không giới hạn 8.000 ký tự nên dùng được bộ não đầy đủ.</p>
+    <ol class="list">
+      <li><b>Projects</b> → <b>Create project</b> → tên <code>Agent-BaoGia-Kangnam</code>.</li>
+      <li><b>Custom instructions</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
+      <li><b>Project knowledge</b> → upload đủ <b>@@N_FILE@@ file</b> trong <code>knowledge/</code>.</li>
+      <li>Upload thêm <b>2 file dữ liệu cứng</b>: <code>template/bang-gia.json</code> ·
+        <code>template/bac-si-duyet.json</code>.</li>
+      <li>Nên upload thêm <code>template/du-lieu.mau.json</code> để agent sinh JSON đúng cấu trúc ngay lần đầu.</li>
+    </ol>
+  </div>
+
+  <div class="tabpanel" data-panel="gpt" hidden>
+    <h3 class="sub" style="margin-bottom:10px">ChatGPT Custom GPT</h3>
+    <p class="dim" style="margin-bottom:13px">Ô Instructions giới hạn <b>8.000 ký tự</b> → bắt buộc dùng bản ngắn.</p>
+    <ol class="list">
+      <li><b>Explore GPTs</b> → <b>Create</b> → tab <b>Configure</b>.</li>
+      <li>Name: <code>Agent-BaoGia-Kangnam</code>.</li>
+      <li>Instructions → dán <b>Thẻ B</b> (@@LEN_B@@ ký tự).</li>
+      <li>Knowledge → upload đủ @@N_FILE@@ file tri thức <b>+ 2 file JSON dữ liệu cứng</b>.</li>
+    </ol>
+    <div class="note stop" style="margin-top:15px">
+      <p><b>Bản ngắn là bản đánh đổi.</b> Nó đã cắt bảng chân dung khách, bảng giọng theo nhóm và
+        nhiều luật chi tiết — và <b>trông vào tri thức để bù</b>.</p>
+      <p style="margin-bottom:0">Không nạp đủ file thì agent <i>biết phải chặn gì</i> nhưng
+        <i>không biết viết thế nào</i>, và nó sẽ bắt đầu đoán ở đúng hai chỗ nguy hiểm nhất:
+        <b>giá</b> và <b>pháp lý</b>.</p>
+    </div>
+  </div>
+
+  <div class="tabpanel" data-panel="gemini" hidden>
+    <h3 class="sub" style="margin-bottom:10px">Gemini Gems</h3>
+    <ol class="list">
+      <li><b>Gems</b> → <b>New Gem</b>.</li>
+      <li>Ô <b>Chỉ dẫn</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
+      <li>Upload @@N_FILE@@ file tri thức + 2 file JSON vào phần tệp của Gem.</li>
+    </ol>
+  </div>
+
+  <div class="tabpanel" data-panel="code" hidden>
+    <h3 class="sub" style="margin-bottom:10px">Claude Code / VS Code</h3>
+    <p>Không cần tạo project. Mở thư mục repo rồi gõ:</p>
+    <pre class="code">Đọc SYSTEM-PROMPT.md và toàn bộ knowledge/, rồi đóng vai agent đó.
+Tôi bắt đầu bằng /baogia.</pre>
+    <div class="note ok" style="margin-top:13px;margin-bottom:0">Cách này tiện nhất vì agent
+      <b>chạy được luôn tool render</b> — không phải copy JSON qua lại.</div>
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 6px">Ba thẻ dán sẵn</h3>
+  <p class="dim" style="margin:0 0 14px">Đây là thứ <b>phải dán vào ô văn bản</b> nên có nút copy.
+    Tri thức thì <b>upload dưới dạng file</b> — thẻ C chỉ dùng khi nền tảng không cho upload nhiều file.</p>
+  <div class="grid g3">
+    <div class="cc">
+      <span class="tag">Thẻ A</span>
+      <h3>Bộ não đầy đủ</h3>
+      <p class="meta"><span class="count">@@LEN_A@@</span> ký tự · Claude · Gemini · Claude Code<br>
+        <span class="dim">§0–§14: quy trình 4 bước · 9 khối · cổng pháp lý · chân dung cắt mí · luật giá Plasma</span></p>
+      <button class="btn" data-copy="a" type="button">Copy Thẻ A</button>
+      <details class="peek"><summary>Xem nội dung</summary><pre class="filebody" data-peek="a"></pre></details>
+    </div>
+    <div class="cc">
+      <span class="tag">Thẻ B</span>
+      <h3>Bộ não ngắn</h3>
+      <p class="meta"><span class="count">@@LEN_B@@</span> / 8.000 ký tự · chỉ ChatGPT<br>
+        <span class="dim">Giữ nguyên mọi cổng chặn, cắt phần chi tiết — bù bằng tri thức</span></p>
+      <button class="btn" data-copy="b" type="button">Copy Thẻ B</button>
+      <details class="peek"><summary>Xem nội dung</summary><pre class="filebody" data-peek="b"></pre></details>
+    </div>
+    <div class="cc">
+      <span class="tag">Thẻ C</span>
+      <h3>Tri thức gộp</h3>
+      <p class="meta"><span class="count">@@LEN_C@@</span> ký tự · @@KB_C@@ KB<br>
+        <span class="dim">@@N_FILE@@ file nối liền. ⛔ Không gồm 2 file JSON — phải nạp riêng</span></p>
+      <button class="btn" data-copy="c" type="button">Copy Thẻ C</button>
+      <details class="peek"><summary>Xem nội dung</summary><pre class="filebody" data-peek="c"></pre></details>
+    </div>
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 6px">Tri thức &amp; dữ liệu cứng</h3>
+  <p class="dim" style="margin:0 0 13px">Thứ tự dưới đây là thứ tự agent đọc:
+    <b>pháp lý → tiền → cấu trúc → khách → dịch vụ</b>. Có ZIP rồi thì upload thẳng từ thư mục;
+    không tải được thì copy từng thẻ.</p>
+  <div class="note stop">
+    <p style="margin-bottom:0"><b>Hai file JSON là bắt buộc, không phải tuỳ chọn.</b>
+      <code>bang-gia.json</code> là nguồn giá duy nhất, <code>bac-si-duyet.json</code> quyết định ai được nêu tên.
+      Thiếu chúng, agent sẽ <i>đoán giá</i> và <i>nêu tên bác sĩ đã bị gỡ khỏi danh sách duyệt quảng bá</i>.</p>
+  </div>
+  <div class="files">
+    @@FILE_CARDS@@
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 6px">Nửa tay — tool render</h3>
+  <p class="dim" style="margin:0 0 13px">Cần <b>Python 3.9+</b> và <b>Chrome hoặc Edge</b>.
+    Pillow là tuỳ chọn — không có thì ảnh ra PNG, vẫn gửi được.</p>
+  <pre class="code">python -m pip install pillow        # tuỳ chọn
+
+mkdir out\MAU
+copy template\du-lieu.mau.json out\MAU\du-lieu.json
+python tools\render_baogia.py out\MAU\du-lieu.json</pre>
+  <p class="dim" style="margin:13px 0 0">Kết quả đúng phải là:</p>
+  <pre class="code">  cổng dữ liệu  : PASS
+  cổng bảng giá : PASS
+  => PDF    : out\MAU\BG-2026-1021-01.pdf  (3 trang)
+  => ảnh 1..5 : out\MAU\BG-2026-1021-01-0X.jpg</pre>
+  <div class="note">Chrome ở chỗ khác thường → đặt biến môi trường <code>KN_CHROME</code> trỏ tới
+    <code>chrome.exe</code>. Không có Chrome → chạy <code>--chi-html</code> rồi mở file HTML,
+    Ctrl+P → <b>Save as PDF</b>.</div>
+
+  <h3 class="sub" style="margin:28px 0 10px">Câu kiểm tra — cài đúng chưa</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th class="num">#</th><th>Gõ vào</th><th>Phải thấy</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td class="num">1</td><td>/baogia — khách muốn <b>nâng ngực ở viện Kangnam Cần Thơ</b>, ngân sách 50 triệu</td>
+          <td><b>Dừng lại</b>: nâng ngực là đại phẫu, chỉ thực hiện ở <b>tuyến bệnh viện</b></td></tr>
+        <tr><td class="num">2</td><td>/kiemtra — “cam kết đẹp 100%, không đau, bảo hành trọn đời, 3 ngày đi làm được”</td>
+          <td>Chỉ ra <b>đủ 4 lỗi CHẶN</b> kèm bản viết lại đúng luật</td></tr>
+        <tr><td class="num">3</td><td>/baogia cho khách vừa nhắn hỏi giá, chưa nói gì thêm</td>
+          <td>Cảnh báo khách đang ở <b>NHẬN BIẾT</b> — gửi báo giá đầy đủ lúc này dễ bị đem đi so giá</td></tr>
+        <tr><td class="num">4</td><td>Báo giá có nhắc tên bác sĩ <b>Jolie Huynh</b></td>
+          <td>Từ chối: hồ sơ <b>không còn trên web</b>, gỡ tên khỏi báo giá (rào R4)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note warn">
+    <b>Câu 1 là câu quan trọng nhất.</b> Mời đại phẫu ở cơ sở không có giấy phép đại phẫu là
+    <b>vượt phạm vi giấy phép</b> — rủi ro pháp lý, không phải lỗi copy. Agent vui vẻ dựng báo giá
+    nghĩa là tri thức chưa nạp hoặc instructions dán thiếu.
+  </div>
+</section>
+
+<!-- ======================= 2 · PROMPT MẪU ======================= -->
+<section id="prompt">
+  <div class="sec-h">
+    <span class="pre">Mục 2</span>
+    <h2>@@PROMPT_N@@ prompt mẫu</h2>
+    <span class="bar"></span>
+    <p>Bấm <b>Copy</b> rồi dán vào chat, chỗ trong <code>[ngoặc vuông]</code> thay bằng thông tin thật.
+      Càng nhiều <b>chữ nguyên văn của khách</b> thì báo giá càng cá nhân hoá được sâu — đó là toàn bộ
+      khác biệt giữa một tờ báo giá riêng và một bảng giá chung có điền tên.</p>
+    <p><b>Chưa có gì trong tay?</b> Dùng nhóm <i>Hỏi dẫn</i> — dán nguyên đoạn chat với khách,
+      agent tự rút thông tin rồi hỏi lại tối đa 3 câu một lượt.</p>
+  </div>
+
+  <div class="qa-bar">
+    <button data-f="all" aria-pressed="true" type="button">Tất cả · @@PROMPT_N@@</button>
+    <button data-f="baogia" aria-pressed="false" type="button">Tạo báo giá · @@N_BAOGIA@@</button>
+    <button data-f="wizard" aria-pressed="false" type="button">Hỏi dẫn · @@N_WIZARD@@</button>
+    <button data-f="tinnhan" aria-pressed="false" type="button">Tin nhắn · @@N_TINNHAN@@</button>
+    <button data-f="vanhanh" aria-pressed="false" type="button">Vận hành · @@N_VANHANH@@</button>
+  </div>
+
+  @@PROMPT_CARDS@@
+
+  <div class="note" style="margin-top:16px">
+    <p style="margin-bottom:0"><b>Tin nhắn gửi kèm quyết định khách có mở file hay không.</b>
+      File báo giá không tự bán được — nhóm <i>Tin nhắn</i> có mẫu cho cả 6 nhóm khách,
+      mỗi mẫu ≤ 60 chữ và kết bằng đúng một câu hỏi mở.</p>
+  </div>
+</section>
+
+<!-- ======================= 3 · KIẾN THỨC ======================= -->
+<section id="kien-thuc">
+  <div class="sec-h">
+    <span class="pre">Mục 3</span>
+    <h2>Kiến thức</h2>
+    <span class="bar"></span>
+    <p>@@N_FILE@@ file tri thức, đọc theo nhu cầu. Năm file đánh <span class="star">★</span> là lõi —
+      thiếu chúng thì agent vẫn chạy nhưng bắt đầu đoán, và <b>không báo lỗi</b>.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>File</th><th>Nội dung</th><th class="num">Ký tự</th></tr></thead>
+      <tbody>@@KB_ROWS@@</tbody>
+    </table>
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 10px">Ba cổng chặn — tính năng, không phải lỗi</h3>
+  <div class="grid g3">
+    <div class="card"><h3>Cổng dữ liệu</h3><p class="dim" style="margin:0">Thiếu trường bắt buộc,
+      hoặc không có dòng chi phí nào.</p></div>
+    <div class="card"><h3>Cổng bảng giá</h3><p class="dim" style="margin:0">Mã dịch vụ không có trong bảng ·
+      giá lệch mà không khai lý do · dịch vụ ghi “liên hệ” bị tự đặt số.</p></div>
+    <div class="card"><h3>Cổng pháp lý</h3><p class="dim" style="margin:0">Từ cấm (R1) · mốc hồi phục cứng ·
+      bác sĩ sai trạng thái (R4) · ảnh thiếu consent (R5) · ảnh cơ thể (R12) · đại phẫu sai tuyến (R3).</p></div>
+  </div>
+  <div class="note stop" style="margin-top:14px">
+    <p><b>Fail = không xuất file.</b> Không có ngoại lệ vì khách đang chờ. Cần xem bố cục khi còn lỗi
+      thì chạy <code>--nhap</code> — file ra đóng dấu <b>NHÁP</b> và <i>không được gửi khách</i>.</p>
+    <p style="margin-bottom:0">Cổng tự động là <b>lưới thứ hai</b>, không phải người duyệt. Nó không biết
+      consent còn hiệu lực không, dịch vụ có trong danh mục kỹ thuật không, ưu đãi có văn bản không —
+      agent luôn liệt kê những thứ đó ở mục <b>F. CẦN NGƯỜI THẬT</b> cuối mỗi báo giá.</p>
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 10px">Dữ liệu cứng đang dùng</h3>
+  <div class="vs">
+    <div>
+      <div class="h">Nguồn giá duy nhất</div>
+      <div class="w">@@N_DICHVU@@ dịch vụ</div>
+      <p>Cập nhật @@CAP_NHAT@@. Mọi con số tiền trong báo giá phải truy về file này.
+        Agent <b>không được tự tạo dịch vụ</b>, <b>không được tự đặt giá</b>.</p>
+      <p class="me">Giá lệch bảng → bắt buộc khai <code>ly_do_lech</code></p>
+    </div>
+    <div>
+      <div class="h">Ai được nêu tên</div>
+      <div class="w">@@N_BACSI@@ bác sĩ đã duyệt</div>
+      <p>Bốn trạng thái: <code>duyet</code> · <code>can_xac_minh</code> · <code>xung_dot</code> ·
+        <code>ngung_dung</code>. Chỉ <code>duyet</code> mới được in ra file gửi khách.</p>
+      <p class="me">3 hồ sơ đang <b>xung đột</b> giữa web và KF-02 → dừng, hỏi Pháp chế</p>
+    </div>
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 10px"><span class="pre2">Dịch vụ bán chạy nhất</span>Cắt mí — tri thức chuyên sâu</h3>
+  <p style="margin:0 0 13px;color:var(--ink-2)"><code>BG-11</code> gom <b>9 chân dung khách</b>
+    (4 nhóm chưa từng làm mí, 5 nhóm đã làm nhưng chưa hài lòng), <b>10 nỗi lo</b> trước khi quyết định
+    kèm câu trả lời đã qua cổng pháp lý, cách mô tả <b>giải pháp dao Plasma</b> đúng luật, và chính sách giá.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Trường hợp</th><th>Thực thu</th></tr></thead>
+      <tbody>
+        <tr><td><b>Cắt mí lần đầu</b></td><td><s>10.000.000đ</s> → <b>8.000.000đ</b> giá ưu đãi</td></tr>
+        <tr class="hl"><td><b>Sửa mí</b></td><td>8.000.000đ + phí sửa mí 1.500.000–1.800.000đ
+          → <b>tổng 9,5–9,8 triệu</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note stop" style="margin-top:12px">
+    <p><b>Hai điều không được hứa</b> dù khách rất muốn nghe:</p>
+    <p><i>“mắt sẽ to hơn”</i> — độ mở phụ thuộc <b>cơ nâng mi</b>, phải khám mới biết là do da dư hay do cơ;
+      hai tình trạng này khác nhau cả cách làm lẫn chi phí.</p>
+    <p style="margin-bottom:0"><i>“hai bên cân đối tuyệt đối”</i> — chỉ cải thiện <b>trong giới hạn cấu trúc
+      giải phẫu</b>. Nói trước điều này <b>tăng</b> niềm tin, không giảm.</p>
+  </div>
+
+  <h3 class="sub" style="margin:28px 0 10px">Album ảnh khách hàng</h3>
+  <p style="margin:0 0 12px;color:var(--ink-2)">Link album cắt mí đã duyệt để gửi kèm báo giá.
+    Dán vào <b>tin nhắn</b>, không chỉ để trong ảnh — link in trên JPG không bấm được.</p>
+  <p style="margin:0 0 12px"><a href="https://hcigroup.vn/app/albumkn/?album=theme-1792573778761" target="_blank" rel="noopener">Mở album cắt mí →</a></p>
+  <div class="note stop">
+    <p style="margin-bottom:0"><b>⛔ Ảnh trong kho ≠ đã có consent.</b> Kho là chỗ <i>lưu</i> ảnh,
+      không phải chỗ <i>cấp phép</i>. Rào R5 vẫn đòi <b>văn bản đồng ý</b> của từng khách trước khi
+      chèn ảnh vào file báo giá.</p>
+  </div>
+</section>
+
+<!-- ======================= 4 · VIỆC ĐANG CHỜ ======================= -->
+<section id="chan">
+  <div class="sec-h">
+    <span class="pre">Mục 4</span>
+    <h2>Việc đang chờ người thật chốt</h2>
+    <span class="bar"></span>
+    <p>Agent cài xong là dùng được ngay. Nhưng mỗi báo giá sẽ kèm một dòng <code>[CHỜ XÁC NHẬN]</code>
+      cho tới khi những việc dưới đây xong — và chúng nằm ngoài tay marketing.</p>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Mức</th><th>Việc</th><th>Ai cấp</th><th>Chặn gì</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>🔴</td><td>Chốt câu chữ thay cụm <b>“bảo hành trọn đời”</b></td><td>Pháp chế</td>
+          <td>Đang vi phạm rào <b>R1</b> — cổng sẽ chặn nếu người viết tự đưa vào</td></tr>
+        <tr class="hl"><td>🔴</td><td>Chốt <b>danh sách bác sĩ duyệt quảng bá</b> (KF-02)</td><td>Pháp chế + Chuyên môn</td>
+          <td>3 hồ sơ đang xung đột giữa web và KF-02</td></tr>
+        <tr><td>🟠</td><td>Xác nhận <b>mức giảm phí sửa mí</b> theo từng khu vực</td><td>Vận hành</td>
+          <td>Đang ghi 40–50% → tổng ca sửa mí 9,5–9,8tr</td></tr>
+        <tr><td>🟠</td><td><b>Bảng kê consent ảnh case</b>: ảnh ↔ mã case ↔ ngày ↔ hạn</td><td>CSKH + Pháp chế</td>
+          <td>Mọi case phải hỏi tay từng lần; ô ảnh tạm còn mãi</td></tr>
+        <tr><td>🟠</td><td><b>Chính sách trả góp</b>: ngân hàng, số kỳ, phí chuyển đổi</td><td>Vận hành</td>
+          <td>Agent không được nêu trả góp khi chưa có</td></tr>
+        <tr><td>🟡</td><td>Xác nhận <b>giá Lipo mini</b> — “nhiều vùng” đang rẻ hơn “1 vùng”</td><td>Vận hành</td>
+          <td>Nghi lệch dữ liệu trong bảng giá</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note ok" style="margin-top:14px">
+    <p style="margin-bottom:0"><b>Đã đóng 21/10/2026:</b> giá cắt mí Plasma — chính sách chốt
+      <b>niêm yết 10.000.000đ, ưu đãi 8.000.000đ</b>, không còn nghi vấn con số 7.200.000đ trên meta website.</p>
+  </div>
+  <p class="dim" style="margin-top:12px">Danh sách đầy đủ 9 mục nằm trong <code>doc/CHANGELOG.md</code> của repo.</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0 0 6px"><b>Agent-BaoGia-Kangnam</b> v1.2 ·
+      <a href="https://github.com/huudinh/Agent-BaoGia-Kangnam" target="_blank" rel="noopener">repo trên GitHub</a></p>
+    <p style="margin:0">Gói anh em: <b>Agent-LDP-Kangnam</b> (landing) · <b>Agent-CRM-Automation</b> (hội thoại tư vấn) ·
+      <b>Agent-AdsOptimize-Kangnam</b> (quảng cáo). Mọi báo giá là <b>bản đề xuất</b> —
+      chi phí cuối cùng do bác sĩ quyết định sau khi thăm khám trực tiếp.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Đã copy</div>
+
+<script id="payload" type="application/json">@@PAYLOAD@@</script>
+<script>
+(function(){
+  var DATA = {};
+  try { DATA = JSON.parse(document.getElementById('payload').textContent); } catch(e){}
+  DATA.clone = 'git clone https://github.com/huudinh/Agent-BaoGia-Kangnam.git';
+
+  // đổ nội dung vào khối "Xem nội dung" của ba thẻ bộ não
+  document.querySelectorAll('[data-peek]').forEach(function(pre){
+    var t = DATA[pre.dataset.peek]; if (t === undefined) return;
+    pre.textContent = t.length > 2600 ? t.slice(0, 2600) + '\n\n… (còn ' +
+      (t.length - 2600).toLocaleString('vi-VN') + ' ký tự — bấm Copy để lấy đủ)' : t;
+  });
+
+  var toast = document.getElementById('toast'), tid;
+  function khoe(msg){
+    toast.textContent = msg; toast.classList.add('on');
+    clearTimeout(tid); tid = setTimeout(function(){ toast.classList.remove('on'); }, 1700);
+  }
+
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('[data-copy]'); if(!b) return;
+    var t = DATA[b.dataset.copy]; if(t === undefined) return;
+    var xong = function(){
+      var cu = b.textContent; b.textContent = 'Đã copy'; b.classList.add('done');
+      khoe('Đã copy ' + t.length.toLocaleString('vi-VN') + ' ký tự');
+      setTimeout(function(){ b.textContent = cu; b.classList.remove('done'); }, 1700);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(t).then(xong, function(){
+        khoe('Trình duyệt chặn copy — bấm Xem nội dung rồi copy tay'); });
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); xong(); }
+      catch(err){ khoe('Không copy được — bấm Xem nội dung rồi copy tay'); }
+      document.body.removeChild(ta);
+    }
+  });
+
+  // tabs nền tảng
+  document.querySelectorAll('.tab').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('.tab').forEach(function(x){
+        x.setAttribute('aria-selected', String(x === b)); });
+      document.querySelectorAll('.tabpanel').forEach(function(p){
+        p.hidden = p.dataset.panel !== b.dataset.tab; });
+    });
+  });
+
+  // lọc prompt
+  document.querySelectorAll('.qa-bar button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var f = b.dataset.f;
+      document.querySelectorAll('.qa-bar button').forEach(function(x){
+        x.setAttribute('aria-pressed', String(x === b)); });
+      document.querySelectorAll('.prompt').forEach(function(p){
+        p.hidden = (f !== 'all' && p.dataset.g !== f); });
+    });
+  });
+
+  // đổi nền sáng/tối
+  var root = document.documentElement, nut = document.getElementById('theme');
+  try { var luu = localStorage.getItem('bg-theme'); if (luu) root.setAttribute('data-theme', luu); } catch(e){}
+  nut.addEventListener('click', function(){
+    var toi = root.getAttribute('data-theme') === 'dark'
+      || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme:dark)').matches);
+    var moi = toi ? 'light' : 'dark';
+    root.setAttribute('data-theme', moi);
+    try { localStorage.setItem('bg-theme', moi); } catch(e){}
+  });
+})();
+</script>

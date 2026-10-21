@@ -2,6 +2,10 @@
 Version 1.0 · Token lấy nguyên từ `Agent-LDP-Kangnam/knowledge/KF-09-design-system.md` (production v3.0)
 Cập nhật: 2026-10-21
 
+> ⚠️ **File này nói về ấn phẩm GỬI KHÁCH** (PDF + slide JPG): navy `#074E84` + cam `#EF6103`, font hệ thống.
+> **Trang hướng dẫn nội bộ** (`tools/huong-dan.tpl.html`) dùng **bảng màu khác** — nâu đỏ `#8A1F33` + vàng `#86560D` + nền kem, chung với `Agent-LDP-Kangnam` và `Agent-AdsOptimize-Kangnam-QT`.
+> Hai bảng phục vụ hai người đọc: khách hàng và nhân viên. ⛔ Không trộn.
+
 ---
 
 ## 1. TOKEN MÀU — dùng đúng bảng production, không trộn

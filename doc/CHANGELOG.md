@@ -1,5 +1,21 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v1.2 — 2026-10-21 · trang hướng dẫn cài đặt + prompt mẫu
+
+**Trang web hướng dẫn:** <https://claude.ai/artifact/WZuxB6N8YyEH4mQoCboJFj> — nhúng vào `README.md` và `doc/01-cai-dat.md`.
+Ba mục theo đúng quy ước của `Agent-LDP-Kangnam`: ① Cài đặt (5 bước · 4 tab nền tảng · 3 thẻ Copy bộ não · 15 thẻ copy file) · ② 25 prompt mẫu lọc theo 5 nhóm · ③ Kiến thức (bảng 11 file · 3 cổng chặn · chính sách giá Plasma · album · việc còn treo).
+
+**Thêm `tools/build-huong-dan.py` + `tools/huong-dan.tpl.html`.** Trang được **sinh từ nội dung thật trong repo**, không chép tay: bộ não, 11 file knowledge, 4 file dữ liệu `template/*.json` và toàn bộ prompt đều đọc trực tiếp từ file nguồn, kèm số ký tự thật. Sửa knowledge hoặc bảng giá → chạy lại script → republish cùng URL là trang khớp ngay.
+`tools/huong-dan.html` là bản sinh ra, đã vào `.gitignore` — **không sửa tay**.
+
+> 🔧 Lỗi đã sửa khi dựng: hàm rút khối copy của bộ não dùng regex ``` … ``` nên **cắt cụt ở fence lồng bên trong** (hộp quy trình 4 bước, checklist cổng) — thẻ A chỉ ra 3.045 ký tự thay vì 10.675. Nay cắt theo hai vạch ▼▲, và script tự dừng nếu khối không bắt đầu bằng tiêu đề.
+
+**Bảng màu:** dùng **chung một bộ token với `Agent-AdsOptimize-Kangnam-QT` và `Agent-LDP-Kangnam`** — nâu đỏ `#8A1F33` · vàng `#86560D` · nền kem `#EADDD8` · băng `#3A1425` · nhấn `#EDBD6B`, chữ **Be Vietnam Pro + Lora nghiêng** cho nhãn mục. Cả ba trạng thái theme (sáng · tối theo hệ thống · tối do người đọc chọn) đều khai đủ token.
+
+> Lưu ý: đây là **bảng màu của bộ tài liệu hướng dẫn**, khác bảng màu của **ấn phẩm báo giá** (navy `#074E84` + cam `#EF6103`, xem `BG-08`). Hai thứ phục vụ hai người đọc khác nhau: trang hướng dẫn cho nhân viên, tờ báo giá cho khách hàng. ⛔ Không trộn hai bảng.
+
+---
+
 ## v1.1 — 2026-10-21 · tri thức chuyên sâu CẮT MÍ
 
 **Thêm `knowledge/BG-11-noi-dau-cat-mi.md`** — nguồn: tổng hợp nội bộ *"Tổng hợp nỗi đau khách hàng quan tâm cắt mí"*.
