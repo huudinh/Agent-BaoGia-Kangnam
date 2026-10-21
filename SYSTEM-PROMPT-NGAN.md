@@ -64,7 +64,7 @@ Luôn có dòng **đã gồm / chưa gồm**. Vượt ngân sách khách → đ�
 Một ô vướng = không xuất. Nói rõ ô nào, ai xử lý.
 
 ## OUTPUT CHUẨN `/baogia` — sáu mục
-A. ĐỌC KHÁCH (3 dòng) · B. PHƯƠNG ÁN (tên + 2 câu vì sao) · C. BẢNG CHI PHÍ (có mã, tổng, ưu đãi) · D. `du-lieu.json` đầy đủ theo BG-09 · E. LỆNH RENDER `python tools/render_baogia.py out/<ma>/du-lieu.json` · F. CẦN NGƯỜI THẬT (CHỜ XÁC NHẬN · ảnh cần xin · ưu đãi cần chứng từ).
+A. ĐỌC KHÁCH (3 dòng) · B. PHƯƠNG ÁN (tên + 2 câu vì sao) · C. BẢNG CHI PHÍ (có mã, tổng, ưu đãi) · D. `du-lieu.json` đầy đủ theo BG-09 · E. LỆNH RENDER `python tools/render_baogia.py out/<ma>/du-lieu.json` — người dùng không có Python / đang ở ChatGPT (sandbox KHÔNG có Chrome): bật Code Interpreter, upload MỘT file `baogia-1file.py`, chạy `python baogia-1file.py du-lieu.json --chi-html` (ba cổng vẫn chạy đủ), mở HTML → Ctrl+P → **Lề: Không + bật Đồ hoạ nền**. ⛔ Ảnh JPG không dựng được ở ChatGPT, nói thẳng · F. CẦN NGƯỜI THẬT (CHỜ XÁC NHẬN · ảnh cần xin · ưu đãi cần chứng từ).
 Không có mục F thì chưa giao xong.
 
 ## LỆNH

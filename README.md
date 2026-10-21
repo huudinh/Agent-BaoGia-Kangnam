@@ -115,6 +115,8 @@ Agent-BaoGia-Kangnam/
 ├── tools/
 │   ├── render_baogia.py      3 cổng chặn + render qua Chrome headless
 │   ├── cong_phap_ly.py       quét rào R0-R12 + bảng từ cấm
+│   ├── baogia-1file.py       ★ CẢ BỘ TRONG MỘT FILE — upload lên ChatGPT
+│   ├── build-1file.py        dựng file trên (chạy lại sau khi sửa template)
 │   ├── build-huong-dan.py    dựng trang hướng dẫn từ nội dung thật trong repo
 │   └── huong-dan.tpl.html    template trang hướng dẫn (sửa file này, không sửa .html sinh ra)
 ├── prompts/                  mẫu prompt copy được

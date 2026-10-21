@@ -79,6 +79,61 @@ BG-2026-1021-03 (bạn Ly, nhóm 4): phản hồi, hỏi thêm về trả góp, 
 
 Agent cập nhật bảng trong `BG-10-vong-hoc.md` và chỉ ra mẫu lặp lại nếu có (≥ 5 ca mới được rút thành luật — một ca là giai thoại).
 
+## 4b. Lấy file PDF khi KHÔNG có Python trên máy (ChatGPT · Gemini)
+
+Tool render cần **Python + Chrome**. Sandbox của ChatGPT **không có Chrome**, nên ở đó không dựng thẳng ra PDF được — nhưng dựng được **file HTML tự đứng một mình** (logo đã nhúng sẵn, không tham chiếu file ngoài), mở bằng trình duyệt rồi in ra PDF là xong.
+
+| Máy của bạn | Cách lấy file |
+|---|---|
+| **Có Python + Chrome** | `render_baogia.py` → PDF 3 trang + 5 ảnh JPG. Đầy đủ nhất |
+| **Chỉ có Chrome, không có Python** | Nhờ ChatGPT dựng HTML bằng `baogia-1file.py` → mở bằng Chrome → Ctrl+P ra PDF |
+| **Không cài được gì** | Như trên; mở HTML trên điện thoại cũng đọc được, trang tự co |
+
+### Trên ChatGPT — upload **một file duy nhất**, không phải cả ZIP
+
+`tools/baogia-1file.py` (156 KB) gói sẵn **mọi thứ** cần để dựng báo giá: tool render, cổng pháp lý, hai template, bảng giá, danh sách bác sĩ, hotline và logo. Lúc chạy nó tự bung ra thư mục tạm rồi gọi đúng `render_baogia.py` của repo — **không chép lại logic**, nên không bao giờ lệch với bản gốc.
+
+**Chuẩn bị một lần:** bật **Code Interpreter** cho GPT, rồi upload `baogia-1file.py` vào phần **Knowledge**.
+Tải riêng file này: `github.com/huudinh/Agent-BaoGia-Kangnam` → `tools/baogia-1file.py` → nút **Download raw file**.
+
+**Mỗi lần làm báo giá, gõ:**
+
+```
+Ghi khối JSON dưới đây vào du-lieu.json (UTF-8, giữ nguyên dấu tiếng Việt),
+rồi chạy:
+
+    python baogia-1file.py du-lieu.json --chi-html
+
+Dán nguyên phần tool in ra cho em xem, nhất là ba dòng cổng. Có dòng CHẶN thì
+dừng lại, đừng đưa file. Không có thì cho em tải hai file HTML.
+
+du-lieu.json:
+[dán khối JSON agent vừa sinh ra vào đây]
+```
+
+Nếu `baogia-1file.py` không tự có trong sandbox thì kẹp nó vào ngay đoạn chat đó — vẫn chỉ một file.
+
+`--chi-html` là phần quan trọng: nó trả về **trước** bước tìm Chrome nên chạy được ở nơi không có trình duyệt. **Ba cổng chặn vẫn chạy đủ** — không vì đổi cách xuất mà mất lớp bảo vệ.
+
+### Mở HTML rồi in ra PDF — hai thiết lập bắt buộc
+
+Mở file `.html` bằng Chrome hoặc Edge → **Ctrl+P**:
+
+| Thiết lập | Chọn | Không chọn thì sao |
+|---|---|---|
+| **Lề** (Margins) | **Không** (None) | Lề mặc định đẩy nội dung tràn thành 4–5 trang |
+| **Đồ hoạ nền** (Background graphics) | **Bật** | Mất hết khối navy: dải tổng chi phí và khối CTA thành trắng trơn |
+
+Đúng hai thiết lập này thì bản in khớp y hệt bản `render_baogia.py` dựng ra.
+
+### Ảnh JPG gửi Zalo thì sao
+
+Không dựng được ở ChatGPT — ảnh cần Chrome chụp. Hai lối:
+- **Có Chrome:** cài thêm Python rồi chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** — ra đủ PDF + 5 ảnh, vẫn chỉ cần một file, không cần ZIP cũng không cần ChatGPT.
+- **Gấp:** mở file `*-slide.html`, chụp màn hình từng slide. Xấu hơn nhưng dùng được.
+
+---
+
 ## 5. Lệnh render — nhắc nhanh
 
 ```

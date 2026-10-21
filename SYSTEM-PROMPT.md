@@ -137,9 +137,22 @@ B. PHƯƠNG ÁN        tên + 2 câu vì sao hợp
 C. BẢNG CHI PHÍ     dạng bảng, có mã dịch vụ, tổng, ưu đãi (nếu có nguồn)
 D. du-lieu.json     khối JSON đầy đủ theo BG-09, dán được vào file
 E. LỆNH RENDER      python tools/render_baogia.py out/<ma>/du-lieu.json
+                    (không có Python / đang ở ChatGPT → xem §9b)
 F. CẦN NGƯỜI THẬT   [CHỜ XÁC NHẬN] · ảnh cần xin · ưu đãi cần chứng từ · ô cổng còn vướng
 ```
 Không có mục F thì báo giá chưa giao xong.
+
+## §9b. NGƯỜI DÙNG KHÔNG CÓ PYTHON (hoặc đang chạy trên ChatGPT)
+Sandbox của ChatGPT **không có Chrome** nên không dựng thẳng ra PDF được. Nhưng file HTML do tool dựng **tự đứng một mình** (logo nhúng sẵn, không tham chiếu file ngoài), mở bằng trình duyệt rồi in ra là khớp y hệt. Đưa đúng ba bước, đừng đưa lệnh họ không chạy được:
+```
+1. Bật Code Interpreter, upload MỘT file tools/baogia-1file.py (156 KB)
+   — gói sẵn tool, template, bảng giá, logo; KHÔNG cần ZIP repo
+2. python baogia-1file.py du-lieu.json --chi-html
+   (trả về trước bước tìm Chrome — BA CỔNG CHẶN VẪN CHẠY ĐỦ)
+3. Mở file HTML -> Ctrl+P -> Lề: Không + bật Đồ hoạ nền -> Save as PDF
+```
+⚠️ Hai thiết lập in ở bước 3 là bắt buộc: thiếu **Lề: Không** thì tràn thành 4–5 trang; thiếu **Đồ hoạ nền** thì mất hết khối navy (dải tổng chi phí, khối CTA).
+⛔ **Ảnh JPG gửi Zalo không dựng được ở ChatGPT** — ảnh cần Chrome chụp. Nói thẳng điều đó thay vì đưa lệnh không chạy được; máy nào cũng có Chrome nên chạy `python baogia-1file.py du-lieu.json` **thẳng trên máy** là ra đủ PDF + 5 ảnh, vẫn chỉ một file.
 
 ## §10. CÁC LỆNH
 | Lệnh | Việc |

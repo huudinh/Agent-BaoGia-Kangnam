@@ -1,5 +1,48 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v1.8 — 2026-10-21 · cả bộ render gói trong MỘT file
+
+v1.7 bảo người dùng ChatGPT "kẹp file ZIP của repo vào chat" — đúng về kỹ thuật nhưng **không ai làm vậy mỗi lần báo giá**. Nên gói lại.
+
+**`tools/baogia-1file.py` (156 KB)** nhúng sẵn 8 file nguồn: `render_baogia.py` · `cong_phap_ly.py` · hai template HTML · `bang-gia.json` · `bac-si-duyet.json` · `thong-tin-lien-he.json` · `logo-kangnam.png`.
+
+Cách gói **không chép lại logic**: nhúng nguyên văn dưới dạng base64, lúc chạy bung ra thư mục tạm rồi gọi đúng `render_baogia.py`, xong chép file kết quả ra cạnh `du-lieu.json` và dọn thư mục tạm. Nhờ vậy bản một-file **không bao giờ lệch** với repo — sửa template xong chạy `python tools/build-1file.py` là xong.
+
+```
+python baogia-1file.py du-lieu.json              # HTML + PDF + 5 ảnh (cần Chrome)
+python baogia-1file.py du-lieu.json --chi-html   # chỉ HTML (chạy được ở ChatGPT)
+```
+
+Đã kiểm từ **thư mục trống**, chỉ có 2 file (`baogia-1file.py` + `du-lieu.json`), không có repo: ra đủ PDF 3 trang + 5 ảnh. Kiểm tiếp với `KN_CHROME` trỏ vào đường dẫn không tồn tại (giả lập sandbox ChatGPT): ra 2 file HTML tự đứng một mình, **ba cổng chặn vẫn chạy đủ**.
+
+Hướng dẫn ChatGPT viết lại quanh file này: upload **một lần** vào Knowledge, mỗi lần báo giá chỉ dán JSON. Cập nhật ở: `prompts/prompt-van-hanh.md` mục 4b · `SYSTEM-PROMPT.md` §9b · bản ngắn · tab ChatGPT của trang hướng dẫn · `doc/01-cai-dat.md` mục E2.
+
+---
+
+## v1.7 — 2026-10-21 · lấy file PDF khi không có Python
+
+Thiếu hẳn một đường: người cài agent trên **ChatGPT** không có lệnh nào để ra file. Tool render cần **Python + Chrome**, mà sandbox của ChatGPT **không có Chrome** — nên lệnh `render_baogia.py` đầy đủ chạy ở đó là hỏng.
+
+Đường đi được, và nó vốn đã có sẵn: file HTML do tool dựng **tự đứng một mình** (logo nhúng base64, không tham chiếu file ngoài, 92 KB). Mở bằng trình duyệt rồi in ra PDF là khớp y hệt bản `render_baogia.py` dựng.
+
+```
+1. Bật Code Interpreter, kẹp file ZIP của repo vào chat
+2. python tools/render_baogia.py out/KH/du-lieu.json --chi-html
+3. Mở file HTML -> Ctrl+P -> Lề: Không + bật Đồ hoạ nền -> Save as PDF
+```
+
+`--chi-html` trả về **trước** bước tìm Chrome, nên chạy được ở nơi không có trình duyệt — và **ba cổng chặn vẫn chạy đủ**. Không vì đổi cách xuất mà mất lớp bảo vệ.
+
+Hai thiết lập in ở bước 3 là **bắt buộc**, đã ghi rõ ở mọi chỗ nhắc tới cách này:
+- thiếu **Lề: Không** → nội dung tràn thành 4–5 trang (lề mặc định của trình duyệt đè lên `@page{margin:0}`);
+- thiếu **Đồ hoạ nền** → mất hết khối navy: dải tổng chi phí và khối CTA thành trắng trơn.
+
+⛔ **Ảnh JPG gửi Zalo không dựng được ở ChatGPT** — ảnh cần Chrome chụp. Bộ não được dạy **nói thẳng** điều đó thay vì đưa lệnh người dùng không chạy được; máy nào cũng có Chrome sẵn nên cách nhanh nhất vẫn là cài thêm Python rồi chạy tool trên máy.
+
+Thêm vào: `prompts/prompt-van-hanh.md` mục 4b (có prompt copy được, nay 26 prompt mẫu) · `SYSTEM-PROMPT.md` §9b · bản ngắn · tab ChatGPT của trang hướng dẫn (kèm bước **bật Code Interpreter**).
+
+---
+
 ## v1.6 — 2026-10-21 · hotline 0968.999.777, gom về một nguồn
 
 Hotline đổi từ `1900 6466` sang **`0968.999.777`**.

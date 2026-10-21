@@ -338,7 +338,7 @@ footer b{color:var(--ink-2)}
   <div class="steps">
     <div><b><span class="n">1</span>Lấy bộ file</b><span>Tải ZIP rồi giải nén bằng <b>Extract&nbsp;All</b></span></div>
     <div><b><span class="n">2</span>Tạo project + dán bộ não</b><span>Thẻ A cho Claude/Gemini · Thẻ B cho ChatGPT</span></div>
-    <div><b><span class="n">3</span>Upload tri thức</b><span>@@N_FILE@@ file <code>knowledge/</code> <b>+ 2 file JSON dữ liệu cứng</b></span></div>
+    <div><b><span class="n">3</span>Upload tri thức</b><span>@@N_FILE@@ file <code>knowledge/</code> <b>+ 3 file JSON dữ liệu cứng</b></span></div>
   </div>
 
   <div class="dl">
@@ -381,8 +381,8 @@ footer b{color:var(--ink-2)}
         <b>Tên &amp; mô tả</b> phía trên.</li>
       <li><b>Custom instructions</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
       <li><b>Project knowledge</b> → upload đủ <b>@@N_FILE@@ file</b> trong <code>knowledge/</code>.</li>
-      <li>Upload thêm <b>2 file dữ liệu cứng</b>: <code>template/bang-gia.json</code> ·
-        <code>template/bac-si-duyet.json</code>.</li>
+      <li>Upload thêm <b>3 file dữ liệu cứng</b>: <code>template/bang-gia.json</code> ·
+        <code>template/bac-si-duyet.json</code> · <code>template/thong-tin-lien-he.json</code>.</li>
       <li>Nên upload thêm <code>template/du-lieu.mau.json</code> để agent sinh JSON đúng cấu trúc ngay lần đầu.</li>
     </ol>
   </div>
@@ -396,8 +396,29 @@ footer b{color:var(--ink-2)}
       <li><b>Description</b> → dán ô <b>Mô tả</b> ở khối trên. Đây là dòng người dùng thấy
         trước khi mở agent, đừng để trống.</li>
       <li>Instructions → dán <b>Thẻ B</b> (@@LEN_B@@ ký tự).</li>
-      <li>Knowledge → upload đủ @@N_FILE@@ file tri thức <b>+ 2 file JSON dữ liệu cứng</b>.</li>
+      <li>Knowledge → upload đủ @@N_FILE@@ file tri thức <b>+ 3 file JSON dữ liệu cứng</b>.</li>
+      <li>Bật <b>Code Interpreter</b> — cần cho bước xuất file ở dưới.</li>
     </ol>
+    <h3 class="sub" style="margin:18px 0 8px">Lấy file PDF trên ChatGPT</h3>
+    <p class="dim" style="margin:0 0 10px">Sandbox của ChatGPT <b>không có Chrome</b> nên không dựng thẳng ra PDF được.
+      Nhưng file HTML do tool dựng <b>tự đứng một mình</b> (logo nhúng sẵn), mở bằng trình duyệt rồi in ra là khớp y hệt.</p>
+    <ol class="list">
+      <li>Upload <b>một file duy nhất</b> <code>tools/baogia-1file.py</code> (156 KB) vào <b>Knowledge</b> —
+        gói sẵn tool render, cổng pháp lý, hai template, bảng giá, danh sách bác sĩ và logo.
+        <b>Không cần ZIP repo.</b></li>
+      <li>Chạy <code>python baogia-1file.py du-lieu.json --chi-html</code> —
+        trả về trước bước tìm Chrome, <b>ba cổng chặn vẫn chạy đủ</b>.</li>
+      <li>Mở file HTML → <b>Ctrl+P</b> → <b>Lề: Không</b> + <b>bật Đồ hoạ nền</b> → Save as PDF.</li>
+    </ol>
+    <p class="dim" style="margin:10px 0 0">Tải riêng file đó:
+      <a href="https://github.com/huudinh/Agent-BaoGia-Kangnam/raw/main/tools/baogia-1file.py" target="_blank" rel="noopener">baogia-1file.py</a>
+      — nó tự bung ra thư mục tạm rồi gọi đúng <code>render_baogia.py</code> của repo, không chép lại logic nên không lệch bản gốc.</p>
+    <div class="note warn" style="margin-top:12px">
+      <p>Hai thiết lập in ở bước 3 là <b>bắt buộc</b>: thiếu <b>Lề: Không</b> thì nội dung tràn thành 4–5 trang;
+        thiếu <b>Đồ hoạ nền</b> thì mất hết khối navy — dải tổng chi phí và khối CTA thành trắng trơn.</p>
+      <p style="margin-bottom:0">⛔ <b>Ảnh JPG gửi Zalo không dựng được ở ChatGPT</b> — ảnh cần Chrome chụp.
+        Máy nào cũng có Chrome sẵn, nên cách nhanh nhất là cài thêm Python rồi chạy tool thẳng trên máy.</p>
+    </div>
     <div class="note stop" style="margin-top:15px">
       <p><b>Bản ngắn là bản đánh đổi.</b> Nó đã cắt bảng chân dung khách, bảng giọng theo nhóm và
         nhiều luật chi tiết — và <b>trông vào tri thức để bù</b>.</p>
@@ -412,7 +433,7 @@ footer b{color:var(--ink-2)}
     <ol class="list">
       <li><b>Gems</b> → <b>New Gem</b>.</li>
       <li>Ô <b>Chỉ dẫn</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
-      <li>Upload @@N_FILE@@ file tri thức + 2 file JSON vào phần tệp của Gem.</li>
+      <li>Upload @@N_FILE@@ file tri thức + 3 file JSON vào phần tệp của Gem.</li>
     </ol>
   </div>
 

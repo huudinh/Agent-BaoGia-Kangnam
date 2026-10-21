@@ -148,6 +148,24 @@ Không có Chrome → chạy `--chi-html` rồi mở file HTML, Ctrl+P → **Sav
 
 ---
 
+## E2. Không cài được Python? Dùng bản một-file trên ChatGPT
+
+`tools/baogia-1file.py` (156 KB) gói sẵn **mọi thứ**: tool render, cổng pháp lý, hai template, bảng giá, danh sách bác sĩ, hotline, logo. Lúc chạy nó bung ra thư mục tạm rồi gọi đúng `render_baogia.py` của repo — không chép lại logic nên không lệch bản gốc.
+
+```bash
+# chạy thẳng trên máy — chỉ cần đúng file này, không cần cả repo
+python baogia-1file.py du-lieu.json              # HTML + PDF + 5 ảnh (cần Chrome)
+python baogia-1file.py du-lieu.json --chi-html   # chỉ HTML (chạy được ở ChatGPT)
+```
+
+**Trên ChatGPT:** bật **Code Interpreter** → upload `baogia-1file.py` vào Knowledge → mỗi lần làm báo giá chỉ cần dán JSON và bảo nó chạy lệnh `--chi-html` → tải file HTML về → mở bằng Chrome → **Ctrl+P** → **Lề: Không** + **bật Đồ hoạ nền** → Save as PDF.
+
+⛔ **Ảnh JPG gửi Zalo không dựng được ở ChatGPT** (sandbox không có Chrome). Máy nào cũng có Chrome sẵn, nên cài thêm Python rồi chạy thẳng trên máy là ra đủ.
+
+> Sửa template hoặc bảng giá xong, nhớ chạy lại `python tools/build-1file.py` rồi upload bản mới.
+
+---
+
 ## F. Ba việc phải làm trước khi dùng thật
 
 | # | Việc | Ai làm |
