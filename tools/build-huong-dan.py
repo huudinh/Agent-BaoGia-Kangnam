@@ -37,6 +37,7 @@ BG_ORDER = [
 
 PROMPT_FILES = [
     ("baogia", "Tạo báo giá", "prompts/prompt-bao-gia.md"),
+    ("banggia", "Bảng giá nhóm dịch vụ", "prompts/prompt-bang-gia.md"),
     ("wizard", "Hỏi dẫn từ đầu", "prompts/prompt-wizard.md"),
     ("tinnhan", "Tin nhắn gửi kèm", "prompts/prompt-tin-nhan.md"),
     ("vanhanh", "Vận hành & kiểm tra", "prompts/prompt-van-hanh.md"),
@@ -272,6 +273,7 @@ for k, v in [
     ("@@PROMPT_CARDS@@", prompt_cards),
     ("@@PROMPT_N@@", str(prompt_n)),
     ("@@N_BAOGIA@@", str(counts["baogia"])),
+    ("@@N_BANGGIA@@", str(counts["banggia"])),
     ("@@N_WIZARD@@", str(counts["wizard"])),
     ("@@N_TINNHAN@@", str(counts["tinnhan"])),
     ("@@N_VANHANH@@", str(counts["vanhanh"])),

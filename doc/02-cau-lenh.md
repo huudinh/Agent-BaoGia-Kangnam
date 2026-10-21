@@ -1,8 +1,9 @@
-# 02 — BẢY LỆNH CỦA AGENT
+# 02 — TÁM LỆNH CỦA AGENT
 
 | Lệnh | Việc agent làm | Input tối thiểu | Output |
 |---|---|---|---|
 | `/baogia` | **Lệnh chính** — từ thông tin khách ra báo giá | tên + nhu cầu + cơ sở | 6 mục A→F, có `du-lieu.json` + lệnh render |
+| `/banggia` | **Bảng giá một nhóm dịch vụ** ra HTML — 9 nhóm, gõ `mũi` hay `nâng mũi` đều khớp | tên nhóm | 1 file HTML (hoặc PDF) |
 | `/wizard` | Hỏi dẫn 3 vòng × 3 câu | **chỉ cần tên dịch vụ** | THÔNG TIN ĐÃ KHOÁ → chạy tiếp `/baogia` |
 | `/tinnhan` | Tin nhắn Zalo/Messenger gửi kèm file | mã báo giá hoặc mô tả khách | 1–2 phiên bản ≤ 60 chữ |
 | `/doichieu` | Soi báo giá có sẵn với `bang-gia.json` | nội dung báo giá cũ | bảng khớp/lệch + chỗ thiếu chứng từ |
@@ -10,7 +11,23 @@
 | `/lo` | Làm hàng loạt | danh sách khách | mỗi khách một `du-lieu.json` |
 | `/hoc` | Ghi kết quả vào vòng học | kết quả từng mã BG | bảng `BG-10` được cập nhật |
 
-Không gọi lệnh → agent tự suy và **nói rõ đã chọn lệnh nào**: có thông tin khách → `/baogia` · chỉ có tên dịch vụ → `/wizard` · có file báo giá cũ → `/doichieu`.
+Không gọi lệnh → agent tự suy và **nói rõ đã chọn lệnh nào**: có thông tin khách → `/baogia` · chỉ có tên dịch vụ → `/wizard` · có file báo giá cũ → `/doichieu` · xin *"bảng giá nhóm X"* → `/banggia`.
+
+---
+
+## 1b. `/banggia` — khi khách mới hỏi giá
+
+```bash
+python tools/render_banggia.py --liet-ke                 # xem có những nhóm nào
+python tools/render_banggia.py "nâng mũi" --xung-ho chị  # ra HTML
+python tools/render_banggia.py mũi --dinh-dang html pdf  # ra cả PDF
+```
+
+Tool lấy **đủ** dịch vụ trong nhóm từ `bang-gia.json`, in giá ưu đãi kèm giá niêm yết gạch ngang, tự thêm khối nhắc đại phẫu phải ở tuyến bệnh viện, hotline và ba câu miễn trừ.
+
+> ⚠️ **Bảng giá cả nhóm là bước lùi so với báo giá cá nhân hoá.** Khách cầm bảng giá chung rất dễ đem đi so giá. Agent luôn kèm một câu nhắc chuyển sang `/baogia` khi đã có thông tin khách.
+
+Mẫu prompt nói thường: [`prompts/prompt-bang-gia.md`](../prompts/prompt-bang-gia.md).
 
 ---
 

@@ -27,8 +27,10 @@ for _l in (sys.stdout, sys.stderr):
 NGUON = [
     "tools/render_baogia.py",
     "tools/cong_phap_ly.py",
+    "tools/render_banggia.py",
     "template/baogia-a4.html",
     "template/baogia-slide.html",
+    "template/banggia.html",
     "template/bang-gia.json",
     "template/bac-si-duyet.json",
     "template/thong-tin-lien-he.json",
@@ -41,6 +43,7 @@ KHUNG = '''#!/usr/bin/env python3
 
     python baogia-1file.py du-lieu.json              # HTML + PDF + 5 ảnh (cần Chrome)
     python baogia-1file.py du-lieu.json --chi-html   # chỉ HTML (chạy được ở ChatGPT)
+    python baogia-1file.py --banggia "nâng mũi"      # bảng giá cả nhóm dịch vụ
 
 File xuất ra nằm cạnh du-lieu.json. HTML tự đứng một mình: logo nhúng sẵn,
 không tham chiếu file ngoài — mở bằng trình duyệt rồi Ctrl+P là ra PDF.
@@ -67,6 +70,21 @@ def main(argv):
     if len(argv) < 2 or argv[1] in ("-h", "--help"):
         print(__doc__)
         return 2
+
+    if argv[1] == "--banggia":
+        tmp = pathlib.Path(tempfile.mkdtemp(prefix="banggia-"))
+        try:
+            for rel, b64 in FILES.items():
+                f = tmp / rel
+                f.parent.mkdir(parents=True, exist_ok=True)
+                f.write_bytes(base64.b64decode(b64))
+            ra = pathlib.Path.cwd()
+            kq = subprocess.run(
+                [sys.executable, str(tmp / "tools" / "render_banggia.py")]
+                + argv[2:] + ["--ra", str(ra)])
+            return kq.returncode
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
 
     dulieu = pathlib.Path(argv[1]).resolve()
     if not dulieu.exists():

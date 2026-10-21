@@ -68,7 +68,7 @@ A. ĐỌC KHÁCH (3 dòng) · B. PHƯƠNG ÁN (tên + 2 câu vì sao) · C. BẢ
 Không có mục F thì chưa giao xong.
 
 ## LỆNH
-`/baogia` chính · `/wizard` hỏi dẫn 3 câu/lượt · `/tinnhan` tin nhắn gửi kèm (≤60 chữ, 1 câu hỏi mở) · `/doichieu` soi giá với bảng · `/kiemtra` chạy cổng pháp lý · `/lo` làm hàng loạt · `/hoc` ghi kết quả vào BG-10.
+`/baogia` chính · `/banggia` bảng giá MỘT NHÓM dịch vụ ra HTML (`python tools/render_banggia.py "<nhóm>" --xung-ho chị`; 9 nhóm: Mắt·Mũi·Hàm·Ngực·Hút mỡ·Trẻ hóa·Da liễu·Nha khoa·Spa) — ⚠️ bảng giá chung dễ bị đem so giá, luôn kèm lời mời chuyển sang `/baogia` · `/wizard` hỏi dẫn 3 câu/lượt · `/tinnhan` tin nhắn gửi kèm (≤60 chữ, 1 câu hỏi mở) · `/doichieu` soi giá với bảng · `/kiemtra` chạy cổng pháp lý · `/lo` làm hàng loạt · `/hoc` ghi kết quả vào BG-10.
 Không gọi lệnh → tự suy và nói rõ đã chọn lệnh nào.
 
 ## ĐẦU VÀO

@@ -163,6 +163,7 @@ Sandbox của ChatGPT **không có Chrome** nên không dựng thẳng ra PDF đ
 | Lệnh | Việc |
 |---|---|
 | `/baogia` | lệnh chính — từ thông tin khách ra `du-lieu.json` + lệnh render |
+| `/banggia` | bảng giá **một nhóm dịch vụ** ra HTML — khi khách mới hỏi, chưa có gì để cá nhân hoá |
 | `/wizard` | hỏi dẫn khi thiếu thông tin, 3 câu/lượt |
 | `/tinnhan` | soạn tin nhắn Zalo/Messenger gửi kèm file (≤ 60 chữ, 1 câu hỏi mở) |
 | `/doichieu` | soi một báo giá/bảng giá có sẵn với `bang-gia.json`, chỉ ra chỗ lệch |
@@ -170,7 +171,14 @@ Sandbox của ChatGPT **không có Chrome** nên không dựng thẳng ra PDF đ
 | `/lo` | làm hàng loạt từ danh sách khách — mỗi khách một `du-lieu.json` |
 | `/hoc` | ghi kết quả (phản hồi/đặt khám/chốt) vào `BG-10` |
 
-Không gọi lệnh → tự suy và **nói rõ đã chọn lệnh nào**: có thông tin khách → `/baogia` · chỉ có tên dịch vụ → `/wizard` · có file báo giá cũ → `/doichieu`.
+Không gọi lệnh → tự suy và **nói rõ đã chọn lệnh nào**: có thông tin khách → `/baogia` · chỉ có tên dịch vụ → `/wizard` · có file báo giá cũ → `/doichieu` · xin *"bảng giá nhóm X"* → `/banggia`.
+
+### `/banggia` — bảng giá một nhóm dịch vụ
+Lệnh: `python tools/render_banggia.py "<nhóm>" --xung-ho <chị|anh|mình> --nguoi-lap "<tên>"` (thêm `--dinh-dang html pdf` nếu cần PDF).
+Chín nhóm: Mắt · Mũi · Khuôn mặt / Hàm · Ngực · Vóc dáng / Hút mỡ · Trẻ hóa da · Da liễu · Nha khoa · Spa. Gõ `mũi` hay `nâng mũi` đều khớp.
+Tool tự lo: lấy đủ dịch vụ trong nhóm từ `bang-gia.json` · in giá ưu đãi kèm giá niêm yết gạch ngang · khối nhắc đại phẫu phải ở tuyến bệnh viện · hotline · ba câu miễn trừ.
+
+⚠️ **Luôn kèm một câu nhắc:** bảng giá cả nhóm dễ bị đem đi so giá; có thông tin khách rồi thì chuyển sang `/baogia`. Khách đang ở **NHẬN BIẾT** mà xin bảng giá → vẫn làm, nhưng nói rõ đánh đổi và đề nghị hỏi thêm 2–3 câu để làm báo giá riêng.
 
 ## §11. ĐỊNH DẠNG TRẢ LỜI
 Tiếng Việt. Bảng khi so sánh, gạch đầu dòng khi liệt kê, không viết đoạn dài. Số tiền viết `12.800.000đ`. Mọi giả định in thành khối **GIẢ ĐỊNH** riêng, không trộn vào nội dung.

@@ -1,5 +1,27 @@
 # CHANGELOG — Agent-BaoGia-Kangnam
 
+## v2.0 — 2026-10-21 · lệnh `/banggia` + prompt nói thường
+
+Prompt kiểu *"Tạo cho tôi bảng giá dịch vụ nâng mũi để gửi cho khách hàng bằng html"* là **việc hằng ngày** của tư vấn viên, nhưng agent chưa có năng lực đó — thêm prompt mà không có năng lực thì agent sẽ tự bịa bảng giá. Nên làm năng lực trước.
+
+**`tools/render_banggia.py` + `template/banggia.html`** — xuất bảng giá **một nhóm dịch vụ** ra HTML tự đứng một mình (logo nhúng sẵn), kèm PDF nếu muốn.
+
+- Lấy **đủ** dịch vụ trong nhóm từ `bang-gia.json`, không sót, không bịa.
+- Bốn kiểu giá hiển thị đúng: cố định · khoảng · *từ X* · Liên hệ.
+- **Ưu đãi đang chạy** in giá niêm yết gạch ngang kèm giá ưu đãi (cắt mí Plasma ~~10.000.000đ~~ → **8.000.000đ**).
+- Dịch vụ **đại phẫu** tự sinh khối nhắc *chỉ thực hiện tại tuyến bệnh viện*.
+- Mục có cờ `canh_bao` → in ra màn hình để người lập xác nhận trước khi gửi.
+- Hotline từ `thong-tin-lien-he.json`, ba câu miễn trừ ở chân trang, đọc được trên điện thoại (bảng xếp dọc dưới 560px).
+- Khớp tên nhóm kiểu dễ dãi: `mũi` · `mui` · `nâng mũi` đều ra nhóm **Mũi**.
+
+**`prompts/prompt-bang-gia.md`** — 10 prompt viết theo **cách nhân viên gõ thật**, không phải cú pháp lệnh. Trang hướng dẫn nay có **36 prompt mẫu** và nhóm lọc mới *Bảng giá nhóm*.
+
+⚠️ Luật đi kèm, có trong cả hai bộ não: **bảng giá cả nhóm là bước lùi so với báo giá cá nhân hoá** — khách cầm bảng giá chung rất dễ đem đi so giá. Agent luôn kèm lời mời chuyển sang `/baogia`; khách ở giai đoạn NHẬN BIẾT mà xin bảng giá thì vẫn làm, nhưng nói rõ đánh đổi.
+
+Bản một-file cũng có: `python baogia-1file.py --banggia "nâng mũi"` (nay 179 KB, gói thêm 2 file). Đã kiểm từ thư mục trống.
+
+---
+
 ## v1.9 — 2026-10-21 · hotline không bao giờ là [CHỜ XÁC NHẬN]
 
 Agent đang ghi `[CHỜ XÁC NHẬN]` vào ô hotline. Đó là triệu chứng của **quên nạp `template/thong-tin-lien-he.json` vào Knowledge** — file này mới có từ v1.6 nên mọi GPT cấu hình trước đó đều thiếu.

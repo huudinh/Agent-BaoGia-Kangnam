@@ -109,11 +109,13 @@ Agent-BaoGia-Kangnam/
 │   ├── logo-kangnam.png      logo thật, tool nhúng vào file xuất ra
 │   ├── baogia-a4.html        khổ A4 → PDF
 │   ├── baogia-slide.html     1080×1920 → JPG
+│   ├── banggia.html          bảng giá một nhóm dịch vụ → HTML
 │   ├── khach-hang.mau.json   mẫu đầu vào
 │   ├── du-lieu.mau.json      mẫu ca cắt mí lần đầu
 │   └── du-lieu.mau-sua-mi.json  mẫu ca sửa mí (giá ưu đãi + phí sửa mí + link album)
 ├── tools/
 │   ├── render_baogia.py      3 cổng chặn + render qua Chrome headless
+│   ├── render_banggia.py     bảng giá một nhóm dịch vụ
 │   ├── cong_phap_ly.py       quét rào R0-R12 + bảng từ cấm
 │   ├── baogia-1file.py       ★ CẢ BỘ TRONG MỘT FILE — upload lên ChatGPT
 │   ├── build-1file.py        dựng file trên (chạy lại sau khi sửa template)
@@ -124,11 +126,12 @@ Agent-BaoGia-Kangnam/
 └── out/                      file xuất ra (không commit)
 ```
 
-## 5. Bảy lệnh
+## 5. Tám lệnh
 
 | Lệnh | Việc |
 |---|---|
 | `/baogia` | lệnh chính — từ thông tin khách ra `du-lieu.json` + lệnh render |
+| `/banggia` | bảng giá **một nhóm dịch vụ** ra HTML — khi khách mới hỏi, chưa có gì để cá nhân hoá |
 | `/wizard` | hỏi dẫn 3 vòng × 3 câu, hoặc đọc thẳng đoạn chat với khách |
 | `/tinnhan` | tin nhắn Zalo/Messenger gửi kèm file (≤ 60 chữ) |
 | `/doichieu` | soi báo giá làm tay với bảng giá chuẩn, chỉ chỗ lệch |

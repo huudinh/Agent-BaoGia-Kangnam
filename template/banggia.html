@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bảng giá {{nhom}} — Kangnam</title>
+<style>
+/* ============================================================
+   BẢNG GIÁ MỘT NHÓM DỊCH VỤ — gửi khách qua Zalo/email.
+   Khác tờ BÁO GIÁ cá nhân hoá: đây là bảng tham khảo, không có phương án riêng.
+   Token màu lấy từ BG-08 (production v3.0).
+   ============================================================ */
+:root{
+  --navy:#074E84; --navy-900:#04365E; --cta:#EF6103; --amber:#FBBF65;
+  --bg:#F3F6FA; --surface:#FFFFFF;
+  --ink:#0E2338; --ink-2:#4A5C70; --ink-3:#6E7E90;
+  --line:#DCE3EC; --r:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#D9E0E8;color:var(--ink);
+  font:400 15px/1.6 "Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+.giay{max-width:720px;margin:0 auto;background:var(--surface);min-height:100vh;
+  padding:26px 24px 34px}
+@media(max-width:480px){.giay{padding:18px 16px 26px}}
+
+.dau{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;
+  border-bottom:3px solid var(--navy);padding-bottom:10px;margin-bottom:18px;flex-wrap:wrap}
+.logo{height:42px;width:auto;display:block}
+.tagline{font:600 10px/1.3 inherit;color:var(--ink-3);letter-spacing:1.4px;
+  text-transform:uppercase;margin-top:5px}
+.ngay{font-size:12px;color:var(--ink-2);text-align:right;line-height:1.5}
+
+h1{font:800 26px/1.2 inherit;color:var(--navy-900);margin:0 0 6px;letter-spacing:-.3px}
+.loi{font-size:14.5px;color:var(--ink-2);margin:0 0 20px;max-width:58ch}
+
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+thead th{background:var(--navy);color:#fff;text-align:left;padding:10px 12px;
+  font:700 12.5px inherit;letter-spacing:.3px}
+thead th.so{text-align:right}
+tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:nth-child(even) td{background:#F8FAFD}
+.ten{font-weight:700;color:var(--navy-900)}
+.ghi{display:block;font-size:12.5px;color:var(--ink-3);margin-top:2px}
+.so{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.gach{display:block;color:var(--ink-3);font-weight:400;font-size:12.5px;text-decoration:line-through}
+.uudai{color:var(--cta);font-weight:800}
+.lienhe{color:var(--ink-2);font-style:italic}
+@media(max-width:560px){
+  thead{display:none}
+  table,tbody,tr,td{display:block;width:auto}
+  tbody tr{padding:10px 0;border-bottom:1px solid var(--line);background:transparent!important}
+  tbody td{border:0;padding:1px 0;text-align:left}
+  tbody td.so{text-align:left;font-size:17px;font-weight:800;color:var(--navy-900);margin-top:4px}
+  .gach{display:inline-block;margin-right:7px;font-size:13px}
+}
+
+.khoi{background:var(--bg);border:1px solid var(--line);border-radius:var(--r);
+  padding:14px 16px;margin-top:20px}
+.khoi h2{font:800 16px/1.3 inherit;color:var(--navy);margin:0 0 7px;
+  display:flex;align-items:center;gap:8px}
+.khoi h2::before{content:"";width:4px;height:15px;background:var(--cta);border-radius:3px}
+.khoi p{margin:0 0 6px;font-size:14px;color:var(--ink-2)}
+.khoi p:last-child{margin-bottom:0}
+
+.cta{background:var(--navy);color:#fff;border-radius:var(--r);padding:17px 19px;margin-top:20px}
+.cta h2{font:800 17px/1.3 inherit;margin:0 0 6px;color:#fff}
+.cta p{margin:0;font-size:14px;opacity:.93}
+.nut{display:inline-block;background:var(--cta);color:#fff;font:800 15px inherit;
+  padding:11px 22px;border-radius:999px;margin-top:12px}
+.lh{margin-top:13px;font-size:14.5px}
+.lh b{color:var(--amber)}
+
+.mientru{margin-top:20px;border-top:1px solid var(--line);padding-top:10px;
+  font-size:11.8px;line-height:1.5;color:var(--ink-3)}
+.mientru div{margin-bottom:3px}
+@media print{ body{background:#fff} .giay{max-width:none;min-height:0;box-shadow:none} }
+</style>
+</head>
+<body>
+<div class="giay">
+
+  <div class="dau">
+    <div>
+      {{#co_logo}}<img class="logo" src="{{logo}}" alt="Bệnh viện thẩm mỹ Kangnam">{{/co_logo}}
+      {{^co_logo}}<div style="font:800 17px inherit;color:var(--navy)">BỆNH VIỆN THẨM MỸ KANGNAM</div>{{/co_logo}}
+      <div class="tagline">Chuẩn mực đầu tư nhan sắc</div>
+    </div>
+    <div class="ngay">Bảng giá tham khảo<br>Cập nhật: {{cap_nhat}}</div>
+  </div>
+
+  <h1>{{tieu_de}}</h1>
+  <p class="loi">{{loi_mo}}</p>
+
+  <table>
+    <thead><tr><th>Dịch vụ</th><th class="so">Chi phí tham khảo</th></tr></thead>
+    <tbody>
+      {{#dich_vu}}
+      <tr>
+        <td><span class="ten">{{ten}}</span>{{#ghi_chu_dong}}<span class="ghi">{{ghi_chu_dong}}</span>{{/ghi_chu_dong}}</td>
+        <td class="so">{{#gia_niem_yet_ht}}<span class="gach">{{gia_niem_yet_ht}}</span>{{/gia_niem_yet_ht}}<span class="{{lop_gia}}">{{gia_ht}}</span></td>
+      </tr>
+      {{/dich_vu}}
+    </tbody>
+  </table>
+
+  {{#co_dai_phau}}
+  <div class="khoi">
+    <h2>Về các dịch vụ đại phẫu trong bảng</h2>
+    <p>Những dịch vụ này chỉ thực hiện tại <b>tuyến bệnh viện</b>. Nếu {{xung_ho}} ở tỉnh,
+      bên em tư vấn và đặt khám tại cơ sở gần nhất, phần phẫu thuật thực hiện tại bệnh viện.</p>
+  </div>
+  {{/co_dai_phau}}
+
+  <div class="khoi">
+    <h2>Vì sao chi phí mỗi người một khác</h2>
+    <p>Con số trong bảng là <b>giá niêm yết tham khảo</b>. Chi phí thật của {{xung_ho}} phụ thuộc
+      tình trạng cụ thể, kỹ thuật bác sĩ chỉ định và các hạng mục đi kèm.</p>
+    <p>Sau khi bác sĩ khám trực tiếp, bên em gửi {{xung_ho}} <b>một bản báo giá riêng</b> —
+      ghi rõ phương án, từng khoản chi phí, phần đã gồm và chưa gồm.</p>
+  </div>
+
+  <div class="cta">
+    <h2>{{cta_tieu_de}}</h2>
+    <p>{{cta_mo_ta}}</p>
+    <div class="nut">{{cta_nut}}</div>
+    <div class="lh"><b>Tổng đài:</b> {{hotline}}{{#nguoi_lap}} &nbsp;·&nbsp; <b>Tư vấn viên:</b> {{nguoi_lap}}{{/nguoi_lap}}</div>
+  </div>
+
+  <div class="mientru">
+    <div>• Giá niêm yết tham khảo tại thời điểm cập nhật bảng, có thể thay đổi theo chương trình.</div>
+    <div>• Chi phí cuối cùng do bác sĩ quyết định sau khi thăm khám trực tiếp.</div>
+    <div>• Kết quả thẩm mỹ phụ thuộc cơ địa từng người.</div>
+  </div>
+
+</div>
+</body>
+</html>
