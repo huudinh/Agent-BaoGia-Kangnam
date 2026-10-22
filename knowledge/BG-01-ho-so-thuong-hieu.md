@@ -50,7 +50,7 @@ Hệ thống gồm **tuyến bệnh viện** và **tuyến viện thẩm mỹ / 
 Trong `template/bang-gia.json`, dịch vụ đại phẫu được gắn cờ `"dai_phau": true` — tool render **tự chặn** nếu `meta.co_so` không phải tuyến bệnh viện (rào R3).
 
 ## 6. BÁC SĨ
-Nêu tên bác sĩ theo đúng thông tin người lập báo giá đưa. `template/bac-si-duyet.json` vẫn nằm trong repo làm **danh sách tham khảo**, nhưng **không còn là cổng chặn**: đây là báo giá tham khảo gửi riêng một khách, không phải ấn phẩm phát hành.
+Nêu tên bác sĩ theo đúng thông tin người lập báo giá đưa — đây là báo giá tham khảo gửi riêng một khách, không phải ấn phẩm phát hành, nên không có danh sách duyệt nào phải đối chiếu.
 
 ⛔ Vẫn không bịa: số ca, giải thưởng, số CCHN, học hàm học vị — không có nguồn thì không nhắc.
 

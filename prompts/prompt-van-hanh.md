@@ -30,7 +30,7 @@ Bảo hành trọn đời. 3 ngày là chị đi làm được bình thường.
 Bác sĩ Jolie Huynh trực tiếp thực hiện."
 ```
 
-Agent phải chỉ ra **năm lỗi CHẶN**: cam kết 100% (R1) · không đau (R1) · không để lại sẹo (R1) · bảo hành trọn đời (R1) · mốc hồi phục cứng (luật ① Kangnam) — và bác sĩ `ngung_dung` (R4). Kèm bản viết lại đúng luật.
+Agent phải chỉ ra **năm lỗi CHẶN**: cam kết 100% (R1) · không đau (R1) · không để lại sẹo (R1) · bảo hành trọn đời (R1) · mốc hồi phục cứng (luật ① Kangnam). Kèm bản viết lại đúng luật.
 
 > Đây cũng là **câu kiểm tra agent đã cài đúng chưa**. Agent bỏ sót bất kỳ lỗi nào trong số này → knowledge chưa nạp đủ.
 
@@ -91,7 +91,7 @@ Tool render cần **Python + Chrome**. Sandbox của ChatGPT **không có Chrome
 
 ### Trên ChatGPT — upload **một file duy nhất**, không phải cả ZIP
 
-`tools/baogia-1file.py` (156 KB) gói sẵn **mọi thứ** cần để dựng báo giá: tool render, cổng pháp lý, hai template, bảng giá, danh sách bác sĩ, hotline và logo. Lúc chạy nó tự bung ra thư mục tạm rồi gọi đúng `render_baogia.py` của repo — **không chép lại logic**, nên không bao giờ lệch với bản gốc.
+`tools/baogia-1file.py` (303 KB) gói sẵn **mọi thứ** cần để dựng báo giá: tool render, cổng pháp lý, ba template, bảng giá, danh mục album, hotline, font Google Sans và logo. Lúc chạy nó tự bung ra thư mục tạm rồi gọi đúng `render_baogia.py` của repo — **không chép lại logic**, nên không bao giờ lệch với bản gốc.
 
 **Chuẩn bị một lần:** bật **Code Interpreter** cho GPT, rồi upload `baogia-1file.py` vào phần **Knowledge**.
 Tải riêng file này: `github.com/huudinh/Agent-BaoGia-Kangnam` → `tools/baogia-1file.py` → nút **Download raw file**.
@@ -138,28 +138,37 @@ Không dựng được ở ChatGPT — ảnh cần Chrome chụp. Hai lối:
 
 Ảnh trước–sau là thứ khách xem **trước cả giá**. Agent luôn tự đề xuất gắn ảnh khi báo giá chưa có.
 
+**Cách nhanh nhất — khai một dòng, tool tự lấy:**
+
+```json
+"case_album": { "album": "theme-1792573778761" }
+```
+
+Case nào chưa có ảnh thì tool **tự gọi API** lấy 3 ảnh đầu, tải về, nhúng data URI. Danh mục album: `template/album-index.json`.
+
 ```bash
-python tools/anh_album.py                          # 29 album trong kho
-python tools/anh_album.py --album "cắt mí"          # ảnh trong album, kèm tag
-python tools/anh_album.py --album "cắt mí" --lay 2  # in sẵn khối JSON để dán
+python tools/anh_album.py                           # 29 album trong kho
+python tools/anh_album.py --album "cắt mí" --lay 3  # xem/dán tay 3 link ảnh
+python tools/anh_album.py --ghi-muc-luc             # cập nhật album-index.json
 ```
 
 Nói thường với agent cũng được:
 
 ```
-Gắn 2 ảnh cắt mí thật từ album vào báo giá này
+Gắn 3 ảnh cắt mí thật từ album vào báo giá này
 ```
 
 ```
 Album có ảnh nào hợp với ca sửa mí không?
 ```
 
-Dán link vào `case_tuong_tu[].anh_truoc` / `anh_sau` → **tool tự tải ảnh về nhúng vào file**. Bản gửi khách tự đứng một mình: album đổi hay link chết thì file đã gửi vẫn nguyên. Ảnh nằm ở **trang 4** cùng case và CTA — không đội thêm trang.
+Dán tay thì vào `case_tuong_tu[].anh_truoc` / `anh_sau` / `anh_them` → **tool tự tải ảnh về nhúng vào file**. Bản gửi khách tự đứng một mình: album đổi hay link chết thì file đã gửi vẫn nguyên. Ảnh nằm ở **trang 4** cùng case và CTA — không đội thêm trang.
 
 **Khoá API** để ở `template/album-key.local.json` hoặc biến môi trường `KN_ALBUM_KEY` — chỉ cần để *liệt kê*, tải ảnh thì không cần.
 ⛔ **Không commit khoá lên GitHub** (repo công khai). `.gitignore` đã chặn `*.local.json`.
 
-> ⚠️ **API trả ảnh, không trả giấy phép.** Hiện chưa ảnh nào gắn tag consent, nên tool không tự biết ảnh nào đã xin phép khách. Câu hỏi đó nằm trong bảng *Cân nhắc trước khi gửi*, người gửi tự trả lời.
+> **Album là nguồn đã duyệt để gửi khách** — không phải xin phép lại từng tấm. ⛔ Agent không được từ chối đưa ảnh vì *"chưa xác minh consent"*; dịch vụ nào chưa có album đúng tình trạng thì nói đúng điều đó.
+> ⚠️ Ảnh album phần lớn **đã ghép sẵn trước–sau**, nên nhãn mặc định khi lấy tự động là *Ca 1 · Ca 2 · Ca 3*.
 
 ---
 

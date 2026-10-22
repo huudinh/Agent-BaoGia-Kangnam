@@ -21,6 +21,17 @@ for _l in (sys.stdout, sys.stderr):
         _l.reconfigure(encoding="utf-8", errors="replace")
 
 # (tên file, tiêu đề, mô tả, có phải file lõi không)
+def ban_moi_nhat():
+    """Lấy số phiên bản mới nhất từ CHANGELOG, khỏi phải sửa tay mỗi lần."""
+    m = re.search(r"^## (v[0-9.]+)", doc("doc/CHANGELOG.md"), re.M)
+    return m.group(1) if m else "v?"
+
+
+def kb_1file():
+    f = os.path.join(REPO, "tools", "baogia-1file.py")
+    return str(round(os.path.getsize(f) / 1024)) if os.path.exists(f) else "?"
+
+
 BG_ORDER = [
     ("BG-07-cong-phap-ly", "Cổng pháp lý", "Rào R0–R12 + bảng từ cấm. Fail = không xuất file", True),
     ("BG-02-bang-gia", "Luật nói về tiền", "Nguồn giá duy nhất · ưu đãi · giá lệch · đã gồm/chưa gồm", True),
@@ -61,8 +72,8 @@ META_FORM = {
 DATA_FILES = [
     ("bang-gia.json", "Bảng giá — nguồn giá duy nhất",
      "Mọi con số tiền trong báo giá phải truy về file này. Thiếu nó, agent sẽ đoán giá.", True),
-    ("bac-si-duyet.json", "Bác sĩ được nêu tên",
-     "4 trạng thái: duyet · can_xac_minh · xung_dot · ngung_dung. Chỉ duyet mới được in ra file.", True),
+    ("album-index.json", "Danh mục album ảnh khách thật",
+     "Khai id album vào case_album.album, tool tự gọi API lấy 3 ảnh nhúng vào file.", True),
     ("thong-tin-lien-he.json", "Hotline in lên báo giá",
      "@@MO_TA_HOTLINE@@", True),
     ("du-lieu.mau.json", "Mẫu đầu ra — ca cắt mí lần đầu",
@@ -250,8 +261,7 @@ meta_box = build_meta(payload)
 file_cards = build_files(payload)
 
 bang_gia = json.loads(doc("template/bang-gia.json"))
-bac_si = json.loads(doc("template/bac-si-duyet.json"))
-n_duyet = sum(1 for b in bac_si["bac_si"] if b["trang_thai"] == "duyet")
+album = json.loads(doc("template/album-index.json"))
 
 rows = []
 for nm, title, desc, star in BG_ORDER:
@@ -267,6 +277,9 @@ html = io.open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "huong-d
                encoding="utf-8").read()
 for k, v in [
     ("@@KB_ROWS@@", "\n".join(rows)),
+    ("@@N_ALBUM@@", str(len(album["album"]))),
+    ("@@KB_1FILE@@", kb_1file()),
+    ("@@VER@@", ban_moi_nhat()),
     ("@@FILE_CARDS@@", file_cards),
     ("@@META_BOX@@", meta_box),
     ("@@LEN_MOTA@@", str(len(META_FORM["mota"]))),
@@ -283,7 +296,6 @@ for k, v in [
     ("@@KB_C@@", str(round(len(merged.encode("utf-8")) / 1024))),
     ("@@N_FILE@@", str(len(BG_ORDER))),
     ("@@N_DICHVU@@", str(len(bang_gia["dich_vu"]))),
-    ("@@N_BACSI@@", str(n_duyet)),
     ("@@CAP_NHAT@@", bang_gia["cap_nhat"]),
     ("@@HOTLINE@@", HOTLINE),
     ("@@PAYLOAD@@", blob),
@@ -298,4 +310,4 @@ io.open(OUT, "w", encoding="utf-8").write(html)
 print("Đã ghi:", OUT, "-", round(os.path.getsize(OUT) / 1024), "KB")
 print("Thẻ A:", fmt(len(brain)), "| Thẻ B:", fmt(len(short)), "| Thẻ C:", fmt(len(merged)))
 print("Prompt:", prompt_n, counts)
-print("Bảng giá:", len(bang_gia["dich_vu"]), "dịch vụ |", n_duyet, "bác sĩ duyệt")
+print("Bảng giá:", len(bang_gia["dich_vu"]), "dịch vụ |", len(album["album"]), "album ảnh")

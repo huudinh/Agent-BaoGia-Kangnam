@@ -1,6 +1,6 @@
 {
  "_doc": "Gộp 4 file dữ liệu cứng của Agent-BaoGia-Kangnam. Sinh tự động bằng tools/build-goi.py — KHÔNG sửa tay, sửa ở template/ rồi chạy lại.",
- "_sinh_ngay": "2026-10-21",
+ "_sinh_ngay": "2026-10-22",
  "_cach_dung": {
   "bang_gia": "NGUỒN GIÁ DUY NHẤT. Mọi dòng chi phí phải có mã trỏ về đây.  (nguồn: template/bang-gia.json)",
   "album_index": "29 album ảnh khách thật. Khai id vào case_album.album -> tool tự gọi API lấy ảnh.  (nguồn: template/album-index.json)",

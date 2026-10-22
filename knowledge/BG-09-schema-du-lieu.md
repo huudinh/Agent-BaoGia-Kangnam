@@ -1,6 +1,32 @@
 # BG-09 — SCHEMA DỮ LIỆU: ĐẦU VÀO & ĐẦU RA
 Version 1.0 · Cập nhật: 2026-10-21
-File mẫu: `template/khach-hang.mau.json` (đầu vào) · `template/du-lieu.mau.json` (ca cắt mí lần đầu) · `template/du-lieu.mau-sua-mi.json` (ca sửa mí — có giá ưu đãi, phí sửa mí tách dòng, link album)
+File mẫu: `template/du-lieu.mau.json` (ca cắt mí lần đầu) · `template/du-lieu.mau-sua-mi.json` (ca sửa mí — có giá ưu đãi, phí sửa mí tách dòng, album ảnh)
+
+---
+
+## 0. ĐẦU VÀO — thông tin khách do tư vấn viên đưa
+
+Agent nhận **đoạn chat với khách**, lời kể, hoặc khối dưới đây, rồi sinh ra `du-lieu.json`:
+
+```json
+{
+  "ten_hien_thi": "Chị Thu Hà", "xung_ho": "chị", "tuoi": 32,
+  "khu_vuc": "Hà Nội", "kenh": "Zalo",
+  "co_so_du_kien": "Bệnh viện thẩm mỹ Kangnam Hà Nội",
+  "nhom_kh": 1,              // 1 công sở/tích góp · 2 doanh nhân · 3 KOC-Gen Z
+                             // 4 sinh viên/mới đi làm · 5 khách sửa lại · 6 trung niên (BG-04)
+  "giai_doan": "CÂN NHẮC",   // NHẬN BIẾT · TÌM HIỂU · CÂN NHẮC · THỰC HIỆN · HẬU PHẪU · GẮN BÓ
+  "nhu_cau": "chữ của khách, chép nguyên văn",
+  "mong_muon": ["...", "..."],
+  "noi_so": ["...", "..."],
+  "ngan_sach": 20000000,
+  "thoi_diem_mong_muon": "trong tháng 11",
+  "da_tu_van": "tóm tắt những gì đã trao đổi",
+  "nguoi_lap": "Ngọc Anh — CSKH"
+}
+```
+
+⛔ **Không nhận vào, không nhắc lại:** CCCD/CMND · số bảo hiểm · bệnh án · tình trạng bệnh lý chi tiết. Chỉ ghi điều **ảnh hưởng tới tư vấn** (vd *"đang cho con bú"*). Khách chưa xác minh danh tính thì tuổi ghi dạng khoảng (*30–35*).
 
 ---
 

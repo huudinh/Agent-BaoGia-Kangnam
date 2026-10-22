@@ -13,7 +13,7 @@ không tham chiếu file ngoài — mở bằng trình duyệt rồi Ctrl+P là 
 
 ⛔ FILE NÀY LÀ BẢN SINH RA, KHÔNG SỬA TAY.
    Sửa ở repo rồi chạy: python tools/build-1file.py
-   Nguồn: github.com/huudinh/Agent-BaoGia-Kangnam  ·  gói ngày 2026-10-21
+   Nguồn: github.com/huudinh/Agent-BaoGia-Kangnam  ·  gói ngày 2026-10-22
 """
 import base64
 import pathlib

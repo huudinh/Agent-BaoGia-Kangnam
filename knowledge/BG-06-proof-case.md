@@ -89,7 +89,7 @@ Template dựng ô ảnh tạm khi case khai `"can_anh": true` mà `anh_truoc`/`
 Case **kể bằng chữ, không định dùng ảnh** → bỏ `can_anh`, template không dựng ô ảnh tạm. Đây là cách làm sạch khi chưa kịp xin consent (xem mục dưới).
 
 Hai cách xử lý khi không kịp có ảnh:
-- **Bỏ ảnh, giữ case bằng chữ** — mô tả tình trạng ban đầu, phương pháp, kết quả (không ảnh thì không vướng R5).
+- **Bỏ ảnh, giữ case bằng chữ** — mô tả tình trạng ban đầu, phương pháp, kết quả. Chỉ dùng khi album thật sự không có ca nào đúng tình trạng.
 - **Bỏ cả khối 7** — báo giá vẫn hợp lệ, nhưng mất một trụ niềm tin với nhóm khách 1, 4, 5.
 
 ## 5. CHỌN CASE — thứ tự ưu tiên khi khớp

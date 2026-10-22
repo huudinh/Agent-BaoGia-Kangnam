@@ -76,7 +76,7 @@ Mọi con số và mức độ phải gắn `*` dẫn chú thích **"Hiệu qu�
 ☐ R1  Rà toàn bộ chữ qua bảng từ cấm; mọi con số có dấu * + chú thích
 ☐ —   Mốc hồi phục dạng khoảng + "tùy cơ địa mỗi người"
 ☐ R7  Không tên thương mại thuốc/filler/botox
-☐ R5  Mọi ảnh case có consent + mốc chụp; không còn ô ảnh tạm
+☐ —   Không nêu trả góp dưới mọi cách diễn đạt (KN-②)
 ☐ R12 Không ảnh before/after cơ thể
 ☐ —   Mọi dòng giá truy được về bang-gia.json; có dòng đã gồm / chưa gồm
 ☐ —   Có đủ 3 câu miễn trừ (BG-02 mục 6)

@@ -105,13 +105,11 @@ Agent-BaoGia-Kangnam/
 │   └── BG-11-noi-dau-cat-mi.md      ← chuyên sâu cắt mí: 9 chân dung + 10 nỗi lo
 ├── template/
 │   ├── bang-gia.json         87 dịch vụ — NGUỒN GIÁ DUY NHẤT, đã đối chiếu web
-│   ├── bac-si-duyet.json     22 hồ sơ, 4 trạng thái
 │   ├── thong-tin-lien-he.json  hotline — NGUỒN DUY NHẤT
 │   ├── logo-kangnam.png      logo thật, tool nhúng vào file xuất ra
 │   ├── baogia-a4.html        khổ A4 → PDF
 │   ├── baogia-slide.html     1080×1920 → JPG
 │   ├── banggia.html          bảng giá một nhóm dịch vụ → HTML
-│   ├── khach-hang.mau.json   mẫu đầu vào
 │   ├── du-lieu.mau.json      mẫu ca cắt mí lần đầu
 │   └── du-lieu.mau-sua-mi.json  mẫu ca sửa mí (giá ưu đãi + phí sửa mí + link album)
 ├── tools/

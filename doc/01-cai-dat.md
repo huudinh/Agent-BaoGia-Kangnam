@@ -144,7 +144,7 @@ Không có Chrome → chạy `--chi-html` rồi mở file HTML, Ctrl+P → **Sav
 
 ## E2. Không cài được Python? Dùng bản một-file trên ChatGPT
 
-`tools/baogia-1file.py` (156 KB) gói sẵn **mọi thứ**: tool render, cổng pháp lý, hai template, bảng giá, danh sách bác sĩ, hotline, logo. Lúc chạy nó bung ra thư mục tạm rồi gọi đúng `render_baogia.py` của repo — không chép lại logic nên không lệch bản gốc.
+`tools/baogia-1file.py` (303 KB) gói sẵn **mọi thứ**: tool render, cổng pháp lý, ba template, bảng giá, danh mục album, hotline, font Google Sans và logo. Lúc chạy nó bung ra thư mục tạm rồi gọi đúng `render_baogia.py` của repo — không chép lại logic nên không lệch bản gốc.
 
 ```bash
 # chạy thẳng trên máy — chỉ cần đúng file này, không cần cả repo
@@ -165,7 +165,6 @@ python baogia-1file.py du-lieu.json --chi-html   # chỉ HTML (chạy được �
 | # | Việc | Ai làm |
 |---|---|---|
 | 1 | **Xác nhận bảng giá** đang dùng là bản mới nhất; chốt mức giảm phí sửa mí theo từng khu vực và giá lipo mini | Vận hành + bệnh viện |
-| 2 | **Chốt danh sách bác sĩ được duyệt quảng bá** (KF-02) và sửa `bac-si-duyet.json` theo đó | Pháp chế + Chuyên môn |
 | 3 | **Chốt câu chữ bảo hành** thay cho cụm "bảo hành trọn đời" đang vi phạm R1 | Pháp chế |
 
 Ba việc này không làm thì agent vẫn chạy, nhưng mỗi báo giá sẽ kèm một dòng `[CHỜ XÁC NHẬN]` mà người lập phải tự xử lý.

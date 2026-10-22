@@ -33,14 +33,14 @@ Khách: tầm 15tr đổ lại thì có làm đc k ạ
 |---|---|---|
 | **1** | Người đọc | khách là ai (tuổi, nghề, khu vực) · nhóm 1–6 · giai đoạn |
 | **2** | Nội dung báo giá | tình trạng & mong muốn (chữ của khách) · nỗi lo · ngân sách + thời điểm |
-| **3** | Vật liệu & ràng buộc | cơ sở thực hiện · đã khám/đã có bác sĩ chưa · có ảnh case đủ consent chưa |
+| **3** | Vật liệu & ràng buộc | cơ sở thực hiện · đã khám/đã có bác sĩ chưa · lấy ảnh case từ album nào |
 
 Đủ 9 ô → agent in **THÔNG TIN ĐÃ KHOÁ** rồi hỏi đúng một câu: *"Chạy `/baogia` luôn chứ?"*
 
 ## 4. Agent dừng giữa chừng trong ba trường hợp
 1. Dịch vụ **đại phẫu** mà cơ sở khai không phải tuyến bệnh viện → dừng ở vòng 3, nêu hai cách xử lý rào R3.
-2. Bạn khai tên bác sĩ **không có trong `bac-si-duyet.json`** hoặc đang `xung_dot` → không ghi tên đó, nói rõ lý do.
-3. Bạn dán **CCCD · bệnh án · ảnh khách chưa có consent** → agent từ chối nhận và nói rõ không ghi vào file.
+2. Bạn khai tên bác sĩ mà không chắc → agent hỏi lại một câu, ⛔ không tự bịa tên khác.
+3. Bạn dán **CCCD · bệnh án · tình trạng bệnh lý chi tiết** → agent từ chối nhận và nói rõ không ghi vào file.
 
 ## 5. Thoát sớm
 Gõ bất cứ lúc nào:

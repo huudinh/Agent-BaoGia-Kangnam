@@ -295,14 +295,14 @@ footer b{color:var(--ink-2)}
     <p class="lede">Biến thông tin <b>một khách hàng cụ thể</b> — hoặc nguyên đoạn chat — thành một tờ báo giá
       cá nhân hoá: <b>1 file PDF A4 4 trang</b> để gửi email, in, đưa người nhà xem, và <b>3 ảnh JPG</b> gửi thẳng Zalo.
       <b>Cài xong trong ~15 phút.</b></p>
-    <p class="quick">Tải ZIP <span>→</span> dán bộ não vào ô instructions <span>→</span>
-      upload @@N_FILE@@ file tri thức + <b>2 file JSON dữ liệu cứng</b>
+    <p class="quick">Dán bộ não vào ô instructions <span>→</span>
+      upload đúng <b>2 file</b> trong <code>goi/</code>
       <br><span class="quick-x">Muốn xuất ra PDF &amp; JPG thì cài thêm Python + Chrome.</span></p>
     <div class="chips">
-      <span class="chip on">v1.2</span>
+      <span class="chip on">@@VER@@</span>
       <span class="chip">@@N_FILE@@ file tri thức</span>
       <span class="chip">@@N_DICHVU@@ dịch vụ trong bảng giá</span>
-      <span class="chip">7 lệnh</span>
+      <span class="chip">8 lệnh</span>
       <span class="chip">3 cổng chặn</span>
       <span class="chip">Claude · ChatGPT · Gemini</span>
     </div>
@@ -380,12 +380,15 @@ footer b{color:var(--ink-2)}
       <li><b>Projects</b> → <b>Create project</b> → tên và mô tả lấy ở khối
         <b>Tên &amp; mô tả</b> phía trên.</li>
       <li><b>Custom instructions</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
-      <li><b>Project knowledge</b> → upload <b>2 file</b> trong <code>goi/</code>:
-        <code>KANGNAM-tri-thuc.md</code> (gộp đủ @@N_FILE@@ file BG) và
-        <code>KANGNAM-du-lieu-cung.json</code> (bảng giá · 29 album ảnh · hotline · mẫu JSON).</li>
+      <li><b>Project knowledge</b> → upload <b>2 file</b>, tải thẳng tại đây:
+        <a href="https://github.com/huudinh/Agent-BaoGia-Kangnam/raw/main/goi/KANGNAM-tri-thuc.md" target="_blank" rel="noopener">KANGNAM-tri-thuc.md</a>
+        (gộp đủ @@N_FILE@@ file BG) và
+        <a href="https://github.com/huudinh/Agent-BaoGia-Kangnam/raw/main/goi/KANGNAM-du-lieu-cung.json" target="_blank" rel="noopener">KANGNAM-du-lieu-cung.json</a>
+        (bảng giá · @@N_ALBUM@@ album ảnh · hotline · mẫu JSON).</li>
       <li>Muốn agent tự dựng PDF/ảnh thì upload thêm <code>tools/baogia-1file.py</code> — tổng 3 file.</li>
-      <li>Thích nạp bản rời thì vẫn được: @@N_FILE@@ file <code>knowledge/</code> + 4 file
-        <code>template/*.json</code>. Gemini Gems chỉ cho 10 file nên phải dùng bản gộp.</li>
+      <li>Thích nạp bản rời thì vẫn được: @@N_FILE@@ file <code>knowledge/</code> + 3 file dữ liệu
+        <code>template/*.json</code> + mẫu <code>du-lieu.mau.json</code>.
+        ⚠️ Gemini Gems chỉ cho <b>10 file</b> nên bản rời không nạp đủ — phải dùng bản gộp.</li>
     </ol>
   </div>
 
@@ -398,15 +401,15 @@ footer b{color:var(--ink-2)}
       <li><b>Description</b> → dán ô <b>Mô tả</b> ở khối trên. Đây là dòng người dùng thấy
         trước khi mở agent, đừng để trống.</li>
       <li>Instructions → dán <b>Thẻ B</b> (@@LEN_B@@ ký tự).</li>
-      <li>Knowledge → upload đủ @@N_FILE@@ file tri thức <b>+ 3 file JSON dữ liệu cứng</b>.</li>
+      <li>Knowledge → upload <b>2 file</b> trong <code>goi/</code> như tab Claude.</li>
       <li>Bật <b>Code Interpreter</b> — cần cho bước xuất file ở dưới.</li>
     </ol>
     <h3 class="sub" style="margin:18px 0 8px">Lấy file PDF trên ChatGPT</h3>
     <p class="dim" style="margin:0 0 10px">Sandbox của ChatGPT <b>không có Chrome</b> nên không dựng thẳng ra PDF được.
       Nhưng file HTML do tool dựng <b>tự đứng một mình</b> (logo nhúng sẵn), mở bằng trình duyệt rồi in ra là khớp y hệt.</p>
     <ol class="list">
-      <li>Upload <b>một file duy nhất</b> <code>tools/baogia-1file.py</code> (156 KB) vào <b>Knowledge</b> —
-        gói sẵn tool render, cổng pháp lý, hai template, bảng giá, danh sách bác sĩ và logo.
+      <li>Upload <b>một file duy nhất</b> <code>tools/baogia-1file.py</code> (@@KB_1FILE@@ KB) vào <b>Knowledge</b> —
+        gói sẵn tool render, cổng pháp lý, ba template, bảng giá, danh mục album, font Google Sans và logo.
         <b>Không cần ZIP repo.</b></li>
       <li>Chạy <code>python baogia-1file.py du-lieu.json --chi-html</code> —
         trả về trước bước tìm Chrome, <b>ba cổng chặn vẫn chạy đủ</b>.</li>
@@ -416,7 +419,7 @@ footer b{color:var(--ink-2)}
       <a href="https://github.com/huudinh/Agent-BaoGia-Kangnam/raw/main/tools/baogia-1file.py" target="_blank" rel="noopener">baogia-1file.py</a>
       — nó tự bung ra thư mục tạm rồi gọi đúng <code>render_baogia.py</code> của repo, không chép lại logic nên không lệch bản gốc.</p>
     <div class="note warn" style="margin-top:12px">
-      <p>Hai thiết lập in ở bước 3 là <b>bắt buộc</b>: thiếu <b>Lề: Không</b> thì nội dung tràn thành 4–5 trang;
+      <p>Hai thiết lập in ở bước 3 là <b>bắt buộc</b>: thiếu <b>Lề: Không</b> thì nội dung tràn thành 5–6 trang;
         thiếu <b>Đồ hoạ nền</b> thì mất hết khối navy — dải tổng chi phí và khối CTA thành trắng trơn.</p>
       <p style="margin-bottom:0">⛔ <b>Ảnh JPG gửi Zalo không dựng được ở ChatGPT</b> — ảnh cần Chrome chụp.
         Máy nào cũng có Chrome sẵn, nên cách nhanh nhất là cài thêm Python rồi chạy tool thẳng trên máy.</p>
@@ -435,8 +438,12 @@ footer b{color:var(--ink-2)}
     <ol class="list">
       <li><b>Gems</b> → <b>New Gem</b>.</li>
       <li>Ô <b>Chỉ dẫn</b> → dán <b>Thẻ A · Bộ não đầy đủ</b>.</li>
-      <li>Upload @@N_FILE@@ file tri thức + 3 file JSON vào phần tệp của Gem.</li>
+      <li>Upload <b>2 file</b> trong <code>goi/</code> vào phần tệp của Gem.</li>
     </ol>
+    <div class="note warn" style="margin-top:12px;margin-bottom:0">
+      <p style="margin-bottom:0">Gems giới hạn <b>10 file</b>, nên bản rời (@@N_FILE@@ file tri thức
+        + 4 file dữ liệu) <b>không nạp đủ</b>. Phải dùng bản gộp.</p>
+    </div>
   </div>
 
   <div class="tabpanel" data-panel="code" hidden>
@@ -502,8 +509,30 @@ python tools\render_baogia.py out\MAU\du-lieu.json</pre>
   <p class="dim" style="margin:13px 0 0">Kết quả đúng phải là:</p>
   <pre class="code">  cổng dữ liệu  : PASS
   cổng bảng giá : PASS
+  ảnh       : lấy 3 ảnh từ album "theme-1792573778761"
   => PDF    : out\MAU\BG-2026-1021-01.pdf  (4 trang)
-  => ảnh 1..5 : out\MAU\BG-2026-1021-01-0X.jpg</pre>
+  => ảnh 1..3 : out\MAU\BG-2026-1021-01-0X.jpg</pre>
+
+  <h3 class="sub" style="margin:28px 0 10px">Ấn phẩm xuất ra trông thế nào</h3>
+  <p class="dim" style="margin:0 0 12px">Mỗi trang một việc, mỗi trang <b>một thứ to nhất</b>.
+    Khách thấy mình được hiểu <i>trước</i> khi thấy con số, thấy con số rồi mới tới bằng chứng.</p>
+  <div class="tw"><table>
+    <thead><tr><th>PDF A4 — 4 trang</th><th>Ảnh Zalo — 3 ảnh</th></tr></thead>
+    <tbody>
+      <tr><td><b>T1 Vấn đề</b> — lời chào đích danh · điều khách đang gặp · lưới <b>vấn đề → cách xử lý</b></td>
+          <td rowspan="2"><b>Ảnh 1</b> — bìa navy + lưới vấn đề → cách xử lý</td></tr>
+      <tr><td><b>T2 Giải pháp</b> — phương án · các bước · lưu ý riêng · phương án khác</td></tr>
+      <tr><td><b>T3 Chi phí</b> — bảng chi phí · ưu đãi · tổng sau ưu đãi · đã gồm/chưa gồm · lộ trình</td>
+          <td><b>Ảnh 2</b> — card phương án + bảng chi phí + tổng</td></tr>
+      <tr><td><b>T4 Bằng chứng</b> — case + 3 ảnh khách thật · album · băn khoăn · CTA · chữ ký</td>
+          <td><b>Ảnh 3</b> — case + 3 ảnh thật + khối CTA + liên hệ</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note" style="margin-top:12px">
+    <p style="margin-bottom:0"><b>File tự đứng một mình.</b> Logo, font <b>Google Sans</b> và ảnh khách
+      đều nhúng sẵn dạng data URI — gửi đi không lo mất logo, sai font hay chết link ảnh.
+      Thiếu <code>logo-kangnam.png</code> thì tool tự tải lại từ web Kangnam.</p>
+  </div>
   <div class="note">Chrome ở chỗ khác thường → đặt biến môi trường <code>KN_CHROME</code> trỏ tới
     <code>chrome.exe</code>. Không có Chrome → chạy <code>--chi-html</code> rồi mở file HTML,
     Ctrl+P → <b>Save as PDF</b>.</div>
@@ -519,8 +548,8 @@ python tools\render_baogia.py out\MAU\du-lieu.json</pre>
           <td>Chỉ ra <b>đủ 4 lỗi CHẶN</b> kèm bản viết lại đúng luật</td></tr>
         <tr><td class="num">3</td><td>/baogia cho khách vừa nhắn hỏi giá, chưa nói gì thêm</td>
           <td>Cảnh báo khách đang ở <b>NHẬN BIẾT</b> — gửi báo giá đầy đủ lúc này dễ bị đem đi so giá</td></tr>
-        <tr><td class="num">4</td><td>Báo giá có nhắc tên bác sĩ <b>Jolie Huynh</b></td>
-          <td>Từ chối: hồ sơ <b>không còn trên web</b>, gỡ tên khỏi báo giá (rào R4)</td></tr>
+        <tr><td class="num">4</td><td>/baogia — khách hỏi <b>“có trả góp không em”</b></td>
+          <td>Nói thẳng <b>Kangnam không có trả góp</b>, đưa phương án vừa ngân sách. ⛔ Không hứa chia nhỏ theo tháng (rào KN-②)</td></tr>
       </tbody>
     </table>
   </div>
@@ -606,11 +635,11 @@ python tools\render_baogia.py out\MAU\du-lieu.json</pre>
       <p class="me">Giá lệch bảng → bắt buộc khai <code>ly_do_lech</code></p>
     </div>
     <div>
-      <div class="h">Ai được nêu tên</div>
-      <div class="w">@@N_BACSI@@ bác sĩ đã duyệt</div>
-      <p>Bốn trạng thái: <code>duyet</code> · <code>can_xac_minh</code> · <code>xung_dot</code> ·
-        <code>ngung_dung</code>. Chỉ <code>duyet</code> mới được in ra file gửi khách.</p>
-      <p class="me">3 hồ sơ đang <b>xung đột</b> giữa web và KF-02 → dừng, hỏi Pháp chế</p>
+      <div class="h">Ảnh khách thật</div>
+      <div class="w">@@N_ALBUM@@ album trong kho</div>
+      <p>Khai <code>"case_album": {"album": "&lt;id&gt;"}</code> là tool <b>tự gọi API</b> lấy 3 ảnh,
+        tải về và nhúng thẳng vào PDF/JPG/HTML. Danh mục: <code>template/album-index.json</code>.</p>
+      <p class="me">Album là nguồn <b>đã duyệt</b> để gửi khách — không phải xin phép lại từng tấm</p>
     </div>
   </div>
   <div class="note" style="margin-top:12px">
@@ -642,14 +671,31 @@ python tools\render_baogia.py out\MAU\du-lieu.json</pre>
       giải phẫu</b>. Nói trước điều này <b>tăng</b> niềm tin, không giảm.</p>
   </div>
 
-  <h3 class="sub" style="margin:28px 0 10px">Album ảnh khách hàng</h3>
-  <p style="margin:0 0 12px;color:var(--ink-2)">Link album cắt mí đã duyệt để gửi kèm báo giá.
-    Dán vào <b>tin nhắn</b>, không chỉ để trong ảnh — link in trên JPG không bấm được.</p>
-  <p style="margin:0 0 12px"><a href="https://hcigroup.vn/app/albumkn/?album=theme-1792573778761" target="_blank" rel="noopener">Mở album cắt mí →</a></p>
-  <div class="note stop">
-    <p style="margin-bottom:0"><b>⛔ Ảnh trong kho ≠ đã có consent.</b> Kho là chỗ <i>lưu</i> ảnh,
-      không phải chỗ <i>cấp phép</i>. Rào R5 vẫn đòi <b>văn bản đồng ý</b> của từng khách trước khi
-      chèn ảnh vào file báo giá.</p>
+  <h3 class="sub" style="margin:28px 0 10px">Ảnh khách hàng thật — tool tự lấy</h3>
+  <p style="margin:0 0 12px;color:var(--ink-2)">Khách xem ảnh trước–sau <b>trước cả giá</b>. Khai một dòng,
+    tool gọi thẳng API Album Kangnam lấy 3 ảnh, tải về và nhúng vào PDF · JPG · HTML:</p>
+  <pre style="margin:0 0 12px">"case_album": { "album": "theme-1792573778761" }</pre>
+  <p style="margin:0 0 12px;color:var(--ink-2)">Kho có <b>@@N_ALBUM@@ album</b> (danh mục đầy đủ:
+    <code>template/album-index.json</code>). Vài album hay dùng:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Dịch vụ</th><th>Id album</th><th>Ảnh</th></tr></thead>
+    <tbody>
+      <tr><td>Cắt mí</td><td><code>theme-1792573778761</code></td><td>13</td></tr>
+      <tr><td>Mũi</td><td><code>theme-1789727113902</code></td><td>35</td></tr>
+      <tr><td>Ngực</td><td><code>theme-1789557067505</code></td><td>9</td></tr>
+      <tr><td>Gọt hàm Vline</td><td><code>theme-1791294350815</code></td><td>7</td></tr>
+      <tr><td>Thẩm mỹ mắt</td><td><code>theme-1789467261265</code></td><td>10</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note">
+    <p style="margin-bottom:0"><b>Album là nguồn đã duyệt để gửi khách.</b> Không phải xin phép lại từng tấm.
+      ⛔ Agent <b>không được từ chối đưa ảnh</b> vì “chưa xác minh consent” — dịch vụ nào chưa có album đúng
+      tình trạng thì nói đúng điều đó.</p>
+  </div>
+  <div class="note warn" style="margin-top:12px">
+    <p style="margin-bottom:0"><b>Cần khoá API để liệt kê ảnh</b> (tải ảnh thì không cần). Đặt biến môi trường
+      <code>KN_ALBUM_KEY</code>, hoặc file <code>template/album-key.local.json</code>, hoặc chạy kèm
+      <code>--khoa akn_…</code>. ⛔ Khoá <b>không</b> nằm trong repo — repo công khai.</p>
   </div>
 </section>
 
@@ -668,12 +714,10 @@ python tools\render_baogia.py out\MAU\du-lieu.json</pre>
       <tbody>
         <tr class="hl"><td>🔴</td><td>Chốt câu chữ thay cụm <b>“bảo hành trọn đời”</b></td><td>Pháp chế</td>
           <td>Đang vi phạm rào <b>R1</b> — cổng sẽ chặn nếu người viết tự đưa vào</td></tr>
-        <tr class="hl"><td>🔴</td><td>Chốt <b>danh sách bác sĩ duyệt quảng bá</b> (KF-02)</td><td>Pháp chế + Chuyên môn</td>
-          <td>3 hồ sơ đang xung đột giữa web và KF-02</td></tr>
+        <tr class="hl"><td>🔴</td><td>Chốt <b>giá niêm yết cắt mí Plasma</b>: web ghi 8tr, chính sách nội bộ ghi 10tr</td><td>Vận hành</td>
+          <td>Chưa chốt thì <b>không in giá gạch ngang 10tr</b> — in mức giảm không có thật là rủi ro</td></tr>
         <tr><td>🟠</td><td>Xác nhận <b>mức giảm phí sửa mí</b> theo từng khu vực</td><td>Vận hành</td>
           <td>Đang ghi 40–50% → tổng ca sửa mí 9,5–9,8tr</td></tr>
-        <tr><td>🟠</td><td><b>Bảng kê consent ảnh case</b>: ảnh ↔ mã case ↔ ngày ↔ hạn</td><td>CSKH + Pháp chế</td>
-          <td>Mọi case phải hỏi tay từng lần; ô ảnh tạm còn mãi</td></tr>
         <tr><td>🟡</td><td>Xác nhận <b>giá Lipo mini</b> — “nhiều vùng” đang rẻ hơn “1 vùng”</td><td>Vận hành</td>
           <td>Nghi lệch dữ liệu trong bảng giá</td></tr>
       </tbody>
@@ -690,7 +734,7 @@ python tools\render_baogia.py out\MAU\du-lieu.json</pre>
 
 <footer>
   <div class="wrap">
-    <p style="margin:0 0 6px"><b>Agent-BaoGia-Kangnam</b> v1.2 ·
+    <p style="margin:0 0 6px"><b>Agent-BaoGia-Kangnam</b> @@VER@@ ·
       <a href="https://github.com/huudinh/Agent-BaoGia-Kangnam" target="_blank" rel="noopener">repo trên GitHub</a></p>
     <p style="margin:0">Gói anh em: <b>Agent-LDP-Kangnam</b> (landing) · <b>Agent-CRM-Automation</b> (hội thoại tư vấn) ·
       <b>Agent-AdsOptimize-Kangnam</b> (quảng cáo). Mọi báo giá là <b>bản đề xuất</b> —

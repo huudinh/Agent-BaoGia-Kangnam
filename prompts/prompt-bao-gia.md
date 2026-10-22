@@ -139,7 +139,8 @@ Cơ sở: Bệnh viện thẩm mỹ Kangnam Hà Nội.
 |---|---|
 | Chỉ ảnh Zalo, không cần PDF | `Chỉ xuất bản slide JPG.` |
 | Bản rút gọn cho khách mới hỏi | `Khách mới hỏi lần đầu — làm bản rút gọn, chỉ khoảng chi phí.` |
-| Có ảnh case sẵn | `Ảnh case: anh/truoc-01.jpg và anh/sau-01.jpg, chụp sau 1 tháng, đã có consent.` |
+| Lấy ảnh từ album | `Gắn 3 ảnh thật từ album cắt mí vào báo giá này.` |
+| Có ảnh rời sẵn | `Ảnh case: anh/truoc-01.jpg và anh/sau-01.jpg, chụp sau 1 tháng.` |
 | Đang có ưu đãi | `Ưu đãi tháng 10 đã duyệt: giảm 2 triệu khi đặt khám trước 04/11. (CV số ...)` |
 | Khách nói ngân sách thấp hơn phương án | `Ngân sách khách chỉ 8 triệu — đưa phương án trong tầm và nói rõ khác biệt.` |
 | Không chắc nhóm khách | `Chưa rõ nhóm khách — agent tự đoán và nói rõ đoán theo dấu hiệu nào.` |

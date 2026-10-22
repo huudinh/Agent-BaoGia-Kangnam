@@ -189,8 +189,8 @@ Lấy ảnh: `python tools/anh_album.py --album "<tên album>" --lay 3` rồi d�
 ## §9b. NGƯỜI DÙNG KHÔNG CÓ PYTHON (hoặc đang chạy trên ChatGPT)
 Sandbox của ChatGPT **không có Chrome** nên không dựng thẳng ra PDF được. Nhưng file HTML do tool dựng **tự đứng một mình** (logo nhúng sẵn, không tham chiếu file ngoài), mở bằng trình duyệt rồi in ra là khớp y hệt. Đưa đúng ba bước, đừng đưa lệnh họ không chạy được:
 ```
-1. Bật Code Interpreter, upload MỘT file tools/baogia-1file.py (156 KB)
-   — gói sẵn tool, template, bảng giá, logo; KHÔNG cần ZIP repo
+1. Bật Code Interpreter, upload MỘT file tools/baogia-1file.py (~300 KB)
+   — gói sẵn tool, template, bảng giá, font, logo; KHÔNG cần ZIP repo
 2. python baogia-1file.py du-lieu.json --chi-html
    (trả về trước bước tìm Chrome — BA CỔNG CHẶN VẪN CHẠY ĐỦ)
 3. Mở file HTML -> Ctrl+P -> Lề: Không + bật Đồ hoạ nền -> Save as PDF
